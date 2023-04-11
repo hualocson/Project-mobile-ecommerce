@@ -1,4 +1,4 @@
-# Android app starter template (with Kotlin)
+# Android app e-commerce (with Kotlin)
 
 Based on [blocoio/android-template](https://github.com/blocoio/android-template).
 
