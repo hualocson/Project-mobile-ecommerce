@@ -10,6 +10,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // Set up imagesliders
+        maven { url 'https://jitpack.io' }
     }
 }
 rootProject.name = "E-commerce-App"
