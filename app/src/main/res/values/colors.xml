@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="text_color">#FF000000</color>
     <color name="product_background">#C3BABA</color>
+    <color name="secondary_color">#EEEEEE</color>
 </resources>

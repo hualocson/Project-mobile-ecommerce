@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.databinding.FragmentLoginBinding
-import com.app.e_commerce_app.model.LoginRequest
-import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.UserViewModel
+
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
-    private var _binding : FragmentLoginBinding ? = null
+    private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
     private val userViewModel: UserViewModel by lazy {
@@ -40,29 +39,36 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onDestroyView()
         _binding = null
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val controller = findNavController()
+        binding.tvSignup.setOnClickListener {
+            controller.navigate(R.id.signupFragment)
+        }
+
         binding.btnLogin.setOnClickListener {
-            val loginRequest =
-                LoginRequest(binding.etUsername.text.toString(), binding.etPassword.text.toString())
+//            val loginRequest =
+//                LoginRequest(binding.etUsername.text.toString(), binding.etPassword.text.toString())
 
-            userViewModel.login(loginRequest).observe(viewLifecycleOwner) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data?.let { response ->
-                                Toast.makeText(requireContext(), response.data?.accountId.toString(), Toast.LENGTH_LONG).show()
-                            }
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG).show()
-                        }
-                        Status.LOADING -> {
-
-                        }
-                    }
-                }
-            }
+//            userViewModel.login(loginRequest).observe(viewLifecycleOwner) {
+//                it?.let { resource ->
+//                    when (resource.status) {
+//                        Status.SUCCESS -> {
+//                            resource.data?.let { response ->
+//                                Toast.makeText(requireContext(), response.data?.accountId.toString(), Toast.LENGTH_LONG).show()
+//                            }
+//                        }
+//                        Status.ERROR -> {
+//                            Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG).show()
+//                        }
+//                        Status.LOADING -> {
+//
+//                        }
+//                    }
+//                }
+//            }
         }
     }
 }
