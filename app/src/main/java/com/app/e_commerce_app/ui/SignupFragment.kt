@@ -10,52 +10,40 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.databinding.FragmentHomepageBinding
+import com.app.e_commerce_app.databinding.FragmentLoginBinding
+import com.app.e_commerce_app.databinding.FragmentSignupBinding
+import com.app.e_commerce_app.model.LoginRequest
+import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.UserViewModel
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 
-class HomeFragment : Fragment(R.layout.fragment_homepage) {
+class SignupFragment : Fragment(R.layout.fragment_signup) {
 
-    private var _binding : FragmentHomepageBinding? = null
+    private var _binding : FragmentSignupBinding? = null
     private val binding get() = _binding!!
-    private val imagelist = ArrayList<SlideModel>()
-
-    private val userViewModel: UserViewModel by lazy {
-        ViewModelProvider(
-            this,
-            UserViewModel.UserViewModelFactory(requireActivity().application)
-        )[UserViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomepageBinding.inflate(inflater, container, false)
+        _binding = FragmentSignupBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadSlider()
-
         val controller = findNavController()
-        binding.btnLogin.setOnClickListener {
+
+        binding.tvLogin.setOnClickListener {
             controller.navigate(R.id.loginFragment)
         }
-    }
-    fun loadSlider(){
-        imagelist.add(SlideModel(R.drawable.image1));
-        imagelist.add(SlideModel(R.drawable.image2));
-        imagelist.add(SlideModel(R.drawable.image3));
-        imagelist.add(SlideModel(R.drawable.image4));
-        binding.imageSlider.setImageList(imagelist, ScaleTypes.FIT)
     }
 }

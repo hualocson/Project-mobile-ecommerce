@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
+    tools:context=".ui.SignupFragment"
     >
 
-    <include
-        layout="@layout/navigate_btn" />
+<!--    <include-->
+<!--        layout="@layout/navigate_btn" />-->
 
     <TextView
         android:id="@+id/signup"
@@ -34,13 +35,13 @@
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/background_edittext"
-        android:drawableLeft="@drawable/baseline_person_outline"
+        android:drawableLeft="@drawable/ic_baseline_person_outline"
         android:drawablePadding="20dp"
         android:hint="Username"
         android:paddingVertical="20dp"
         android:paddingLeft="30dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/text_color" />
 
     <EditText
         android:id="@+id/et_password"
@@ -52,14 +53,14 @@
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/background_edittext"
-        android:drawableLeft="@drawable/outline_lock_24"
+        android:drawableLeft="@drawable/ic_outline_lock"
         android:drawablePadding="20dp"
         android:hint="Password"
         android:paddingVertical="20dp"
         android:paddingLeft="30dp"
         android:password="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/text_color" />
 
     <EditText
         android:id="@+id/et_passwordcf"
@@ -71,14 +72,14 @@
         android:layout_marginEnd="18dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/background_edittext"
-        android:drawableLeft="@drawable/outline_lock_24"
+        android:drawableLeft="@drawable/ic_outline_lock"
         android:drawablePadding="20dp"
         android:hint="Comform Password"
         android:paddingVertical="20dp"
         android:paddingLeft="30dp"
         android:password="true"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColor="@color/text_color"
+        android:textColorHint="@color/text_color" />
 
     <CheckBox
         android:id="@+id/ckb_login"
@@ -105,26 +106,16 @@
         android:background="@drawable/background_button"
         android:textColor="@color/white"
         android:textColorHint="@color/white"/>
-    
-    <TextView
-        android:id="@+id/text_fgot"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_signup"
-        android:text="Forgot your password ?"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/text_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text_fgot"
+        android:layout_below="@+id/btn_signup"
         android:text="Or continute with"
         android:gravity="center"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white" />
+        android:textColor="@color/text_color" />
 
 
     <LinearLayout
@@ -133,57 +124,58 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_options"
         android:layout_marginTop="10dp"
-        android:gravity="center"
-        >
+        android:gravity="center">
 
         <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/icon_facebook"
-            android:background="@android:color/transparent"
-            />
+            android:layout_width="90dp"
+            android:layout_height="70dp"
+            android:background="@drawable/background_outline_button"
+            android:contentDescription="Login with Facebook"
+            android:src="@drawable/ic_facebook" />
 
         <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/icon_google"
-            android:background="@android:color/transparent"
-            />
+            android:layout_width="90dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/background_outline_button"
+            android:contentDescription="Login with Google"
+            android:src="@drawable/ic_google" />
 
         <ImageButton
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/icon_apple"
-            android:background="@android:color/transparent"
-            />
+            android:layout_width="90dp"
+            android:layout_height="70dp"
+            android:background="@drawable/background_outline_button"
+            android:contentDescription="Login with Apple"
+            android:src="@drawable/ic_apple" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_options"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
         android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="Already have a account?"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/white"
-            />
+            android:text="Already have a account?"
+            android:textColor="@color/text_color" />
 
         <TextView
+            android:id="@+id/tv_login"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="Sign in"
-            android:gravity="center"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            />
+            android:layout_marginTop="0dp"
+            android:gravity="center"
+            android:text="Log in"
+            android:textColor="@color/text_color"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
