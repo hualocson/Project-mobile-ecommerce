@@ -20,6 +20,10 @@ object ApiConfig {
         getRetrofitInstance().create(UserApi::class.java)
     }
 
+    val categoryApi: CategoryApi by lazy {
+        getRetrofitInstance().create(CategoryApi::class.java)
+    }
+
     suspend fun <T : Any> handleApi(execute: suspend () -> Response<T>): NetWorkResult<T> {
         return try {
             val response = execute()
