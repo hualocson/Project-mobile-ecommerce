@@ -2,16 +2,13 @@ package com.app.e_commerce_app.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.app.e_commerce_app.R
 import com.app.e_commerce_app.databinding.ItemCategoryBinding
 import com.app.e_commerce_app.model.CategoryModel
 import com.bumptech.glide.Glide
+import com.bumptech.glide.annotation.GlideModule
+import com.squareup.picasso.Picasso
 
 class CategoryAdapter(
    private val context: Context,
@@ -22,8 +19,9 @@ class CategoryAdapter(
     inner class CategoryViewHolder(private val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindData(categoryModel: CategoryModel) {
             binding.tvCategoryName.text = categoryModel.categoryName
-            Glide.with(binding.root).load(categoryModel.categoryIc).into(binding.categoryIc)
+//            Glide.with(binding.categoryIc.context).load(categoryModel.categoryIc).into(binding.categoryIc)
 
+            Picasso.get().load(categoryModel.categoryIc).into(binding.categoryIc)
             binding.layoutCategoryItem.setOnClickListener { onClick(categoryModel) }
         }
     }

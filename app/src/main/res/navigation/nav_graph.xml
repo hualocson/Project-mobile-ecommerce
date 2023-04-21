@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.app.e_commerce_app.ui.LoginFragment"
-        android:label="fragment_login"
+        android:label="Login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
@@ -21,13 +21,39 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.app.e_commerce_app.ui.HomeFragment"
-        android:label="fragment_home"
+        android:label=""
         tools:layout="@layout/fragment_homepage" />
 
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.app.e_commerce_app.ui.SignupFragment"
-        android:label="SignupFragment"
+        android:label="Signup"
         tools:layout="@layout/fragment_signup"
         />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:label="Profile"
+        android:name="com.app.e_commerce_app.ui.ProfileFragment"
+        tools:layout="@layout/fragment_profile"
+        />
+
+    <fragment
+        android:id="@+id/orderFragment"
+        android:label="Order"
+        android:name="com.app.e_commerce_app.ui.OrderFragment"
+        tools:layout="@layout/fragment_order"
+        />
+
+    <fragment
+        android:id="@+id/walletFragment"
+        android:label="Wallet"
+        android:name="com.app.e_commerce_app.ui.WalletFragment"
+        tools:layout="@layout/fragment_wallet"
+        />
+    <fragment
+        android:id="@+id/fillProfileFragment"
+        android:name="com.app.e_commerce_app.ui.FillProfileFragment"
+        android:label="fragment_fill_profile"
+        tools:layout="@layout/fragment_fill_profile" />
 </navigation>

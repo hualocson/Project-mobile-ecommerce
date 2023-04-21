@@ -1,12 +1,14 @@
 package com.app.e_commerce_app
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import com.app.e_commerce_app.databinding.ActivityMainBinding
 import com.app.e_commerce_app.databinding.FragmentLoginBinding
@@ -34,6 +36,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.loginFragment -> hideBottomNav()
                 R.id.signupFragment -> hideBottomNav()
+                R.id.fillProfileFragment -> hideBottomNav()
                 else -> showBottomNav()
             }
         }
@@ -45,5 +48,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideBottomNav() {
         binding.navigationView.visibility = View.GONE
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(controller) || super.onOptionsItemSelected(item)
     }
 }
