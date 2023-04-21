@@ -1,6 +1,7 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +23,10 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
 
     private var _binding: FragmentHomepageBinding? = null
     private val binding get() = _binding!!
-    private val imageList = ArrayList<SlideModel>()
+    private val imageList : ArrayList<SlideModel> by lazy {
+        ArrayList()
+    }
+    private var categoryList: List<CategoryModel> = listOf()
     private val categoryAdapter : CategoryAdapter by lazy {
         CategoryAdapter(requireContext(), onCategoryItemClick)
     }
@@ -48,6 +52,7 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        imageList.clear()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,6 +68,10 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
         binding.rvCategories.adapter = categoryAdapter
 
         loadCategory()
+
+        binding.imageProfile.setOnClickListener {
+            controller.navigate(R.id.fillProfileFragment)
+        }
     }
 
     private fun loadCategory() {
@@ -70,15 +79,19 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        resource.data?.let { data ->
-                            categoryAdapter.setCategories(data.categories)
+                        if(categoryList.isEmpty()) {
+                            Log.d("Load", "Test")
+                            resource.data?.let { data ->
+                                categoryList = data.categories
+                                categoryAdapter.setCategories(categoryList)
+                            }
                         }
                     }
                     Status.ERROR -> {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                     }
                     Status.LOADING -> {
-                        Toast.makeText(requireContext(), "Category Loading", Toast.LENGTH_LONG).show()
+//                        Toast.makeText(requireContext(), "Category Loading", Toast.LENGTH_LONG).show()
                     }
                 }
             }
