@@ -1,84 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/parent_layout"
-    android:layout_width="180dp"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="10dp">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="320dp"
+    android:layout_marginBottom="@dimen/margin_default"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:id="@+id/layout_products_item"
+    android:background="@color/cardview_shadow_start_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:layout_width="100dp"
+        android:id="@+id/product_img"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/default_img"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scaleType="centerCrop"
+        android:contentDescription="Product Img"
+        android:layout_marginTop="5dp"
+        android:padding="@dimen/padding_default"/>
+
+    <TextView
+        android:id="@+id/tv_products_name"
+        android:layout_width="120dp"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="20dp"
-        android:src="@drawable/default_img"
-        />
+        android:text="Laptop Laptop Laptop "
+        android:textAlignment="textStart"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_img" />
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:layout_marginLeft="20dp"
-        >
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_products_name">
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_star_rate_24"
-            android:layout_marginLeft="5dp"
-            />
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_star_rate_24" />
+
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:text="5.0/5.0"
-            android:textSize="18dp"
-            android:layout_marginLeft="5dp"
-            />
-
-
+            android:textSize="18dp" />
     </LinearLayout>
+
+
     <TextView
-        android:id="@+id/product_name"
-        android:layout_width="match_parent"
+        android:id="@+id/product_price"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="Iphone 14Pro Max 256G"
-        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:text="21.499.000"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="120dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="210dp"
-        android:layout_marginLeft="20dp"
-        >
-        <TextView
-            android:id="@+id/product_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="21.499.000"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="10dp"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="vnd"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="10dp"
-            />
-    </LinearLayout>
-
-
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,9 +13,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.databinding.FragmentHomepageBinding
 import com.app.e_commerce_app.model.CategoryModel
+import com.app.e_commerce_app.model.ProductModel
 import com.app.e_commerce_app.ui.adapter.CategoryAdapter
+import com.app.e_commerce_app.ui.adapter.ProductAdapter
 import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.CategoryViewModel
+import com.app.e_commerce_app.viewmodel.ProductViewModel
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 
@@ -38,6 +41,18 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
         )[CategoryViewModel::class.java]
     }
 
+    private var productList: List<ProductModel> = listOf()
+
+    private val productAdapter : ProductAdapter by lazy {
+        ProductAdapter(requireContext(), onProductItemClick)
+    }
+
+    private val productViewModel: ProductViewModel by lazy {
+        ViewModelProvider(
+            this,
+            ProductViewModel.ProductViewModelFactory(requireActivity().application)
+        )[ProductViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,14 +75,18 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
         loadSlider()
 
         val controller = findNavController()
-        binding.btnLogin.setOnClickListener {
-            controller.navigate(R.id.loginFragment)
-        }
+//        binding.btnLogin.setOnClickListener {
+//            controller.navigate(R.id.loginFragment)
+//        }
 
         binding.rvCategories.layoutManager = GridLayoutManager(this.context, 4)
         binding.rvCategories.adapter = categoryAdapter
+        binding.rvProducts.layoutManager = GridLayoutManager(this.context, 2)
+        binding.rvProducts.adapter = productAdapter
 
         loadCategory()
+        loadProduct()
+
 
         binding.imageProfile.setOnClickListener {
             controller.navigate(R.id.fillProfileFragment)
@@ -98,8 +117,36 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
         }
     }
 
+    private fun loadProduct() {
+        productViewModel.getAllProducts().observe(viewLifecycleOwner) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        if(productList.isEmpty()) {
+                            Log.d("Load", "Test")
+                            resource.data?.let { data ->
+                                productList = data.products
+                                productAdapter.setProducts(productList)
+                            }
+                        }
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                    }
+                    Status.LOADING -> {
+//                        Toast.makeText(requireContext(), "Product Loading", Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
+        }
+    }
+
     private val onCategoryItemClick: (CategoryModel) -> Unit = {
         Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_LONG).show()
+    }
+
+    private val onProductItemClick: (ProductModel) -> Unit = {
+        Toast.makeText(requireContext(), it.name, Toast.LENGTH_LONG).show()
     }
     private fun loadSlider() {
         imageList.add(SlideModel(R.drawable.image1));

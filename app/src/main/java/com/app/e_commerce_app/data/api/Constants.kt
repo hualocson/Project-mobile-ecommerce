@@ -7,4 +7,5 @@ object Constants {
     const val LOGIN_URL = "accounts/login"
     const val REGISTER_URL = "accounts"
     const val CATEGORY_URL = "categories"
+    const val PRODUCT_URL = "categories/products"
 }
