@@ -26,11 +26,9 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
 
     private var _binding: FragmentHomepageBinding? = null
     private val binding get() = _binding!!
-    private val imageList : ArrayList<SlideModel> by lazy {
-        ArrayList()
-    }
-    private var categoryList: List<CategoryModel> = listOf()
-    private val categoryAdapter : CategoryAdapter by lazy {
+    private var imageList: ArrayList<SlideModel>? = null
+    private var categoryList: ArrayList<CategoryModel>? = null
+    private val categoryAdapter: CategoryAdapter by lazy {
         CategoryAdapter(requireContext(), onCategoryItemClick)
     }
 
@@ -41,7 +39,7 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
         )[CategoryViewModel::class.java]
     }
 
-    private var productList: List<ProductModel> = listOf()
+    private var productList: ArrayList<ProductModel>? = null
 
     private val productAdapter : ProductAdapter by lazy {
         ProductAdapter(requireContext(), onProductItemClick)
@@ -67,7 +65,8 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        imageList.clear()
+        imageList!!.clear()
+        imageList = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -94,23 +93,25 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
     }
 
     private fun loadCategory() {
-        categoryViewModel.getAllCategories().observe(viewLifecycleOwner) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        if(categoryList.isEmpty()) {
-                            Log.d("Load", "Test")
+        if (categoryList == null) {
+            categoryList = ArrayList()
+
+            categoryViewModel.getAllCategories().observe(viewLifecycleOwner) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
                             resource.data?.let { data ->
                                 categoryList = data.categories
-                                categoryAdapter.setCategories(categoryList)
+                                categoryAdapter.setCategories(categoryList as ArrayList<CategoryModel>)
                             }
                         }
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-                    }
-                    Status.LOADING -> {
-//                        Toast.makeText(requireContext(), "Category Loading", Toast.LENGTH_LONG).show()
+                        Status.ERROR -> {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+                        Status.LOADING -> {
+//                            Toast.makeText(requireContext(), "Category Loading", Toast.LENGTH_SHORT)
+//                                .show()
+                        }
                     }
                 }
             }
@@ -118,41 +119,45 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
     }
 
     private fun loadProduct() {
-        productViewModel.getAllProducts().observe(viewLifecycleOwner) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        if(productList.isEmpty()) {
-                            Log.d("Load", "Test")
-                            resource.data?.let { data ->
-                                productList = data.products
-                                productAdapter.setProducts(productList)
-                            }
+        if(productList == null) {
+            productList = ArrayList()
+            productViewModel.getAllProducts().observe(viewLifecycleOwner) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                                resource.data?.let { data ->
+                                    productList = data.products
+                                    productAdapter.setProducts(productList as ArrayList<ProductModel>)
+                                }
                         }
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-                    }
-                    Status.LOADING -> {
-//                        Toast.makeText(requireContext(), "Product Loading", Toast.LENGTH_LONG).show()
+                        Status.ERROR -> {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                        }
+                        Status.LOADING -> {
+//                            Toast.makeText(requireContext(), "Product Loading", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
         }
+
     }
 
     private val onCategoryItemClick: (CategoryModel) -> Unit = {
-        Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_SHORT).show()
     }
 
     private val onProductItemClick: (ProductModel) -> Unit = {
         Toast.makeText(requireContext(), it.name, Toast.LENGTH_LONG).show()
     }
     private fun loadSlider() {
-        imageList.add(SlideModel(R.drawable.image1));
-        imageList.add(SlideModel(R.drawable.image2));
-        imageList.add(SlideModel(R.drawable.image3));
-        imageList.add(SlideModel(R.drawable.image4));
-        binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
+        if (imageList == null) {
+            imageList = ArrayList()
+            imageList!!.add(SlideModel(R.drawable.image1));
+            imageList!!.add(SlideModel(R.drawable.image2));
+            imageList!!.add(SlideModel(R.drawable.image3));
+            imageList!!.add(SlideModel(R.drawable.image4));
+            binding.imageSlider.setImageList(imageList!!, ScaleTypes.FIT)
+        }
     }
 }
