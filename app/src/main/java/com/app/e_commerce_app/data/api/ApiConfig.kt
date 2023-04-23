@@ -6,6 +6,7 @@ import retrofit2.HttpException
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 object ApiConfig {
     private fun getRetrofitInstance(): Retrofit {
@@ -22,6 +23,10 @@ object ApiConfig {
 
     val categoryApi: CategoryApi by lazy {
         getRetrofitInstance().create(CategoryApi::class.java)
+    }
+
+    val productApi: ProductApi by lazy {
+        getRetrofitInstance().create(ProductApi::class.java)
     }
 
     suspend fun <T : Any> handleApi(execute: suspend () -> Response<T>): NetWorkResult<T> {
