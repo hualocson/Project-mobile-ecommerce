@@ -9,14 +9,17 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/margin_default_home_horizontal"
         android:background="@drawable/background"
         android:paddingBottom="@dimen/nav_bottom_height"
         tools:context=".ui.HomeFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="409dp"
-            android:layout_height="115dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/padding_default"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +28,6 @@
                 android:id="@+id/imageProfile"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginStart="20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/image1"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -40,7 +42,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Good Morning !"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imageProfile"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,19 +51,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/margin_default"
                 android:text="Luong Minh Chien"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imageProfile"
                 app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
 
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/btn_favorite"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/white"
+                android:backgroundTintMode="src_over"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_favorite_outline"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+                android:contentDescription="Favorite Button"
+                app:layout_constraintTop_toTopOf="@+id/tv_welcome" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/btn_notification"
+                android:background="@drawable/background"
+                android:backgroundTint="@color/white"
+                android:backgroundTintMode="src_over"
+                android:scaleType="fitXY"
+                android:layout_marginRight="@dimen/margin_default"
+                android:src="@drawable/ic_notification_outline"
+                app:layout_constraintEnd_toStartOf="@+id/btn_favorite"
+                android:contentDescription="Favorite Button"
+                app:layout_constraintTop_toTopOf="@+id/tv_welcome" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
             android:id="@+id/inputSearch_home"
-            android:layout_width="340dp"
-            android:layout_height="41dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/background_edittext"
             android:drawableLeft="@drawable/ic_search_24"
@@ -99,9 +127,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
             android:text="Special Offers"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -114,12 +140,10 @@
             android:id="@+id/image_slider"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@color/secondary_color"
+            android:background="@drawable/background_edittext"
             app:iss_auto_cycle="true"
-            app:iss_corner_radius="5"
+            app:iss_corner_radius="30"
             app:iss_delay="1000"
             app:iss_error_image="@android:color/darker_gray"
             app:iss_period="1000"
@@ -140,29 +164,28 @@
         <!--            app:layout_constraintRight_toRightOf="parent"-->
         <!--            app:layout_constraintTop_toBottomOf="@+id/image_slider" />-->
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_categories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_slider"
+            tools:listitem="@layout/item_category" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_categories"
-                android:layout_width="match_parent"
-                android:scrollbars="none"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_slider"
-                tools:listitem="@layout/item_category" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:scrollbars="none"
-                android:id="@+id/rv_products"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_categories"
-                tools:listitem="@layout/item_product" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:flow_horizontalAlign="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_categories"
+            tools:listitem="@layout/item_product" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

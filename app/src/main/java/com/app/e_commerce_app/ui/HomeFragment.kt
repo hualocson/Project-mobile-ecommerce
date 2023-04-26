@@ -135,7 +135,7 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
                             Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                         }
                         Status.LOADING -> {
-//                            Toast.makeText(requireContext(), "Product Loading", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(), "Product Loading", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
