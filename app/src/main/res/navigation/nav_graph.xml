@@ -56,4 +56,10 @@
         android:name="com.app.e_commerce_app.ui.FillProfileFragment"
         android:label="fragment_fill_profile"
         tools:layout="@layout/fragment_fill_profile" />
+
+    <fragment
+        android:id="@+id/storeFragment"
+        android:name="com.app.e_commerce_app.ui.StoreFragment"
+        android:label="Store"
+        tools:layout="@layout/fragment_store" />
 </navigation>

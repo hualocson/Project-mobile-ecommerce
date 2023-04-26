@@ -1,18 +1,15 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.app.e_commerce_app.R
-import com.app.e_commerce_app.databinding.FragmentHomepageBinding
+import com.app.e_commerce_app.databinding.FragmentStoreBinding
 import com.app.e_commerce_app.model.CategoryModel
 import com.app.e_commerce_app.model.ProductModel
 import com.app.e_commerce_app.ui.adapter.CategoryAdapter
@@ -20,15 +17,13 @@ import com.app.e_commerce_app.ui.adapter.ProductAdapter
 import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.CategoryViewModel
 import com.app.e_commerce_app.viewmodel.ProductViewModel
-import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.models.SlideModel
 
-class HomeFragment : Fragment(R.layout.fragment_homepage) {
+class StoreFragment : Fragment(R.layout.fragment_store) {
 
-    private var _binding: FragmentHomepageBinding? = null
+    private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
-    private var imageList: ArrayList<SlideModel>? = null
     private var categoryList: ArrayList<CategoryModel>? = null
+    private var category_id : Int? = null
     private val categoryAdapter: CategoryAdapter by lazy {
         CategoryAdapter(requireContext(), onCategoryItemClick)
     }
@@ -53,12 +48,14 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
         )[ProductViewModel::class.java]
     }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomepageBinding.inflate(inflater, container, false)
+        _binding = FragmentStoreBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -66,31 +63,27 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        imageList!!.clear()
-        imageList = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadSlider()
 
         val controller = findNavController()
+        //defalut category display
+        category_id = 0;
 //        binding.btnLogin.setOnClickListener {
 //            controller.navigate(R.id.loginFragment)
 //        }
 
-        binding.rvCategories.layoutManager = GridLayoutManager(this.context, 4)
-        binding.rvCategories.adapter = categoryAdapter
-        binding.rvProducts.layoutManager = GridLayoutManager(this.context, 2)
-        binding.rvProducts.adapter = productAdapter
-
+//        binding.rvCategories.layoutManager = GridLayoutManager(this.context, 4)
+//        binding.rvCategories.adapter = categoryAdapter
+//        binding.rvProducts.layoutManager = GridLayoutManager(this.context, 2)
+//        binding.rvProducts.adapter = productAdapter
+        val bundle = arguments
+        category_id = bundle?.getInt("category_id")
         loadCategory()
         loadProduct()
 
-
-        binding.imageProfile.setOnClickListener {
-            controller.navigate(R.id.fillProfileFragment)
-        }
     }
 
     private fun loadCategory() {
@@ -118,7 +111,9 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
             }
         }
     }
+    private fun loadProductbyCategoryId(id : Int){
 
+    }
     private fun loadProduct() {
         if(productList == null) {
             productList = ArrayList()
@@ -145,24 +140,10 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
     }
 
     private val onCategoryItemClick: (CategoryModel) -> Unit = {
-        val controller = findNavController()
-        val bundle = bundleOf(
-            "category_id" to it.id
-        )
-        controller.navigate(R.id.storeFragment, bundle)
+        Toast.makeText(requireContext(), it.categoryName, Toast.LENGTH_SHORT).show()
     }
 
     private val onProductItemClick: (ProductModel) -> Unit = {
         Toast.makeText(requireContext(), it.name, Toast.LENGTH_LONG).show()
-    }
-    private fun loadSlider() {
-        if (imageList == null) {
-            imageList = ArrayList()
-            imageList!!.add(SlideModel(R.drawable.image1));
-            imageList!!.add(SlideModel(R.drawable.image2));
-            imageList!!.add(SlideModel(R.drawable.image3));
-            imageList!!.add(SlideModel(R.drawable.image4));
-            binding.imageSlider.setImageList(imageList!!, ScaleTypes.FIT)
-        }
     }
 }
