@@ -11,4 +11,8 @@ data class CategoryModel(
 
     @SerializedName("icUrl")
     val categoryIc: String,
-)
+) {
+    fun toCategoryRadio() : CategoryRadioButton{
+        return CategoryRadioButton(id = id, categoryName = categoryName, isChecked = false)
+    }
+}

@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.loginFragment -> hideBottomNav()
                 R.id.signupFragment -> hideBottomNav()
                 R.id.fillProfileFragment -> hideBottomNav()
+                R.id.storeFragment -> hideBottomNav()
                 else -> showBottomNav()
             }
         }

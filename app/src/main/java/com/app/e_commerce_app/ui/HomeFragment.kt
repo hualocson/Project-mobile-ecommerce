@@ -1,7 +1,6 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.databinding.FragmentHomepageBinding
 import com.app.e_commerce_app.model.CategoryModel
+import com.app.e_commerce_app.model.CategoryRadioButton
 import com.app.e_commerce_app.model.ProductModel
 import com.app.e_commerce_app.ui.adapter.CategoryAdapter
+import com.app.e_commerce_app.ui.adapter.CategoryButtonAdapter
 import com.app.e_commerce_app.ui.adapter.ProductAdapter
 import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.CategoryViewModel
@@ -32,6 +34,9 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
     private val categoryAdapter: CategoryAdapter by lazy {
         CategoryAdapter(requireContext(), onCategoryItemClick)
     }
+    private val categoryButtonAdapter: CategoryButtonAdapter by lazy {
+        CategoryButtonAdapter(requireContext(), onCategoryItemButtonClick)
+    }
 
     private val categoryViewModel: CategoryViewModel by lazy {
         ViewModelProvider(
@@ -42,7 +47,7 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
 
     private var productList: ArrayList<ProductModel>? = null
 
-    private val productAdapter : ProductAdapter by lazy {
+    private val productAdapter: ProductAdapter by lazy {
         ProductAdapter(requireContext(), onProductItemClick)
     }
 
@@ -79,8 +84,14 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
 //            controller.navigate(R.id.loginFragment)
 //        }
 
+
+        binding.rvCategoriesButton.layoutManager =
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCategoriesButton.adapter = categoryButtonAdapter
+
         binding.rvCategories.layoutManager = GridLayoutManager(this.context, 4)
         binding.rvCategories.adapter = categoryAdapter
+
         binding.rvProducts.layoutManager = GridLayoutManager(this.context, 2)
         binding.rvProducts.adapter = productAdapter
 
@@ -104,6 +115,7 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
                             resource.data?.let { data ->
                                 categoryList = data.categories
                                 categoryAdapter.setCategories(categoryList as ArrayList<CategoryModel>)
+                                categoryButtonAdapter.setCategories(categoryList as ArrayList<CategoryModel>)
                             }
                         }
                         Status.ERROR -> {
@@ -120,28 +132,65 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
     }
 
     private fun loadProduct() {
-        if(productList == null) {
+        if (productList == null)
             productList = ArrayList()
-            productViewModel.getAllProducts().observe(viewLifecycleOwner) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                                resource.data?.let { data ->
-                                    productList = data.products
-                                    productAdapter.setProducts(productList as ArrayList<ProductModel>)
-                                }
+
+        productViewModel.getAllProducts().observe(viewLifecycleOwner) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.let { data ->
+                            productList = data.products
+                            productAdapter.setProducts(productList as ArrayList<ProductModel>)
                         }
-                        Status.ERROR -> {
-                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-                        }
-                        Status.LOADING -> {
-                            Toast.makeText(requireContext(), "Product Loading", Toast.LENGTH_SHORT).show()
-                        }
+                        binding.pgbProducts.visibility = View.GONE
+                        binding.rvProducts.alpha = 1.0f
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                        binding.pgbProducts.visibility = View.GONE
+                        binding.rvProducts.alpha = 1.0f
+                    }
+                    Status.LOADING -> {
+                        binding.pgbProducts.visibility = View.VISIBLE
+                        binding.pgbProducts.bringToFront()
+                        productList!!.clear()
+                        binding.rvProducts.alpha = 0.5f
                     }
                 }
             }
         }
+    }
 
+    private fun loadProductByCategoryId(id: Int) {
+        if (productList == null) {
+            productList = ArrayList()
+        }
+        productViewModel.getProductsByCategory(id).observe(viewLifecycleOwner) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.let { data ->
+                            productList = data.products
+                            productAdapter.setProducts(productList as ArrayList<ProductModel>)
+                        }
+                        binding.pgbProducts.visibility = View.GONE
+                        binding.rvProducts.alpha = 1.0f
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        binding.pgbProducts.visibility = View.GONE
+                        binding.rvProducts.alpha = 1.0f
+                    }
+                    Status.LOADING -> {
+                        binding.pgbProducts.visibility = View.VISIBLE
+                        productList!!.clear()
+                        binding.pgbProducts.bringToFront()
+                        binding.rvProducts.alpha = 0.5f
+                    }
+                }
+            }
+        }
     }
 
     private val onCategoryItemClick: (CategoryModel) -> Unit = {
@@ -152,9 +201,16 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
         controller.navigate(R.id.storeFragment, bundle)
     }
 
+    private val onCategoryItemButtonClick: (CategoryRadioButton) -> Unit = {
+        if (it.id == 0)
+            loadProduct()
+        else loadProductByCategoryId(it.id)
+    }
+
     private val onProductItemClick: (ProductModel) -> Unit = {
         Toast.makeText(requireContext(), it.name, Toast.LENGTH_LONG).show()
     }
+
     private fun loadSlider() {
         if (imageList == null) {
             imageList = ArrayList()
