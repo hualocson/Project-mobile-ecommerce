@@ -29,8 +29,7 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onDestroyView() {

@@ -5,14 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import com.app.e_commerce_app.data.api.NetWorkResult
-import com.app.e_commerce_app.data.repository.CategoryRepository
-import com.app.e_commerce_app.data.repository.ProductRespository
-import com.app.e_commerce_app.model.LoginRequest
+import com.app.e_commerce_app.data.repository.ProductRepository
 import com.app.e_commerce_app.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
 class ProductViewModel(application: Application) : ViewModel() {
-    private val productRepository: ProductRespository = ProductRespository()
+    private val productRepository: ProductRepository = ProductRepository()
 
     fun getAllProducts() = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))

@@ -25,7 +25,7 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
     private var categoryList: ArrayList<CategoryModel>? = null
-    private var category_id : Int? = null
+    private var categoryId : Int? = null
     private val categoryAdapter: CategoryAdapter by lazy {
         CategoryAdapter(requireContext(), onCategoryItemClick)
     }
@@ -72,7 +72,7 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
 
         val controller = findNavController()
         //defalut category display
-        category_id = 0;
+        categoryId = 0;
 //        binding.btnLogin.setOnClickListener {
 //            controller.navigate(R.id.loginFragment)
 //        }
@@ -86,9 +86,9 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
         binding.rvProductStore.layoutManager = GridLayoutManager(this.context, 2)
         binding.rvProductStore.adapter = productAdapter
         val bundle = arguments
-        category_id = bundle?.getInt("category_id")
+        categoryId = bundle?.getInt("category_id")
         loadCategory()
-        loadProductbyCategoryId(category_id!!)
+        loadProductByCategoryId(categoryId!!)
     }
 
     private fun loadCategory() {
@@ -116,7 +116,7 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
             }
         }
     }
-    private fun loadProductbyCategoryId(id : Int){
+    private fun loadProductByCategoryId(id : Int){
         if(productList == null) {
             productList = ArrayList()
         }
@@ -139,33 +139,9 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
             }
         }
     }
-    private fun loadProduct() {
-        if(productList == null) {
-            productList = ArrayList()
-            productViewModel.getAllProducts().observe(viewLifecycleOwner) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                                resource.data?.let { data ->
-                                    productList = data.products
-                                    productAdapter.setProducts(productList as ArrayList<ProductModel>)
-                                }
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-                        }
-                        Status.LOADING -> {
-//                            Toast.makeText(requireContext(), "Product Loading", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-        }
-
-    }
 
     private val onCategoryItemClick: (CategoryModel) -> Unit = {
-        loadProductbyCategoryId(it.id)
+        loadProductByCategoryId(it.id)
     }
 
     private val onProductItemClick: (ProductModel) -> Unit = {

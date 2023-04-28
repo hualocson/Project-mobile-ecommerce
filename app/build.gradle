@@ -78,4 +78,7 @@ dependencies {
 
     // multidex
     implementation 'com.android.support:multidex:2.0.1'
+
+    // Custom progress bar
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 }
