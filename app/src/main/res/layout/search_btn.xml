@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/btnNavigateBack"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:minHeight="80dp"
-    android:minWidth="70dp"
-    android:src="@drawable/back_icon"
-    android:padding="@dimen/padding_default"
     android:background="@android:color/transparent"
     android:contentDescription="Back Button"
-    >
-    
+    android:minWidth="70dp"
+    android:minHeight="80dp"
+    android:padding="@dimen/padding_default"
+    android:src="@drawable/ic_search_24"
+    app:tint="@color/black">
+
 </ImageButton>

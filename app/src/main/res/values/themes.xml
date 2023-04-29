@@ -15,8 +15,4 @@
         <item name="android:textViewStyle">@style/LatoFont</item>
         <item name="android:buttonStyle">@style/LatoFont</item>
     </style>
-
-    <style name="LatoFont">
-        <item name="android:fontFamily">@font/lato</item>
-    </style>
 </resources>

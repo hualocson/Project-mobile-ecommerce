@@ -22,7 +22,11 @@
         android:id="@+id/homeFragment"
         android:name="com.app.e_commerce_app.ui.HomeFragment"
         android:label=""
-        tools:layout="@layout/fragment_homepage" />
+        tools:layout="@layout/fragment_homepage" >
+        <action
+            android:id="@+id/action_homeFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/signupFragment"
@@ -61,5 +65,9 @@
         android:id="@+id/storeFragment"
         android:name="com.app.e_commerce_app.ui.StoreFragment"
         android:label="Store"
-        tools:layout="@layout/fragment_store" />
+        tools:layout="@layout/fragment_store" >
+        <action
+            android:id="@+id/action_storeFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
