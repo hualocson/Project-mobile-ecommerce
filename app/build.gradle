@@ -81,4 +81,7 @@ dependencies {
 
     // Custom progress bar
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    // view models
+    implementation "androidx.fragment:fragment-ktx:1.5.7"
 }

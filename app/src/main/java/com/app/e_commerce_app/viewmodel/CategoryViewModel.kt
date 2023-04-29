@@ -1,6 +1,7 @@
 package com.app.e_commerce_app.viewmodel
 
 import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
@@ -10,7 +11,7 @@ import com.app.e_commerce_app.model.LoginRequest
 import com.app.e_commerce_app.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
-class CategoryViewModel(application: Application) : ViewModel() {
+class CategoryViewModel(application: Application) : AndroidViewModel(application) {
     private val categoryRepository: CategoryRepository = CategoryRepository()
 
     fun getAllCategories() = liveData(Dispatchers.IO) {

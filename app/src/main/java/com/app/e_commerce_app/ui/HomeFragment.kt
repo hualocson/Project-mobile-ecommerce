@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,11 +38,8 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
         CategoryButtonAdapter(requireContext(), onCategoryItemButtonClick)
     }
 
-    private val categoryViewModel: CategoryViewModel by lazy {
-        ViewModelProvider(
-            this,
-            CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
-        )[CategoryViewModel::class.java]
+    private val categoryViewModel: CategoryViewModel by viewModels {
+        CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
     }
 
     private var productList: ArrayList<ProductModel>? = null
@@ -51,11 +48,15 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
         ProductAdapter(requireContext(), onProductItemClick)
     }
 
-    private val productViewModel: ProductViewModel by lazy {
-        ViewModelProvider(
-            this,
-            ProductViewModel.ProductViewModelFactory(requireActivity().application)
-        )[ProductViewModel::class.java]
+//    private val productViewModel: ProductViewModel by lazy {
+//        ViewModelProvider(
+//            this,
+//            ProductViewModel.ProductViewModelFactory(requireActivity().application)
+//        )[ProductViewModel::class.java]
+//    }
+
+    private val productViewModel: ProductViewModel by viewModels {
+        ProductViewModel.ProductViewModelFactory(requireActivity().application)
     }
 
     override fun onCreateView(
@@ -110,30 +111,30 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
     }
 
     private fun loadCategory() {
-        if (categoryList == null) {
+        if (categoryList == null)
             categoryList = ArrayList()
 
-            categoryViewModel.getAllCategories().observe(viewLifecycleOwner) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data?.let { data ->
-                                categoryList = data.categories
-                                categoryAdapter.setCategories(categoryList as ArrayList<CategoryModel>)
-                                categoryButtonAdapter.setCategories(categoryList as ArrayList<CategoryModel>)
-                            }
+        categoryViewModel.getAllCategories().observe(viewLifecycleOwner) {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.let { data ->
+                            categoryList = data.categories
+                            categoryAdapter.setCategories(categoryList as ArrayList<CategoryModel>)
+                            categoryButtonAdapter.setCategories(categoryList as ArrayList<CategoryModel>)
                         }
-                        Status.ERROR -> {
-                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                        }
-                        Status.LOADING -> {
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    }
+                    Status.LOADING -> {
 //                            Toast.makeText(requireContext(), "Category Loading", Toast.LENGTH_SHORT)
 //                                .show()
-                        }
                     }
                 }
             }
         }
+
     }
 
     private fun loadProduct() {
@@ -168,9 +169,8 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
     }
 
     private fun loadProductByCategoryId(id: Int) {
-        if (productList == null) {
+        if (productList == null)
             productList = ArrayList()
-        }
         productViewModel.getProductsByCategory(id).observe(viewLifecycleOwner) {
             it?.let { resource ->
                 when (resource.status) {
