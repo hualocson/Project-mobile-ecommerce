@@ -7,5 +7,5 @@ class CategoryRadioButton(
 
     val categoryName: String,
 
-    var isChecked: Boolean
+    var isChecked: Boolean = false
 )

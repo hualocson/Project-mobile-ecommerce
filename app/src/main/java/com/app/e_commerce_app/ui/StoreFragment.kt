@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.databinding.FragmentStoreBinding
 import com.app.e_commerce_app.model.CategoryModel
+import com.app.e_commerce_app.model.CategoryRadioButton
 import com.app.e_commerce_app.model.ProductModel
-import com.app.e_commerce_app.ui.adapter.CategoryAdapter
+import com.app.e_commerce_app.ui.adapter.CategoryButtonAdapter
 import com.app.e_commerce_app.ui.adapter.ProductAdapter
 import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.CategoryViewModel
@@ -25,10 +27,12 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
     private var categoryList: ArrayList<CategoryModel>? = null
-    private var categoryId : Int? = null
-    private val categoryAdapter: CategoryAdapter by lazy {
-        CategoryAdapter(requireContext(), onCategoryItemClick)
+    private var categoryId: Int = 0
+
+    private val categoryButtonAdapter: CategoryButtonAdapter by lazy {
+        CategoryButtonAdapter(requireContext(), onCategoryItemButtonClick)
     }
+
 
     private val categoryViewModel: CategoryViewModel by lazy {
         ViewModelProvider(
@@ -39,7 +43,7 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
 
     private var productList: ArrayList<ProductModel>? = null
 
-    private val productAdapter : ProductAdapter by lazy {
+    private val productAdapter: ProductAdapter by lazy {
         ProductAdapter(requireContext(), onProductItemClick)
     }
 
@@ -49,7 +53,6 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
             ProductViewModel.ProductViewModelFactory(requireActivity().application)
         )[ProductViewModel::class.java]
     }
-
 
 
     override fun onCreateView(
@@ -62,36 +65,32 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val controller = findNavController()
-        //defalut category display
-        categoryId = 0;
-//        binding.btnLogin.setOnClickListener {
-//            controller.navigate(R.id.loginFragment)
-//        }
 
-//        binding.rvCategories.layoutManager = GridLayoutManager(this.context, 4)
-//        binding.rvCategories.adapter = categoryAdapter
-//        binding.rvProducts.layoutManager = GridLayoutManager(this.context, 2)
-//        binding.rvProducts.adapter = productAdapter
-        binding.rvCategoriesStore.layoutManager = GridLayoutManager(this.context, 4)
-        binding.rvCategoriesStore.adapter = categoryAdapter
-        binding.rvProductStore.layoutManager = GridLayoutManager(this.context, 2)
-        binding.rvProductStore.adapter = productAdapter
+        binding.navigateStore.btnNavigateBack.setOnClickListener {
+            controller.navigate(R.id.action_storeFragment_to_homeFragment)
+        }
+
+        binding.rvCategoriesStore.layoutManager =
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCategoriesStore.adapter = categoryButtonAdapter
+
+
+        binding.productListView.rvProductList.layoutManager = GridLayoutManager(this.context, 2)
+        binding.productListView.rvProductList.adapter = productAdapter
+
         val bundle = arguments
-        categoryId = bundle?.getInt("category_id")
-        loadCategory()
-        loadProductByCategoryId(categoryId!!)
+        categoryId = bundle!!.getInt("category_id")
+
+
+        loadCategory(categoryId)
+        loadProductByCategoryId(categoryId)
     }
 
-    private fun loadCategory() {
+    private fun loadCategory(categoryId: Int) {
         if (categoryList == null) {
             categoryList = ArrayList()
 
@@ -101,7 +100,7 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
                         Status.SUCCESS -> {
                             resource.data?.let { data ->
                                 categoryList = data.categories
-                                categoryAdapter.setCategories(categoryList as ArrayList<CategoryModel>)
+                                categoryButtonAdapter.setCategories(categoryList as ArrayList<CategoryModel>, categoryId)
                             }
                         }
                         Status.ERROR -> {
@@ -116,11 +115,52 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
             }
         }
     }
-    private fun loadProductByCategoryId(id : Int){
-        if(productList == null) {
+
+    private fun loadProductByCategoryId(id: Int) {
+        if (productList == null) {
             productList = ArrayList()
         }
-        productViewModel.getProductsByCategory(id).observe(viewLifecycleOwner) {
+        if (id != 0) {
+            productViewModel.getProductsByCategory(id).observe(viewLifecycleOwner) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            resource.data?.let { data ->
+                                productList = data.products
+                                productAdapter.setProducts(productList as ArrayList<ProductModel>)
+                            }
+                            binding.productListView.pgbProducts.visibility = View.GONE
+                            binding.productListView.rvProductList.alpha = 1.0f
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                            binding.productListView.pgbProducts.visibility = View.GONE
+                            binding.productListView.rvProductList.alpha = 1.0f
+                        }
+                        Status.LOADING -> {
+                            Toast.makeText(requireContext(), "Product Loading", Toast.LENGTH_SHORT)
+                                .show()
+                            binding.productListView.pgbProducts.visibility = View.VISIBLE
+                            binding.productListView.pgbProducts.bringToFront()
+                            productList!!.clear()
+                            binding.productListView.rvProductList.alpha = 0.5f
+                        }
+                    }
+                }
+            }
+        } else
+            loadProduct()
+    }
+
+    private val onProductItemClick: (ProductModel) -> Unit = {
+        Toast.makeText(requireContext(), it.name, Toast.LENGTH_LONG).show()
+    }
+
+    private fun loadProduct() {
+        if (productList == null)
+            productList = ArrayList()
+
+        productViewModel.getAllProducts().observe(viewLifecycleOwner) {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -128,23 +168,40 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
                             productList = data.products
                             productAdapter.setProducts(productList as ArrayList<ProductModel>)
                         }
+                        binding.productListView.pgbProducts.visibility = View.GONE
+                        binding.productListView.rvProductList.alpha = 1f
                     }
                     Status.ERROR -> {
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
+                        binding.productListView.pgbProducts.visibility = View.GONE
+                        binding.productListView.rvProductList.alpha = 1f
                     }
                     Status.LOADING -> {
-//                            Toast.makeText(requireContext(), "Product Loading", Toast.LENGTH_SHORT).show()
+                        binding.productListView.pgbProducts.visibility = View.VISIBLE
+                        binding.productListView.pgbProducts.bringToFront()
+                        productList!!.clear()
+                        binding.productListView.rvProductList.alpha = 0.5f
                     }
                 }
             }
         }
     }
 
-    private val onCategoryItemClick: (CategoryModel) -> Unit = {
-        loadProductByCategoryId(it.id)
+    private val onCategoryItemButtonClick: (CategoryRadioButton) -> Unit = {
+        if (it.id == 0)
+            loadProduct()
+        else loadProductByCategoryId(it.id)
     }
 
-    private val onProductItemClick: (ProductModel) -> Unit = {
-        Toast.makeText(requireContext(), it.name, Toast.LENGTH_LONG).show()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        productList!!.clear()
+        productList = null
+
+        categoryList!!.clear()
+        categoryList = null
     }
+
 }

@@ -4,12 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.app.e_commerce_app.databinding.ItemCategoryBinding
 import com.app.e_commerce_app.databinding.ItemProductBinding
-import com.app.e_commerce_app.model.CategoryModel
 import com.app.e_commerce_app.model.ProductModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.annotation.GlideModule
 import com.squareup.picasso.Picasso
 
 class ProductAdapter(

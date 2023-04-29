@@ -73,6 +73,8 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
         _binding = null
         imageList!!.clear()
         imageList = null
+        productList!!.clear()
+        productList = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,10 +82,6 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
         loadSlider()
 
         val controller = findNavController()
-//        binding.btnLogin.setOnClickListener {
-//            controller.navigate(R.id.loginFragment)
-//        }
-
 
         binding.rvCategoriesButton.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
@@ -101,6 +99,13 @@ class HomeFragment : Fragment(R.layout.fragment_homepage) {
 
         binding.imageProfile.setOnClickListener {
             controller.navigate(R.id.fillProfileFragment)
+        }
+
+        binding.tvSeeAllPopular.setOnClickListener {
+            val bundle = bundleOf(
+                "category_id" to 0
+            )
+            controller.navigate(R.id.storeFragment, bundle)
         }
     }
 
