@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -34,12 +35,10 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
     }
 
 
-    private val categoryViewModel: CategoryViewModel by lazy {
-        ViewModelProvider(
-            this,
-            CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
-        )[CategoryViewModel::class.java]
+    private val categoryViewModel: CategoryViewModel by viewModels {
+        CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
     }
+
 
     private var productList: ArrayList<ProductModel>? = null
 
@@ -47,11 +46,8 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
         ProductAdapter(requireContext(), onProductItemClick)
     }
 
-    private val productViewModel: ProductViewModel by lazy {
-        ViewModelProvider(
-            this,
-            ProductViewModel.ProductViewModelFactory(requireActivity().application)
-        )[ProductViewModel::class.java]
+    private val productViewModel : ProductViewModel by viewModels {
+        ProductViewModel.ProductViewModelFactory(requireActivity().application)
     }
 
 
