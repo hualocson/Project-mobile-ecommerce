@@ -12,7 +12,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="@dimen/margin_default_home_horizontal"
         android:background="@drawable/background"
-        android:paddingBottom="@dimen/nav_bottom_height"
         tools:context=".ui.HomeFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +42,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Good Morning !"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/imageProfile"
+                app:layout_constraintStart_toEndOf="@id/imageProfile"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -55,8 +54,8 @@
                 android:text="Luong Minh Chien"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageProfile"
-                app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+                app:layout_constraintStart_toEndOf="@id/imageProfile"
+                app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_favorite"
@@ -68,8 +67,8 @@
                 android:contentDescription="Favorite Button"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_favorite_outline"
-                app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-                app:layout_constraintTop_toTopOf="@+id/tv_welcome" />
+                app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+                app:layout_constraintTop_toTopOf="@id/tv_welcome" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_notification"
@@ -82,8 +81,8 @@
                 android:contentDescription="Favorite Button"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_notification_outline"
-                app:layout_constraintEnd_toStartOf="@+id/btn_favorite"
-                app:layout_constraintTop_toTopOf="@+id/tv_welcome" />
+                app:layout_constraintEnd_toStartOf="@id/btn_favorite"
+                app:layout_constraintTop_toTopOf="@id/tv_welcome" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
@@ -93,19 +92,19 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/background_edittext"
             android:drawableLeft="@drawable/ic_search_24"
-            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/ic_filter"
+            android:drawablePadding="@dimen/padding_default"
             android:hint="Search"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="text"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_size_normal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.488"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
 
         <!--    <TextView-->
         <!--        android:id="@+id/textView2"-->
@@ -122,36 +121,70 @@
         <!--        app:layout_constraintStart_toStartOf="parent"-->
         <!--        app:layout_constraintTop_toBottomOf="@+id/inputSearch_home" />-->
 
-
-        <TextView
-            android:id="@+id/textView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutSectionSpecial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Special Offers"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/rv_categories"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputSearch_home" />
+            app:layout_constraintTop_toBottomOf="@id/inputSearch_home">
 
-        <com.denzcoskun.imageslider.ImageSlider
-            android:id="@+id/image_slider"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/background_edittext"
-            app:iss_auto_cycle="true"
-            app:iss_corner_radius="30"
-            app:iss_delay="1000"
-            app:iss_error_image="@android:color/darker_gray"
-            app:iss_period="1000"
-            app:iss_placeholder="@android:color/darker_gray"
-            app:iss_selected_dot="@drawable/default_selected_dot"
-            app:iss_unselected_dot="@drawable/default_unselected_dot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutSectionSpecialHeading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Special Offers"
+                    android:textSize="@dimen/text_size_heading"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/tvSeeAllSpecial"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvSeeAllSpecial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See All"
+                    android:textSize="@dimen/text_size_normal"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textView"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/image_slider"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/background_edittext"
+                app:iss_auto_cycle="true"
+                app:iss_corner_radius="30"
+                app:iss_delay="1000"
+                app:iss_error_image="@android:color/darker_gray"
+                app:iss_period="1000"
+                app:iss_placeholder="@android:color/darker_gray"
+                app:iss_selected_dot="@drawable/default_selected_dot"
+                app:iss_unselected_dot="@drawable/default_unselected_dot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutSectionSpecialHeading" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <!--        <Button-->
         <!--            android:id="@+id/btn_login"-->
@@ -164,92 +197,89 @@
         <!--            app:layout_constraintTop_toBottomOf="@+id/image_slider" />-->
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_categories"
-            android:layout_width="wrap_content"
+
+        <com.app.e_commerce_app.ui.customview.CategoryIconList
+            android:id="@+id/layoutCategoryIconList"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none"
+            android:layout_marginTop="20dp"
+            android:minHeight="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_slider"
-            tools:listitem="@layout/item_category" />
+            app:layout_constraintTop_toBottomOf="@id/layoutSectionSpecial"
+            app:layout_constraintBottom_toTopOf="@id/layoutSectionPopular"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutSectionPopular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/layoutProductList"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_categories"
-            app:layout_constraintBottom_toTopOf="@+id/layoutProductList"
-            >
+            app:layout_constraintTop_toBottomOf="@id/layoutCategoryIconList">
 
-            <TextView
-                android:id="@+id/tvSectionTitle"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutSectionPopularHeading"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Most Popular"
-                android:textSize="24sp"
-                android:textStyle="bold"
+                android:gravity="center_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tvSectionPopularTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Most Popular"
+                    android:textSize="@dimen/text_size_heading"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@id/tvSeeAllPopular"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvSeeAllPopular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See All"
+                    android:textSize="@dimen/text_size_normal"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvSectionPopularTitle"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:minHeight="50dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSectionTitle">
+                app:layout_constraintTop_toBottomOf="@id/layoutSectionPopularHeading">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvCategoriesButton"
+                <com.app.e_commerce_app.ui.customview.CategoryRadioList
+                    android:id="@+id/layoutCategoryList"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    tools:listitem="@layout/item_category_button" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.app.e_commerce_app.ui.customview.ProductList
             android:id="@+id/layoutProductList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutSectionPopular">
-
-
-            <com.github.ybq.android.spinkit.SpinKitView
-                android:id="@+id/pgbProducts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:SpinKit_Color="@color/black"
-                style="@style/SpinKitView.Large.DoubleBounce"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:visibility="visible"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_products"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:flow_horizontalAlign="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutSectionPopular"
-                tools:listitem="@layout/item_product" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            app:layout_constraintTop_toBottomOf="@id/layoutSectionPopular" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

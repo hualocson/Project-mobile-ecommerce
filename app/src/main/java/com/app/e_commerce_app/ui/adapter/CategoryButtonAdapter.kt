@@ -1,9 +1,10 @@
 package com.app.e_commerce_app.ui.adapter
 
 import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.databinding.ItemCategoryButtonBinding
 import com.app.e_commerce_app.model.CategoryModel
@@ -11,13 +12,12 @@ import com.app.e_commerce_app.model.CategoryRadioButton
 
 class CategoryButtonAdapter(
     private val context: Context,
-    private val onClick: (CategoryRadioButton) -> Unit
+    private val onClick: (CategoryRadioButton) -> Unit,
 ) : RecyclerView.Adapter<CategoryButtonAdapter.CategoryViewHolder>() {
 
-    private val categoryList: ArrayList<CategoryRadioButton> = ArrayList()
-    private var isNewRadioButtonChecked = false;
-    private var lastCheckedPosition = -1;
-
+    private var categoryList: ArrayList<CategoryRadioButton> = ArrayList()
+    private var isNewRadioButtonChecked: Boolean = false
+    private var lastCheckedPosition: Int = -1;
 
     inner class CategoryViewHolder(private val binding: ItemCategoryButtonBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -26,11 +26,10 @@ class CategoryButtonAdapter(
         fun bindData(categoryModel: CategoryRadioButton, position: Int) {
             binding.btnCategory.text = categoryModel.categoryName
 
-            if(isNewRadioButtonChecked) {
+            if (isNewRadioButtonChecked) {
                 binding.btnCategory.isChecked = categoryModel.isChecked
-            }
-            else {
-                if(position == 0) {
+            } else {
+                if (position == 0) {
                     binding.btnCategory.isChecked = true
                     lastCheckedPosition = 0
                 }
@@ -59,12 +58,32 @@ class CategoryButtonAdapter(
         }
     }
 
-    fun setCategories(categories: ArrayList<CategoryModel>) {
-        val firstData = CategoryRadioButton(0, "All", true)
-        categoryList.add(firstData)
+    fun setCategories(categories: ArrayList<CategoryModel>, categoryId: Int = 0) {
+        val first = CategoryRadioButton(0, "All")
+
+        categoryList.add(first)
+
+
+        var i = 0
+        var pos = -1
         categories.forEach {
+            if(it.id == categoryId) {
+                pos = i + 1
+            }
             categoryList.add(it.toCategoryRadio())
+            i++
         }
+
+        if(pos > 0) {
+            isNewRadioButtonChecked = true
+            categoryList[pos].isChecked = true
+
+            val temp = categoryList[pos]
+            categoryList.removeAt(pos)
+            categoryList.add(1, temp)
+            lastCheckedPosition = 1
+        }
+
         notifyDataSetChanged()
     }
 

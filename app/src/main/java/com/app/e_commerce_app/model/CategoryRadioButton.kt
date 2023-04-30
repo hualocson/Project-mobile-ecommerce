@@ -1,11 +1,13 @@
 package com.app.e_commerce_app.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 class CategoryRadioButton(
-    val id : Int,
+    val id: Int,
 
     val categoryName: String,
 
-    var isChecked: Boolean
-)
+    var isChecked: Boolean = false
+) : Parcelable

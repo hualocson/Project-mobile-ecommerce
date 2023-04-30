@@ -1,63 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutStoreFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/background"
+    tools:context=".ui.StoreFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutStoreFragmentHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background"
-        android:paddingBottom="@dimen/nav_bottom_height"
-        tools:context=".ui.StoreFragment">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <include
-            android:id="@+id/navigate_store"
-            layout="@layout/navigate_btn" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:text="My Whislist"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/navigate_store"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_categories_store"
+        <com.app.e_commerce_app.ui.customview.HeaderView
+            android:id="@+id/storeHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
-            tools:listitem="@layout/item_category" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_product_store"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:scrollbars="none"
+            app:is_show_ic_left="true"
+            app:is_show_ic_right="true"
+            app:is_show_title="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_categories_store"
-            tools:listitem="@layout/item_product" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/default_title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    <LinearLayout
+        android:id="@+id/layoutRVCategoryStores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default_home_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingBottom="@dimen/padding_default"
+        app:layout_constraintTop_toBottomOf="@id/layoutStoreFragmentHeader">
 
-</androidx.core.widget.NestedScrollView>
+        <com.app.e_commerce_app.ui.customview.CategoryRadioList
+            android:id="@+id/layoutCategoryList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintHeight_max="wrap"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutRVCategoryStores">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_default_home_horizontal">
+
+            <com.app.e_commerce_app.ui.customview.ProductList
+                android:id="@+id/layoutProductList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

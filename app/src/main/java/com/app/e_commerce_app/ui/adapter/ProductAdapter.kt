@@ -4,17 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.app.e_commerce_app.databinding.ItemCategoryBinding
 import com.app.e_commerce_app.databinding.ItemProductBinding
-import com.app.e_commerce_app.model.CategoryModel
 import com.app.e_commerce_app.model.ProductModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.annotation.GlideModule
 import com.squareup.picasso.Picasso
 
 class ProductAdapter(
    private val context: Context,
-   private val onClick : (ProductModel) -> Unit
+   private val onClick : (ProductModel) -> Unit,
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     private var productList: List<ProductModel> = listOf()
@@ -22,7 +18,6 @@ class ProductAdapter(
         fun bindData(productModel: ProductModel) {
             binding.tvProductsName.text = productModel.name
             binding.productPrice.text = productModel.minPrice.toString()
-//            binding.productPrice.text = productModel.minPrice.toString()
             Picasso.get().load(productModel.productImage).into(binding.productImg)
             binding.layoutProductsItem.setOnClickListener { onClick(productModel) }
         }

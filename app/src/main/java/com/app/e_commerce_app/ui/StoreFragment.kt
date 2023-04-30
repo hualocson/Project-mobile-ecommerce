@@ -6,51 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.databinding.FragmentStoreBinding
 import com.app.e_commerce_app.model.CategoryModel
-import com.app.e_commerce_app.model.ProductModel
-import com.app.e_commerce_app.ui.adapter.CategoryAdapter
-import com.app.e_commerce_app.ui.adapter.ProductAdapter
+import com.app.e_commerce_app.model.CategoryRadioButton
+import com.app.e_commerce_app.ui.adapter.CategoryButtonAdapter
+import com.app.e_commerce_app.utils.OnCategoryItemButtonClick
+import com.app.e_commerce_app.utils.OnProductItemClick
 import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.CategoryViewModel
-import com.app.e_commerce_app.viewmodel.ProductViewModel
 
 
 class StoreFragment : Fragment(R.layout.fragment_store) {
 
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
-    private var categoryList: ArrayList<CategoryModel>? = null
-    private var categoryId : Int? = null
-    private val categoryAdapter: CategoryAdapter by lazy {
-        CategoryAdapter(requireContext(), onCategoryItemClick)
-    }
-
-    private val categoryViewModel: CategoryViewModel by lazy {
-        ViewModelProvider(
-            this,
-            CategoryViewModel.CategoryViewModelFactory(requireActivity().application)
-        )[CategoryViewModel::class.java]
-    }
-
-    private var productList: ArrayList<ProductModel>? = null
-
-    private val productAdapter : ProductAdapter by lazy {
-        ProductAdapter(requireContext(), onProductItemClick)
-    }
-
-    private val productViewModel: ProductViewModel by lazy {
-        ViewModelProvider(
-            this,
-            ProductViewModel.ProductViewModelFactory(requireActivity().application)
-        )[ProductViewModel::class.java]
-    }
-
-
+    private var categoryId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,93 +33,37 @@ class StoreFragment : Fragment(R.layout.fragment_store) {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentStoreBinding.inflate(inflater, container, false)
+        binding.layoutProductList.setAdapter(onProductItemClick)
+        binding.layoutCategoryList.setAdapter(onCategoryItemButtonClick)
         return binding.root
     }
 
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val controller = findNavController()
-        //defalut category display
-        categoryId = 0;
-//        binding.btnLogin.setOnClickListener {
-//            controller.navigate(R.id.loginFragment)
-//        }
 
-//        binding.rvCategories.layoutManager = GridLayoutManager(this.context, 4)
-//        binding.rvCategories.adapter = categoryAdapter
-//        binding.rvProducts.layoutManager = GridLayoutManager(this.context, 2)
-//        binding.rvProducts.adapter = productAdapter
-        binding.rvCategoriesStore.layoutManager = GridLayoutManager(this.context, 4)
-        binding.rvCategoriesStore.adapter = categoryAdapter
-        binding.rvProductStore.layoutManager = GridLayoutManager(this.context, 2)
-        binding.rvProductStore.adapter = productAdapter
+
         val bundle = arguments
-        categoryId = bundle?.getInt("category_id")
-        loadCategory()
-        loadProductByCategoryId(categoryId!!)
-    }
+        categoryId = bundle!!.getInt("category_id")
 
-    private fun loadCategory() {
-        if (categoryList == null) {
-            categoryList = ArrayList()
-
-            categoryViewModel.getAllCategories().observe(viewLifecycleOwner) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data?.let { data ->
-                                categoryList = data.categories
-                                categoryAdapter.setCategories(categoryList as ArrayList<CategoryModel>)
-                            }
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                        }
-                        Status.LOADING -> {
-//                            Toast.makeText(requireContext(), "Category Loading", Toast.LENGTH_SHORT)
-//                                .show()
-                        }
-                    }
-                }
-            }
+        if(categoryId == 0) {
+            binding.storeHeader.setTitle("Most Popular")
         }
-    }
-    private fun loadProductByCategoryId(id : Int){
-        if(productList == null) {
-            productList = ArrayList()
-        }
-        productViewModel.getProductsByCategory(id).observe(viewLifecycleOwner) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        resource.data?.let { data ->
-                            productList = data.products
-                            productAdapter.setProducts(productList as ArrayList<ProductModel>)
-                        }
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
-                    }
-                    Status.LOADING -> {
-//                            Toast.makeText(requireContext(), "Product Loading", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-        }
+        binding.layoutProductList.loadProductByCategoryId(categoryId)
+        binding.layoutCategoryList.loadCategory(categoryId)
     }
 
-    private val onCategoryItemClick: (CategoryModel) -> Unit = {
-        loadProductByCategoryId(it.id)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+    private val onCategoryItemButtonClick: OnCategoryItemButtonClick = { radioButton ->
+        binding.layoutProductList.loadProductByCategoryId(radioButton.id)
     }
 
-    private val onProductItemClick: (ProductModel) -> Unit = {
-        Toast.makeText(requireContext(), it.name, Toast.LENGTH_LONG).show()
+    private val onProductItemClick: OnProductItemClick = {
+        Toast.makeText(context, it.name, Toast.LENGTH_LONG).show()
     }
 }

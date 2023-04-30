@@ -1,18 +1,19 @@
 package com.app.e_commerce_app.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class CategoryModel(
-    @SerializedName("id")
-    val id : Int,
+    val id: Int,
 
-    @SerializedName("categoryName")
     val categoryName: String,
 
     @SerializedName("icUrl")
     val categoryIc: String,
-) {
-    fun toCategoryRadio() : CategoryRadioButton{
+) : Parcelable {
+    fun toCategoryRadio(): CategoryRadioButton {
         return CategoryRadioButton(id = id, categoryName = categoryName, isChecked = false)
     }
 }

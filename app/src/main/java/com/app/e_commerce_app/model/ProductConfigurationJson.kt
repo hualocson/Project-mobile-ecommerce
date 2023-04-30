@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ProductData(
-    var products: ArrayList<ProductModel>
+data class ProductConfigurationJson(
+
+    val variation: String,
+
+    val value: String
 ) : Parcelable
