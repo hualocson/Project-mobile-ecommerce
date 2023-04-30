@@ -13,4 +13,6 @@
     <color name="on_secondary_color">#C3BABA</color>
     <color name="cart_bottom_background">#CAC4C4</color>
     <color name="transparent">#00000000</color>
+    <color name="on_switch_button">#0E0E0E</color>
+    <color name="off_switch_button">#F6F1F1</color>
 </resources>
