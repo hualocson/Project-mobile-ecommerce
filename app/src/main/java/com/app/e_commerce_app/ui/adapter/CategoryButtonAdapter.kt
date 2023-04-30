@@ -1,6 +1,8 @@
 package com.app.e_commerce_app.ui.adapter
 
 import android.content.Context
+import android.os.Parcel
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

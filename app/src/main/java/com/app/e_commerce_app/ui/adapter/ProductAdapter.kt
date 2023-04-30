@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso
 
 class ProductAdapter(
    private val context: Context,
-   private val onClick : (ProductModel) -> Unit
+   private val onClick : (ProductModel) -> Unit,
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     private var productList: List<ProductModel> = listOf()
@@ -18,7 +18,6 @@ class ProductAdapter(
         fun bindData(productModel: ProductModel) {
             binding.tvProductsName.text = productModel.name
             binding.productPrice.text = productModel.minPrice.toString()
-//            binding.productPrice.text = productModel.minPrice.toString()
             Picasso.get().load(productModel.productImage).into(binding.productImg)
             binding.layoutProductsItem.setOnClickListener { onClick(productModel) }
         }

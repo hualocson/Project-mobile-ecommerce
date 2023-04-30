@@ -12,7 +12,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginHorizontal="@dimen/margin_default_home_horizontal"
         android:background="@drawable/background"
-        android:paddingBottom="@dimen/nav_bottom_height"
         tools:context=".ui.HomeFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +42,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Good Morning !"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/imageProfile"
+                app:layout_constraintStart_toEndOf="@id/imageProfile"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -55,8 +54,8 @@
                 android:text="Luong Minh Chien"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageProfile"
-                app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+                app:layout_constraintStart_toEndOf="@id/imageProfile"
+                app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_favorite"
@@ -68,8 +67,8 @@
                 android:contentDescription="Favorite Button"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_favorite_outline"
-                app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-                app:layout_constraintTop_toTopOf="@+id/tv_welcome" />
+                app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+                app:layout_constraintTop_toTopOf="@id/tv_welcome" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/btn_notification"
@@ -82,8 +81,8 @@
                 android:contentDescription="Favorite Button"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_notification_outline"
-                app:layout_constraintEnd_toStartOf="@+id/btn_favorite"
-                app:layout_constraintTop_toTopOf="@+id/tv_welcome" />
+                app:layout_constraintEnd_toStartOf="@id/btn_favorite"
+                app:layout_constraintTop_toTopOf="@id/tv_welcome" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
@@ -105,7 +104,7 @@
             android:textSize="@dimen/text_size_normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
 
         <!--    <TextView-->
         <!--        android:id="@+id/textView2"-->
@@ -130,7 +129,7 @@
             app:layout_constraintBottom_toTopOf="@+id/rv_categories"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inputSearch_home">
+            app:layout_constraintTop_toBottomOf="@id/inputSearch_home">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutSectionSpecialHeading"
@@ -148,7 +147,7 @@
                     android:text="Special Offers"
                     android:textSize="@dimen/text_size_heading"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/tvSeeAllSpecial"
+                    app:layout_constraintEnd_toStartOf="@id/tvSeeAllSpecial"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -161,7 +160,7 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView"
+                    app:layout_constraintStart_toEndOf="@id/textView"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -182,7 +181,7 @@
                 app:iss_unselected_dot="@drawable/default_unselected_dot"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutSectionSpecialHeading" />
+                app:layout_constraintTop_toBottomOf="@id/layoutSectionSpecialHeading" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -198,17 +197,18 @@
         <!--            app:layout_constraintTop_toBottomOf="@+id/image_slider" />-->
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_categories"
-            android:layout_width="wrap_content"
+
+        <com.app.e_commerce_app.ui.customview.CategoryIconList
+            android:id="@+id/layoutCategoryIconList"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:minHeight="200dp"
-            android:scrollbars="none"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutSectionSpecial"
-            tools:listitem="@layout/item_category" />
+            app:layout_constraintTop_toBottomOf="@id/layoutSectionSpecial"
+            app:layout_constraintBottom_toTopOf="@id/layoutSectionPopular"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layoutSectionPopular"
@@ -218,7 +218,7 @@
             app:layout_constraintBottom_toTopOf="@+id/layoutProductList"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_categories">
+            app:layout_constraintTop_toBottomOf="@id/layoutCategoryIconList">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutSectionPopularHeading"
@@ -226,8 +226,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/tvSectionPopularTitle"
@@ -236,7 +236,7 @@
                     android:text="Most Popular"
                     android:textSize="@dimen/text_size_heading"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/tvSeeAllPopular"
+                    app:layout_constraintEnd_toStartOf="@id/tvSeeAllPopular"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -249,7 +249,7 @@
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tvSectionPopularTitle"
+                    app:layout_constraintStart_toEndOf="@id/tvSectionPopularTitle"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -259,55 +259,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:minHeight="50dp"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layoutSectionPopularHeading">
+                app:layout_constraintTop_toBottomOf="@id/layoutSectionPopularHeading">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvCategoriesButton"
+                <com.app.e_commerce_app.ui.customview.CategoryRadioList
+                    android:id="@+id/layoutCategoryList"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    tools:listitem="@layout/item_category_button" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.app.e_commerce_app.ui.customview.ProductList
             android:id="@+id/layoutProductList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutSectionPopular">
-
-
-            <com.github.ybq.android.spinkit.SpinKitView
-                android:id="@+id/pgbProducts"
-                style="@style/SpinKitView.Large.DoubleBounce"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:SpinKit_Color="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_products"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:flow_horizontalAlign="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/layoutProductList"
-                tools:listitem="@layout/item_product" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            app:layout_constraintTop_toBottomOf="@id/layoutSectionPopular" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
