@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomHeader">
+        <attr name="title" format="string" default="@string/default_title"/>
+        <attr name="is_show_ic_left" format="boolean" default="true" />
+        <attr name="is_show_ic_right" format="boolean" default="true" />
+        <attr name="is_show_title" format="boolean" default="true" />
+    </declare-styleable>
+</resources>

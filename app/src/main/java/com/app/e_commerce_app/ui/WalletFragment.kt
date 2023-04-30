@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
-import com.app.e_commerce_app.databinding.FragmentOrderBinding
 import com.app.e_commerce_app.databinding.FragmentWalletBinding
 
 class WalletFragment : Fragment(R.layout.fragment_wallet){
@@ -22,7 +22,6 @@ class WalletFragment : Fragment(R.layout.fragment_wallet){
         _binding = FragmentWalletBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

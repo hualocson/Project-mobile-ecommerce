@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/category_ic"
-            android:layout_width="@dimen/category_ic_height"
-            android:layout_height="@dimen/category_ic_width"
+            android:layout_width="@dimen/category_ic_size"
+            android:layout_height="@dimen/category_ic_size"
             android:background="@drawable/background_category_icon"
             android:contentDescription="Category Icon"
             android:padding="@dimen/padding_default"
@@ -34,9 +34,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
             android:gravity="center"
+            android:maxLines="2"
+            android:minLines="2"
             android:text="Laptop"
             android:textColor="@color/text_color"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/category_ic"
             app:layout_constraintStart_toStartOf="@+id/category_ic"
             app:layout_constraintTop_toBottomOf="@+id/category_ic" />

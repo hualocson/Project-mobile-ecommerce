@@ -8,5 +8,6 @@ object Constants {
     const val REGISTER_URL = "accounts"
     const val CATEGORY_URL = "categories"
     const val PRODUCT_URL = "categories/products"
-    const val PRPDUCT_BY_CATEGORY_URL = "categories/{id}/products"
+    const val PRODUCT_BY_CATEGORY_URL = "categories/{id}/products"
+    const val PRODUCT_BY_ID = "categories/products/{productId}"
 }

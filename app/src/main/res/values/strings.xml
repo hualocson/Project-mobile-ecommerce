@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">E-commerce-App</string>
+    <string name="default_title">Title</string>
 </resources>
