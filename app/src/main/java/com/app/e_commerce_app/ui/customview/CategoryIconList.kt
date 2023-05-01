@@ -1,21 +1,23 @@
 package com.app.e_commerce_app.ui.customview
 
+import android.app.Application
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.findViewTreeLifecycleOwner
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.databinding.CustomCategoryListBinding
-import com.app.e_commerce_app.model.CategoryModel
 import com.app.e_commerce_app.ui.adapter.CategoryAdapter
 import com.app.e_commerce_app.utils.OnCategoryIconButtonClick
 import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.CategoryViewModel
+import com.app.e_commerce_app.viewmodel.UserViewModel
 
 class CategoryIconList @JvmOverloads constructor(
     context: Context,
@@ -27,12 +29,16 @@ class CategoryIconList @JvmOverloads constructor(
 
     private val binding get() = _binding!!
 
-
-    private var categoryList: ArrayList<CategoryModel>? = null
     private var categoryAdapter: CategoryAdapter? = null
+
     private val categoryViewModel: CategoryViewModel by lazy {
-        ViewModelProvider(findViewTreeViewModelStoreOwner()!!)[CategoryViewModel::class.java]
+//        ViewModelProvider(findViewTreeViewModelStoreOwner()!!)[CategoryViewModel::class.java]
+        ViewModelProvider(
+            context as ViewModelStoreOwner,
+            CategoryViewModel.CategoryViewModelFactory(context.applicationContext as Application)
+        )[CategoryViewModel::class.java]
     }
+
 
     init {
         _binding =
@@ -45,17 +51,12 @@ class CategoryIconList @JvmOverloads constructor(
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         _binding = null
-
-        categoryList!!.clear()
-        categoryList = null
-        categoryAdapter = null
     }
 
     fun setAdapter(
         onCategoryIconClick: OnCategoryIconButtonClick,
         adapter: CategoryAdapter? = null,
-
-        ) {
+    ) {
         categoryAdapter = adapter ?: CategoryAdapter(context, onCategoryIconClick)
         binding.rvCategoryList.adapter = categoryAdapter
     }
@@ -65,28 +66,30 @@ class CategoryIconList @JvmOverloads constructor(
     }
 
     fun loadCategory() {
-        if (categoryList == null) {
-            categoryList = ArrayList()
-
-            categoryViewModel.getAllCategories().observe(findViewTreeLifecycleOwner()!!) {
+        if (categoryViewModel.categoriesData.value == null) {
+            categoryViewModel.getAllCategories().observe(context as LifecycleOwner) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             resource.data?.let { data ->
-                                categoryList = data.categories
-                                categoryAdapter!!.setCategories(categoryList as ArrayList<CategoryModel>)
+                                categoryAdapter!!.setCategories(data.categories)
                             }
                         }
                         Status.ERROR -> {
                             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                         }
                         Status.LOADING -> {
-//                            Toast.makeText(requireContext(), "Category Loading", Toast.LENGTH_SHORT)
-//                                .show()
+                            Toast.makeText(context, "Category Loading", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }
             }
+
+        } else {
+            val data = categoryViewModel.categoriesData.value!!
+            Log.d("LOAD:::", data.toString())
+            categoryAdapter!!.setCategories(data)
         }
     }
 }

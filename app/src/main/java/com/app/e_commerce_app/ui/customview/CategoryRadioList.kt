@@ -1,13 +1,14 @@
 package com.app.e_commerce_app.ui.customview
 
+import android.app.Application
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.findViewTreeLifecycleOwner
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.databinding.CustomCategoryRadioButtonListBinding
@@ -27,11 +28,12 @@ class CategoryRadioList @JvmOverloads constructor(
 
     private val binding get() = _binding!!
 
-
-    private var categoryList: ArrayList<CategoryModel>? = null
     private var categoryButtonAdapter: CategoryButtonAdapter? = null
     private val categoryViewModel: CategoryViewModel by lazy {
-        ViewModelProvider(findViewTreeViewModelStoreOwner()!!)[CategoryViewModel::class.java]
+        ViewModelProvider(
+            context as ViewModelStoreOwner,
+            CategoryViewModel.CategoryViewModelFactory(context.applicationContext as Application)
+        )[CategoryViewModel::class.java]
     }
 
     init {
@@ -45,16 +47,13 @@ class CategoryRadioList @JvmOverloads constructor(
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         _binding = null
-
-        categoryList!!.clear()
-        categoryList = null
         categoryButtonAdapter = null
     }
 
     fun setAdapter(
         onCategoryItemButtonClick: OnCategoryItemButtonClick,
         adapter: CategoryButtonAdapter? = null,
-        ) {
+    ) {
         categoryButtonAdapter = adapter ?: CategoryButtonAdapter(context, onCategoryItemButtonClick)
         binding.rvCategoryList.adapter = categoryButtonAdapter
     }
@@ -64,31 +63,29 @@ class CategoryRadioList @JvmOverloads constructor(
     }
 
     fun loadCategory(id: Int = 0) {
-        if (categoryList == null) {
-            categoryList = ArrayList()
-
-            categoryViewModel.getAllCategories().observe(findViewTreeLifecycleOwner()!!) {
+        if (categoryViewModel.categoriesData.value == null) {
+            categoryViewModel.getAllCategories().observe(context as LifecycleOwner) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             resource.data?.let { data ->
-                                categoryList = data.categories
-                                categoryButtonAdapter!!.setCategories(
-                                    categoryList as ArrayList<CategoryModel>,
-                                    id
-                                )
+                                categoryButtonAdapter!!.setCategories(data.categories, id)
                             }
                         }
                         Status.ERROR -> {
                             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                         }
                         Status.LOADING -> {
-//                            Toast.makeText(requireContext(), "Category Loading", Toast.LENGTH_SHORT)
-//                                .show()
+                            Toast.makeText(context, "Category Loading", Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }
             }
+
+        } else {
+            val data = categoryViewModel.categoriesData.value!!
+            categoryButtonAdapter!!.setCategories(data, id)
         }
     }
 }

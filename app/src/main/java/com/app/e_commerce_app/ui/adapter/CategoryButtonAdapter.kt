@@ -58,7 +58,7 @@ class CategoryButtonAdapter(
         }
     }
 
-    fun setCategories(categories: ArrayList<CategoryModel>, categoryId: Int = 0) {
+    fun setCategories(categories: List<CategoryModel>, categoryId: Int = 0) {
         val first = CategoryRadioButton(0, "All")
 
         categoryList.add(first)
