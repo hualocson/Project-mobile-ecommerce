@@ -2,23 +2,29 @@ package com.app.e_commerce_app.viewmodel
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.repository.ProductRepository
+import com.app.e_commerce_app.model.CategoryModel
+import com.app.e_commerce_app.model.ProductData
+import com.app.e_commerce_app.model.ProductModel
 import com.app.e_commerce_app.utils.Resource
 import kotlinx.coroutines.Dispatchers
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
     private val productRepository: ProductRepository = ProductRepository()
 
+    private val _productsData = MutableLiveData<List<ProductModel>>()
+    val productsData: LiveData<List<ProductModel>> = _productsData
+
     fun getAllProducts() = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
 
         when (val response = productRepository.getAllProducts()) {
-            is NetWorkResult.Success -> emit(Resource.success(response.data.data))
+            is NetWorkResult.Success -> response.data.data.let { products ->
+                _productsData.postValue(products!!.products)
+                emit(Resource.success(products))
+            }
             is NetWorkResult.Error -> emit(Resource.error(null, response.message))
             is NetWorkResult.Exception -> emit(Resource.error(null, response.e.message))
         }
@@ -36,7 +42,6 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
 
     fun getProductsById(id : Int) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
-        Log.d("IDViewModel:::", id.toString())
         when (val response = productRepository.getProductsById(id)) {
             is NetWorkResult.Success -> emit(Resource.success(response.data.data))
             is NetWorkResult.Error -> emit(Resource.error(null, response.message))

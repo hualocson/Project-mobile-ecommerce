@@ -1,14 +1,13 @@
 package com.app.e_commerce_app.ui.customview
 
+import android.app.Application
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.findViewTreeLifecycleOwner
-import androidx.lifecycle.findViewTreeViewModelStoreOwner
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.databinding.CustomProductListBinding
@@ -16,6 +15,7 @@ import com.app.e_commerce_app.model.ProductModel
 import com.app.e_commerce_app.ui.adapter.ProductAdapter
 import com.app.e_commerce_app.utils.OnProductItemClick
 import com.app.e_commerce_app.utils.Status
+import com.app.e_commerce_app.viewmodel.CategoryViewModel
 import com.app.e_commerce_app.viewmodel.ProductViewModel
 
 class ProductList @JvmOverloads constructor(
@@ -28,8 +28,12 @@ class ProductList @JvmOverloads constructor(
 
     private var productList: ArrayList<ProductModel>? = null
     private var productAdapter: ProductAdapter? = null
+
     private val productViewModel: ProductViewModel by lazy {
-        ViewModelProvider(findViewTreeViewModelStoreOwner()!!)[ProductViewModel::class.java]
+        ViewModelProvider(
+            context as ViewModelStoreOwner,
+            ProductViewModel.ProductViewModelFactory(context.applicationContext as Application)
+        )[ProductViewModel::class.java]
     }
 
     init {
@@ -39,34 +43,36 @@ class ProductList @JvmOverloads constructor(
 
 
     private fun loadProduct() {
-        if (productList == null)
-            productList = ArrayList()
-
-        productViewModel.getAllProducts().observe(findViewTreeLifecycleOwner()!!) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        resource.data?.let { data ->
-                            productList = data.products
-                            productAdapter!!.setProducts(productList as ArrayList<ProductModel>)
+        if(productViewModel.productsData.value != null) {
+            val data = productViewModel.productsData.value
+            productAdapter!!.setProducts(data as ArrayList<ProductModel>)
+        }
+        else {
+            productViewModel.getAllProducts().observe(context as LifecycleOwner) {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            resource.data?.let { data ->
+                                productAdapter!!.setProducts(data.products as ArrayList<ProductModel>)
+                            }
+                            binding.pgbProducts.visibility = View.GONE
+                            binding.rvProductList.alpha = 1f
                         }
-                        binding.pgbProducts.visibility = View.GONE
-                        binding.rvProductList.alpha = 1f
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                        binding.pgbProducts.visibility = View.GONE
-                        binding.rvProductList.alpha = 1f
-                    }
-                    Status.LOADING -> {
-                        binding.pgbProducts.visibility = View.VISIBLE
-                        binding.pgbProducts.bringToFront()
-                        productList!!.clear()
-                        binding.rvProductList.alpha = 0.5f
+                        Status.ERROR -> {
+                            Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                            binding.pgbProducts.visibility = View.GONE
+                            binding.rvProductList.alpha = 1f
+                        }
+                        Status.LOADING -> {
+                            binding.pgbProducts.visibility = View.VISIBLE
+                            binding.pgbProducts.bringToFront()
+                            binding.rvProductList.alpha = 0.5f
+                        }
                     }
                 }
             }
         }
+
     }
 
 
@@ -75,7 +81,7 @@ class ProductList @JvmOverloads constructor(
             productList = ArrayList()
         }
         if (id != 0) {
-            productViewModel.getProductsByCategory(id).observe(findViewTreeLifecycleOwner()!!) {
+            productViewModel.getProductsByCategory(id).observe(context as LifecycleOwner) {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
