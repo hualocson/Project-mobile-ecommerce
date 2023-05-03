@@ -3,23 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/homeFragment"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/home_ic_selector"
         android:title="Home" />
     <item
         android:id="@+id/cart"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/cart_ic_selector"
         android:title="Cart" />
     <item
         android:id="@+id/orderFragment"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/order_ic_selector"
         android:title="Orders" />
     <item
         android:id="@+id/walletFragment"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/wallet_ic_selector"
         android:title="Wallet" />
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/profile_ic_selector"
         android:title="Profile"
+        app:showAsAction="ifRoom"
         />
 </menu>

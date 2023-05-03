@@ -11,11 +11,10 @@ import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.databinding.CustomProductListBinding
-import com.app.e_commerce_app.model.ProductModel
+import com.app.e_commerce_app.model.product.ProductModel
 import com.app.e_commerce_app.ui.adapter.ProductAdapter
 import com.app.e_commerce_app.utils.OnProductItemClick
 import com.app.e_commerce_app.utils.Status
-import com.app.e_commerce_app.viewmodel.CategoryViewModel
 import com.app.e_commerce_app.viewmodel.ProductViewModel
 
 class ProductList @JvmOverloads constructor(
@@ -56,17 +55,17 @@ class ProductList @JvmOverloads constructor(
                                 productAdapter!!.setProducts(data.products as ArrayList<ProductModel>)
                             }
                             binding.pgbProducts.visibility = View.GONE
-                            binding.rvProductList.alpha = 1f
+                            binding.rvProductList.visibility = View.VISIBLE
                         }
                         Status.ERROR -> {
                             Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                             binding.pgbProducts.visibility = View.GONE
-                            binding.rvProductList.alpha = 1f
+                            binding.rvProductList.visibility = View.VISIBLE
                         }
                         Status.LOADING -> {
                             binding.pgbProducts.visibility = View.VISIBLE
                             binding.pgbProducts.bringToFront()
-                            binding.rvProductList.alpha = 0.5f
+                            binding.rvProductList.visibility = View.INVISIBLE
                         }
                     }
                 }
@@ -90,18 +89,18 @@ class ProductList @JvmOverloads constructor(
                                 productAdapter!!.setProducts(productList as ArrayList<ProductModel>)
                             }
                             binding.pgbProducts.visibility = View.GONE
-                            binding.rvProductList.alpha = 1.0f
+                            binding.rvProductList.visibility = View.VISIBLE
                         }
                         Status.ERROR -> {
                             Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                             binding.pgbProducts.visibility = View.GONE
-                            binding.rvProductList.alpha = 1.0f
+                            binding.rvProductList.visibility = View.VISIBLE
                         }
                         Status.LOADING -> {
                             binding.pgbProducts.visibility = View.VISIBLE
                             binding.pgbProducts.bringToFront()
                             productList!!.clear()
-                            binding.rvProductList.alpha = 0.5f
+                            binding.rvProductList.visibility = View.INVISIBLE
                         }
                     }
                 }

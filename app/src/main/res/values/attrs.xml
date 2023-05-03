@@ -5,5 +5,6 @@
         <attr name="is_show_ic_left" format="boolean" default="true" />
         <attr name="is_show_ic_right" format="boolean" default="true" />
         <attr name="is_show_title" format="boolean" default="true" />
+        <attr name ="ic_left" format="reference" />
     </declare-styleable>
 </resources>

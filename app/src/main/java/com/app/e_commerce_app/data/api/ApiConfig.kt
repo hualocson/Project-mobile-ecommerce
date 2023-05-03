@@ -43,6 +43,10 @@ object ApiConfig {
         getRetrofitInstance().create(ProductApi::class.java)
     }
 
+    val variationApi: VariationApi by lazy {
+        getRetrofitInstance().create(VariationApi::class.java)
+    }
+
     suspend fun <T : Any> handleApi(execute: suspend () -> Response<T>): NetWorkResult<T> {
         return try {
             val response = execute()

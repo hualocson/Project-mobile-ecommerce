@@ -1,285 +1,306 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
 
+        <variable
+            name="userViewModel"
+            type="com.app.e_commerce_app.viewmodel.UserViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginHorizontal="@dimen/margin_default_home_horizontal"
-        android:background="@drawable/background"
-        tools:context=".ui.HomeFragment">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/padding_default"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="@dimen/margin_default_home_horizontal"
+            android:background="@drawable/background"
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/imageProfile"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image1"
+            tools:context=".ui.HomeFragment">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:riv_oval="true" />
-
-            <TextView
-                android:id="@+id/tv_welcome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:text="Good Morning !"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/imageProfile"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="@dimen/margin_default"
-                android:text="Luong Minh Chien"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@id/imageProfile"
-                app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_favorite"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/background"
-                android:backgroundTint="@color/white"
-                android:backgroundTintMode="src_over"
-                android:contentDescription="Favorite Button"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_favorite_outline"
-                app:layout_constraintEnd_toEndOf="@id/constraintLayout"
-                app:layout_constraintTop_toTopOf="@id/tv_welcome" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_notification"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="@dimen/margin_default"
-                android:background="@drawable/background"
-                android:backgroundTint="@color/white"
-                android:backgroundTintMode="src_over"
-                android:contentDescription="Favorite Button"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_notification_outline"
-                app:layout_constraintEnd_toStartOf="@id/btn_favorite"
-                app:layout_constraintTop_toTopOf="@id/tv_welcome" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <EditText
-            android:id="@+id/inputSearch_home"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/background_edittext"
-            android:drawableLeft="@drawable/ic_search_24"
-            android:drawableRight="@drawable/ic_filter"
-            android:drawablePadding="@dimen/padding_default"
-            android:hint="Search"
-            android:imeOptions="actionNext"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/text_size_normal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
-
-        <!--    <TextView-->
-        <!--        android:id="@+id/textView2"-->
-        <!--        android:layout_width="86dp"-->
-        <!--        android:layout_height="36dp"-->
-        <!--        android:layout_alignParentStart="true"-->
-        <!--        android:layout_alignParentEnd="true"-->
-        <!--        android:layout_marginStart="155dp"-->
-        <!--        android:layout_marginTop="32dp"-->
-        <!--        android:layout_marginEnd="166dp"-->
-        <!--        android:text="Categories"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintHorizontal_bias="1.0"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintTop_toBottomOf="@+id/inputSearch_home" />-->
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutSectionSpecial"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/rv_categories"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/inputSearch_home">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layoutSectionSpecialHeading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Special Offers"
-                    android:textSize="@dimen/text_size_heading"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/tvSeeAllSpecial"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvSeeAllSpecial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="See All"
-                    android:textSize="@dimen/text_size_normal"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/textView"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <com.denzcoskun.imageslider.ImageSlider
-                android:id="@+id/image_slider"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/background_edittext"
-                app:iss_auto_cycle="true"
-                app:iss_corner_radius="30"
-                app:iss_delay="1000"
-                app:iss_error_image="@android:color/darker_gray"
-                app:iss_period="1000"
-                app:iss_placeholder="@android:color/darker_gray"
-                app:iss_selected_dot="@drawable/default_selected_dot"
-                app:iss_unselected_dot="@drawable/default_unselected_dot"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutSectionSpecialHeading" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <!--        <Button-->
-        <!--            android:id="@+id/btn_login"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:background="@drawable/background_button"-->
-        <!--            android:text="Login"-->
-        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--            app:layout_constraintRight_toRightOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/image_slider" />-->
-
-
-
-        <com.app.e_commerce_app.ui.customview.CategoryIconList
-            android:id="@+id/layoutCategoryIconList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:minHeight="200dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutSectionSpecial"
-            app:layout_constraintBottom_toTopOf="@id/layoutSectionPopular"
-            />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutSectionPopular"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            app:layout_constraintBottom_toTopOf="@+id/layoutProductList"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutCategoryIconList">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layoutSectionPopularHeading"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/tvSectionPopularTitle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Most Popular"
-                    android:textSize="@dimen/text_size_heading"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@id/tvSeeAllPopular"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvSeeAllPopular"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="See All"
-                    android:textSize="@dimen/text_size_normal"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tvSectionPopularTitle"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:minHeight="50dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutSectionPopularHeading">
-
-                <com.app.e_commerce_app.ui.customview.CategoryRadioList
-                    android:id="@+id/layoutCategoryList"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/padding_default"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/imageProfile"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/image1"
+                        app:imageUrl="@{userViewModel.userLiveData.imageUrl}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_oval="true" />
+
+                    <TextView
+                        android:id="@+id/tv_welcome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Good Morning !"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@id/imageProfile"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="@dimen/margin_default"
+                        android:text="@{userViewModel.userLiveData.name}"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@id/imageProfile"
+                        app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_favorite"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/background"
+                        android:backgroundTint="@color/white"
+                        android:backgroundTintMode="src_over"
+                        android:contentDescription="Favorite Button"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_favorite_outline"
+                        app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+                        app:layout_constraintTop_toTopOf="@id/tv_welcome" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_notification"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="@dimen/margin_default"
+                        android:background="@drawable/background"
+                        android:backgroundTint="@color/white"
+                        android:backgroundTintMode="src_over"
+                        android:contentDescription="Favorite Button"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_notification_outline"
+                        app:layout_constraintEnd_toStartOf="@id/btn_favorite"
+                        app:layout_constraintTop_toTopOf="@id/tv_welcome" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <EditText
+                    android:id="@+id/inputSearch_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/background_edittext"
+                    android:drawableLeft="@drawable/ic_search_24"
+                    android:drawableRight="@drawable/ic_filter"
+                    android:drawablePadding="@dimen/padding_default"
+                    android:hint="Search"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
+
+                <!--    <TextView-->
+                <!--        android:id="@+id/textView2"-->
+                <!--        android:layout_width="86dp"-->
+                <!--        android:layout_height="36dp"-->
+                <!--        android:layout_alignParentStart="true"-->
+                <!--        android:layout_alignParentEnd="true"-->
+                <!--        android:layout_marginStart="155dp"-->
+                <!--        android:layout_marginTop="32dp"-->
+                <!--        android:layout_marginEnd="166dp"-->
+                <!--        android:text="Categories"-->
+                <!--        app:layout_constraintEnd_toEndOf="parent"-->
+                <!--        app:layout_constraintHorizontal_bias="1.0"-->
+                <!--        app:layout_constraintStart_toStartOf="parent"-->
+                <!--        app:layout_constraintTop_toBottomOf="@+id/inputSearch_home" />-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutSectionSpecial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintBottom_toTopOf="@+id/rv_categories"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/inputSearch_home">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layoutSectionSpecialHeading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Special Offers"
+                            android:textSize="@dimen/text_size_heading"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@id/tvSeeAllSpecial"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvSeeAllSpecial"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="See All"
+                            android:textSize="@dimen/text_size_normal"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/textView"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <com.denzcoskun.imageslider.ImageSlider
+                        android:id="@+id/image_slider"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/background_edittext"
+                        app:iss_auto_cycle="true"
+                        app:iss_corner_radius="30"
+                        app:iss_delay="1000"
+                        app:iss_error_image="@android:color/darker_gray"
+                        app:iss_period="1000"
+                        app:iss_placeholder="@android:color/darker_gray"
+                        app:iss_selected_dot="@drawable/default_selected_dot"
+                        app:iss_unselected_dot="@drawable/default_unselected_dot"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layoutSectionSpecialHeading" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <!--        <Button-->
+                <!--            android:id="@+id/btn_login"-->
+                <!--            android:layout_width="wrap_content"-->
+                <!--            android:layout_height="wrap_content"-->
+                <!--            android:background="@drawable/background_button"-->
+                <!--            android:text="Login"-->
+                <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--            app:layout_constraintRight_toRightOf="parent"-->
+                <!--            app:layout_constraintTop_toBottomOf="@+id/image_slider" />-->
+
+
+                <com.app.e_commerce_app.ui.customview.CategoryIconList
+                    android:id="@+id/layoutCategoryIconList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:minHeight="200dp"
+                    app:layout_constraintBottom_toTopOf="@id/layoutSectionPopular"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutSectionSpecial" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutSectionPopular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    app:layout_constraintBottom_toTopOf="@+id/layoutProductList"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutCategoryIconList">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layoutSectionPopularHeading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tvSectionPopularTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Most Popular"
+                            android:textSize="@dimen/text_size_heading"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toStartOf="@id/tvSeeAllPopular"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvSeeAllPopular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="See All"
+                            android:textSize="@dimen/text_size_normal"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/tvSectionPopularTitle"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:minHeight="50dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/layoutSectionPopularHeading">
+
+                        <com.app.e_commerce_app.ui.customview.CategoryRadioList
+                            android:id="@+id/layoutCategoryList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.app.e_commerce_app.ui.customview.ProductList
+                    android:id="@+id/layoutProductList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutSectionPopular" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.app.e_commerce_app.ui.customview.ProductList
-            android:id="@+id/layoutProductList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutSectionPopular" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+</layout>

@@ -15,7 +15,9 @@
     <dimen name="category_width">80dp</dimen>
     <dimen name="product_item_width">160dp</dimen>
 
+    <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_heading">20sp</dimen>
     <dimen name="text_size_fragment_heading">28sp</dimen>
+
 </resources>

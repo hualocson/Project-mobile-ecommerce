@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_homeFragment_to_storeFragment"
             app:destination="@id/storeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 
     <fragment
@@ -37,10 +40,12 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:label="Profile"
         android:name="com.app.e_commerce_app.ui.ProfileFragment"
-        tools:layout="@layout/fragment_profile"
-        />
+        android:label="Profile">
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/orderFragment"

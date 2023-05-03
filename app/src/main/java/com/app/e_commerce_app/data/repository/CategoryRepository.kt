@@ -7,7 +7,6 @@ import com.app.e_commerce_app.model.CategoryModel
 import com.app.e_commerce_app.model.CustomResponse
 
 class CategoryRepository {
-
     suspend fun getAllCategories(): NetWorkResult<CustomResponse<CategoryData>> =
         ApiConfig.handleApi { ApiConfig.categoryApi.getAllCategories() }
 }

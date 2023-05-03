@@ -4,7 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.databinding.CustomHeaderViewBinding
 
@@ -19,6 +22,7 @@ class HeaderView @JvmOverloads constructor(
     private var isShowIcLeft: Boolean = true
     private var isShowIcRight: Boolean = true
     private var isShowTitle: Boolean = true
+    private var icLeft: Int
 
     init {
         _binding = CustomHeaderViewBinding.inflate(LayoutInflater.from(context), this, true)
@@ -35,21 +39,24 @@ class HeaderView @JvmOverloads constructor(
                 isShowIcLeft = getBoolean(R.styleable.CustomHeader_is_show_ic_left, true)
                 isShowIcRight = getBoolean(R.styleable.CustomHeader_is_show_ic_right, true)
                 isShowTitle = getBoolean(R.styleable.CustomHeader_is_show_title, true)
+                icLeft = getResourceId(R.styleable.CustomHeader_ic_left, 0)
             } finally {
                 recycle()
             }
         }
 
-        if(isShowTitle)
+        if (isShowTitle)
             binding.tvTittle.visibility = View.VISIBLE
         else
             binding.tvTittle.visibility = View.GONE
 
         binding.tvTittle.text = title
 
-        if (isShowIcLeft)
+        if (isShowIcLeft) {
             binding.btnLeft.visibility = View.VISIBLE
-        else
+            if (icLeft != 0)
+                binding.btnLeft.icon = ContextCompat.getDrawable(context, icLeft)
+        } else
             binding.btnLeft.visibility = View.GONE
 
         if (isShowIcRight)
@@ -63,7 +70,18 @@ class HeaderView @JvmOverloads constructor(
         _binding = null
     }
 
-    fun setTitle(title : String) {
+
+    val btnLeft
+        get(): Button {
+            return binding.btnLeft
+        }
+
+    val btnRight
+        get(): ImageButton {
+            return binding.btnRight
+        }
+
+    fun setTitle(title: String) {
         binding.tvTittle.text = title
     }
 }

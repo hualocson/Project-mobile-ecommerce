@@ -15,4 +15,9 @@ data class UserJson(
         get(): String {
             return "$firstName $lastName"
         }
+
+    val imageUrl
+        get() : String {
+            return avatar
+        }
 }

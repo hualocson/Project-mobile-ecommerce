@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.databinding.FragmentFillProfileBinding
-import com.app.e_commerce_app.databinding.FragmentOrderBinding
 
 class FillProfileFragment : Fragment(R.layout.fragment_order) {
     private var _binding: FragmentFillProfileBinding? = null

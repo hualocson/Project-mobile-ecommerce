@@ -3,13 +3,12 @@ package com.app.e_commerce_app.ui.customview
 import android.app.Application
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.databinding.CustomCategoryListBinding
@@ -17,7 +16,6 @@ import com.app.e_commerce_app.ui.adapter.CategoryAdapter
 import com.app.e_commerce_app.utils.OnCategoryIconButtonClick
 import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.CategoryViewModel
-import com.app.e_commerce_app.viewmodel.UserViewModel
 
 class CategoryIconList @JvmOverloads constructor(
     context: Context,
@@ -40,10 +38,17 @@ class CategoryIconList @JvmOverloads constructor(
     }
 
 
+
+    private val onCategoryIconClick : OnCategoryIconButtonClick = {
+
+    }
+
     init {
         _binding =
             CustomCategoryListBinding.inflate(LayoutInflater.from(context), this, true)
 
+
+        categoryAdapter = CategoryAdapter(context, onCategoryIconClick)
         binding.rvCategoryList.layoutManager =
             GridLayoutManager(this.context, 4)
     }
@@ -79,8 +84,8 @@ class CategoryIconList @JvmOverloads constructor(
                             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                         }
                         Status.LOADING -> {
-                            Toast.makeText(context, "Category Loading", Toast.LENGTH_SHORT)
-                                .show()
+//                            Toast.makeText(context, "Category Loading", Toast.LENGTH_SHORT)
+//                                .show()
                         }
                     }
                 }
@@ -88,7 +93,6 @@ class CategoryIconList @JvmOverloads constructor(
 
         } else {
             val data = categoryViewModel.categoriesData.value!!
-            Log.d("LOAD:::", data.toString())
             categoryAdapter!!.setCategories(data)
         }
     }

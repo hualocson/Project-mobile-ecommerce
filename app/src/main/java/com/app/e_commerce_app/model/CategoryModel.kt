@@ -1,6 +1,7 @@
 package com.app.e_commerce_app.model
 
 import android.os.Parcelable
+import com.app.e_commerce_app.model.variation.VariationModel
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -12,6 +13,7 @@ data class CategoryModel(
 
     @SerializedName("icUrl")
     val categoryIc: String,
+    val variations: ArrayList<VariationModel>
 ) : Parcelable {
     fun toCategoryRadio(): CategoryRadioButton {
         return CategoryRadioButton(id = id, categoryName = categoryName, isChecked = false)
