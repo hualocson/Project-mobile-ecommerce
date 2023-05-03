@@ -1,84 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<layout>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutStoreFragment"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:background="@drawable/background"
-    tools:context=".ui.StoreFragment">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layoutStoreFragmentHeader"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layoutStoreFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.app.e_commerce_app.ui.customview.HeaderView
-            android:id="@+id/storeHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:is_show_ic_left="true"
-            app:is_show_ic_right="true"
-            app:is_show_title="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:title="@string/default_title" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <LinearLayout
-        android:id="@+id/layoutRVCategoryStores"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_default_home_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingBottom="@dimen/padding_default"
-        app:layout_constraintTop_toBottomOf="@id/layoutStoreFragmentHeader">
-
-        <com.app.e_commerce_app.ui.customview.CategoryRadioList
-            android:id="@+id/layoutCategoryList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_default="wrap"
-        app:layout_constrainedHeight="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutRVCategoryStores">
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/background"
+        tools:context=".ui.StoreFragment">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutStoreFragmentHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_default_home_horizontal">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.app.e_commerce_app.ui.customview.ProductList
-                android:id="@+id/layoutProductList"
+            <com.app.e_commerce_app.ui.customview.HeaderView
+                android:id="@+id/storeHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:is_show_ic_left="true"
+                app:is_show_ic_right="true"
+                app:is_show_title="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:title="@string/default_title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/layoutRVCategoryStores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default_home_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingBottom="@dimen/padding_default"
+            app:layout_constraintTop_toBottomOf="@id/layoutStoreFragmentHeader">
 
+            <com.app.e_commerce_app.ui.customview.CategoryRadioList
+                android:id="@+id/layoutCategoryList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constrainedHeight="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutRVCategoryStores">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_default_home_horizontal">
+
+                <com.app.e_commerce_app.ui.customview.ProductList
+                    android:id="@+id/layoutProductList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

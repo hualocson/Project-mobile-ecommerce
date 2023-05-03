@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.databinding.ItemProductBinding
-import com.app.e_commerce_app.model.ProductModel
+import com.app.e_commerce_app.model.product.ProductModel
 import com.squareup.picasso.Picasso
 
 class ProductAdapter(
-   private val context: Context,
-   private val onClick : (ProductModel) -> Unit,
+    private val context: Context,
+    private val onClick : (ProductModel) -> Unit,
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     private var productList: List<ProductModel> = listOf()
@@ -35,7 +35,7 @@ class ProductAdapter(
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         with(holder)  {
-            this.bindData(productList[position])
+            bindData(productList[position])
         }
     }
 

@@ -17,7 +17,7 @@ class CategoryButtonAdapter(
 
     private var categoryList: ArrayList<CategoryRadioButton> = ArrayList()
     private var isNewRadioButtonChecked: Boolean = false
-    private var lastCheckedPosition: Int = -1;
+    private var lastCheckedPosition: Int = -1
 
     inner class CategoryViewHolder(private val binding: ItemCategoryButtonBinding) :
         RecyclerView.ViewHolder(binding.root) {

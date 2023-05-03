@@ -3,19 +3,21 @@ package com.app.e_commerce_app.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
+import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.repository.ProductRepository
-import com.app.e_commerce_app.model.CategoryModel
-import com.app.e_commerce_app.model.ProductData
-import com.app.e_commerce_app.model.ProductModel
+import com.app.e_commerce_app.model.product.ProductModel
 import com.app.e_commerce_app.utils.Resource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ProductViewModel(application: Application) : AndroidViewModel(application) {
+class ProductViewModel(application: Application) : BaseViewModel() {
     private val productRepository: ProductRepository = ProductRepository()
 
     private val _productsData = MutableLiveData<List<ProductModel>>()
     val productsData: LiveData<List<ProductModel>> = _productsData
+    private val _productDetailData = MutableLiveData<ProductModel>()
+    val productDetailData : LiveData<ProductModel> = _productDetailData
 
     fun getAllProducts() = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
@@ -30,7 +32,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun getProductsByCategory(id : Int) = liveData(Dispatchers.IO) {
+    fun getProductsByCategory(id: Int) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
 
         when (val response = productRepository.getProductsByCategory(id)) {
@@ -40,7 +42,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun getProductsById(id : Int) = liveData(Dispatchers.IO) {
+    fun getProductsById(id: Int) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))
         when (val response = productRepository.getProductsById(id)) {
             is NetWorkResult.Success -> emit(Resource.success(response.data.data))
@@ -48,7 +50,21 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
             is NetWorkResult.Exception -> emit(Resource.error(null, response.e.message))
         }
     }
-    class ProductViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
+
+    fun fetchProductDetail(id: Int) {
+        showLoading(true)
+        Log.d("LOAD in PRODUCT:", "LOAD")
+        parentJob = viewModelScope.launch(Dispatchers.IO) {
+            val response = productRepository.getProductsById(id)
+            if (response is NetWorkResult.Success) {
+                _productDetailData.postValue(response.data.data!!)
+            }
+        }
+        registerJobFinish()
+    }
+
+    class ProductViewModelFactory(private val application: Application) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(ProductViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
