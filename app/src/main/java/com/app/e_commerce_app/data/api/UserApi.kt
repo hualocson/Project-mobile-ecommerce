@@ -19,4 +19,6 @@ interface UserApi {
 
     @POST(Constants.CHECK_EMAIL)
     suspend fun checkEmail(@Body email : PreSignupRequest) : Response<CustomResponse<CheckEmailResponse>>
+    @GET(Constants.USER_ADDRESS)
+    suspend fun getAllUserAddresses(): Response<CustomResponse<List<AddressJson>>>
 }

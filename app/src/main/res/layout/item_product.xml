@@ -3,6 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="productData"
+            type="com.app.e_commerce_app.model.product.ProductModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -23,9 +29,9 @@
                 android:layout_width="@dimen/product_item_width"
                 android:layout_height="@dimen/product_item_width"
                 android:background="@drawable/background_product_item"
-                android:contentDescription="Product Img"
                 android:padding="20dp"
                 android:scaleType="centerCrop"
+                app:imageUrl="@{productData.productImage}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -56,7 +62,7 @@
                 android:gravity="top|left"
                 android:maxLines="2"
                 android:minLines="2"
-                android:text="Laptop Laptop Laptop "
+                android:text="@{productData.name}"
                 android:textAlignment="textStart"
                 android:textColor="@color/text_color"
                 android:textSize="16sp"
@@ -100,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center|left"
-                android:text="21.499.000"
+                android:text="@{productData.minPrice}"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/linearLayout"
