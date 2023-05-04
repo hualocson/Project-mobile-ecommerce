@@ -1,4 +1,4 @@
-package com.app.e_commerce_app.data.api.repository
+package com.app.e_commerce_app.data.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
