@@ -1,23 +1,14 @@
 package com.app.e_commerce_app.model
 
-import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class RegisterRequest(
-    @SerializedName("email")
     val email: String,
-
-    @SerializedName("password")
     val password: String,
-
-    @SerializedName("firstName")
+    val avatar: String,
     val firstName: String,
-
-    @SerializedName("lastName")
     val lastName: String,
-
-    @SerializedName("phone")
     val phone: String,
-
-    @SerializedName("avatar")
-    val avatar: String
-)
+): Parcelable
