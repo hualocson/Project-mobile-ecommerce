@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.data.api.NetWorkResult
-import com.app.e_commerce_app.data.api.repository.CartRespository
+import com.app.e_commerce_app.data.repository.CartRespository
 import com.app.e_commerce_app.model.CartModel
 import com.app.e_commerce_app.model.product.ProductDetailModel
 import com.app.e_commerce_app.model.product.ProductModel
