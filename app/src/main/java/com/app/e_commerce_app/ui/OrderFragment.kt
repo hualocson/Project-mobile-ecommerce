@@ -5,27 +5,58 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
+import com.app.e_commerce_app.base.BaseFragment
+import com.app.e_commerce_app.databinding.FragmentHomepageBinding
 import com.app.e_commerce_app.databinding.FragmentOrderBinding
+import com.app.e_commerce_app.model.CartModel
+import com.app.e_commerce_app.ui.adapter.CartAdapter
+import com.app.e_commerce_app.viewmodel.CartViewModel
 
-class OrderFragment : Fragment(R.layout.fragment_order) {
-    private var _binding: FragmentOrderBinding? = null
-    private val binding get() = _binding!!
+class OrderFragment : BaseFragment<FragmentOrderBinding>() {
 
+    private val cartViewModel: CartViewModel by activityViewModels {
+        CartViewModel.CartViewModelFactory(requireActivity().application)
+    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentOrderBinding.inflate(inflater, container, false)
-        return binding.root
+    private val cartAdapter: CartAdapter by lazy{
+        CartAdapter(requireContext(), onItemClick, onItemDelete)
+    }
+
+    private fun initControls(){
+        registerObserverLoadingEvent(cartViewModel, viewLifecycleOwner)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.rvProductCart.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvProductCart.adapter = cartAdapter
+        binding.cartViewModel = cartViewModel
+        cartViewModel.getAllItems()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initControls()
     }
 
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private val onItemClick: (CartModel) -> Unit = {
+
+    }
+
+    private val onItemDelete: (CartModel) -> Unit = {
+
+    }
+
+    override fun inflateBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentOrderBinding {
+        return FragmentOrderBinding.inflate(inflater, container, false)
     }
 
 }

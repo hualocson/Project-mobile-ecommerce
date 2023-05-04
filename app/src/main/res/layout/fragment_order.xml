@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="cartViewModel"
+            type="com.app.e_commerce_app.viewmodel.CartViewModel" />
+
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -39,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:scrollbars="none"
+                app:items="@{cartViewModel.cartsData}"
                 tools:listitem="@layout/item_cart" />
 
         </ScrollView>
