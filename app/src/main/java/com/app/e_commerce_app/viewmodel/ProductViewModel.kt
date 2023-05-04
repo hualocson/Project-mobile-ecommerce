@@ -51,6 +51,28 @@ class ProductViewModel(application: Application) : BaseViewModel() {
         }
     }
 
+    fun fetchAllProducts() {
+        showLoading(true)
+        parentJob = viewModelScope.launch(Dispatchers.IO) {
+            val response = productRepository.getAllProducts()
+            if(response is NetWorkResult.Success) {
+                _productsData.postValue(response.data.data!!.products)
+            }
+        }
+        registerJobFinish()
+    }
+
+    fun fetchProductByCategoryId(id: Int) {
+        showLoading(true)
+        parentJob = viewModelScope.launch(Dispatchers.IO) {
+            val response = productRepository.getProductsByCategory(id)
+            if(response is NetWorkResult.Success) {
+                _productsData.postValue(response.data.data!!.products)
+            }
+        }
+        registerJobFinish()
+    }
+
     fun fetchProductDetail(id: Int) {
         showLoading(true)
         Log.d("LOAD in PRODUCT:", "LOAD")

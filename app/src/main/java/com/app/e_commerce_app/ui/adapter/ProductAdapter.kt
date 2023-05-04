@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.app.e_commerce_app.common.BindableAdapter
 import com.app.e_commerce_app.databinding.ItemProductBinding
 import com.app.e_commerce_app.model.product.ProductModel
 import com.squareup.picasso.Picasso
@@ -11,14 +12,17 @@ import com.squareup.picasso.Picasso
 class ProductAdapter(
     private val context: Context,
     private val onClick : (ProductModel) -> Unit,
-) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(), BindableAdapter<ProductModel> {
 
     private var productList: List<ProductModel> = listOf()
     inner class ProductViewHolder(private val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindData(productModel: ProductModel) {
-            binding.tvProductsName.text = productModel.name
-            binding.productPrice.text = productModel.minPrice.toString()
-            Picasso.get().load(productModel.productImage).into(binding.productImg)
+            binding.productData = productModel
+            binding.executePendingBindings()
+
+//            binding.tvProductsName.text = productModel.name
+//            binding.productPrice.text = productModel.minPrice.toString()
+//            Picasso.get().load(productModel.productImage).into(binding.productImg)
             binding.layoutProductsItem.setOnClickListener { onClick(productModel) }
         }
     }
@@ -41,6 +45,11 @@ class ProductAdapter(
 
     fun setProducts(products : List<ProductModel> ) {
         this.productList = products
+        notifyDataSetChanged()
+    }
+
+    override fun setItems(items: List<ProductModel>) {
+        this.productList = items
         notifyDataSetChanged()
     }
 }

@@ -6,6 +6,7 @@ object Constants {
 //    const val BASE_URL = "https://server-rests-api-mobile.onrender.com/api/v1/"
     const val BASE_URL = "https://server-rests-api-mobile-dev.onrender.com/api/v1/" //dev
     const val LOGIN_URL = "users/signin"
+    const val USER_ADDRESS = "users/addresses"
     const val USER_PROFILE = "users/profile"
     const val REGISTER_URL = "users/signup"
     const val CHECK_EMAIL = "users/email"

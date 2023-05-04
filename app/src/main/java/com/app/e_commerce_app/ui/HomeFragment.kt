@@ -43,7 +43,6 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>() {
 //        loadProfile()
         loadSlider()
 
-        Log.d("HomeFragment", "onViewCreated")
         registerObserverLoadingEvent(userViewModel, viewLifecycleOwner)
         binding.layoutCategoryList.setAdapter(onCategoryItemButtonClick)
         binding.layoutProductList.setAdapter(onProductItemClick)
@@ -51,6 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.userViewModel = userViewModel
         binding.layoutCategoryList.loadCategory()
+//        binding.layoutProductList.loadProductByCategoryId(0)
         binding.layoutProductList.loadProductByCategoryId(0)
         binding.layoutCategoryIconList.loadCategory()
 

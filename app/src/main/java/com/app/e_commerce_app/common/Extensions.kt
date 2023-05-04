@@ -10,5 +10,6 @@ get() {
     listDestination.add(R.id.fillProfileFragment)
     listDestination.add(R.id.storeFragment)
     listDestination.add(R.id.productDetailFragment)
+    listDestination.add(R.id.addressFragment)
     return listDestination
 }

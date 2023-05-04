@@ -49,6 +49,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             tokenRepository.removeToken()
             controller.navigate(R.id.loginFragment)
         }
+
+        binding.profileAddressLabel.setOnClickListener{
+            controller.navigate(R.id.action_profileFragment_to_addressFragment)
+        }
     }
 
     private fun loadProfile() {

@@ -4,17 +4,15 @@ import android.app.Application
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.databinding.CustomProductListBinding
-import com.app.e_commerce_app.model.product.ProductModel
 import com.app.e_commerce_app.ui.adapter.ProductAdapter
 import com.app.e_commerce_app.utils.OnProductItemClick
-import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.ProductViewModel
 
 class ProductList @JvmOverloads constructor(
@@ -25,7 +23,6 @@ class ProductList @JvmOverloads constructor(
     private var _binding: CustomProductListBinding? = null
     private val binding get() = _binding!!
 
-    private var productList: ArrayList<ProductModel>? = null
     private var productAdapter: ProductAdapter? = null
 
     private val productViewModel: ProductViewModel by lazy {
@@ -37,83 +34,97 @@ class ProductList @JvmOverloads constructor(
 
     init {
         _binding = CustomProductListBinding.inflate(LayoutInflater.from(context), this, true)
+        binding.lifecycleOwner  = findLifecycleOwner()
+        productViewModel.fetchAllProducts()
         binding.rvProductList.layoutManager = GridLayoutManager(context, 2)
+    }
+
+//    private fun loadProduct() {
+//        if(productViewModel.productsData.value != null) {
+//            val data = productViewModel.productsData.value
+//            productAdapter!!.setProducts(data as ArrayList<ProductModel>)
+//        }
+//        else {
+//            productViewModel.getAllProducts().observe(context as LifecycleOwner) {
+//                it?.let { resource ->
+//                    when (resource.status) {
+//                        Status.SUCCESS -> {
+//                            resource.data?.let { data ->
+//                                productAdapter!!.setProducts(data.products)
+//                            }
+//                            binding.rvProductList.visibility = View.VISIBLE
+//                        }
+//                        Status.ERROR -> {
+//                            Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+//                            binding.rvProductList.visibility = View.VISIBLE
+//                        }
+//                        Status.LOADING -> {
+//                            binding.rvProductList.visibility = View.INVISIBLE
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//
+//    }
+
+
+    private fun findLifecycleOwner(): LifecycleOwner {
+        var parent = parent
+        while (parent != null) {
+            if (parent is LifecycleOwner) {
+                return parent
+            }
+            parent = parent.parent
+        }
+        return context as LifecycleOwner
     }
 
 
     private fun loadProduct() {
-        if(productViewModel.productsData.value != null) {
-            val data = productViewModel.productsData.value
-            productAdapter!!.setProducts(data as ArrayList<ProductModel>)
-        }
-        else {
-            productViewModel.getAllProducts().observe(context as LifecycleOwner) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data?.let { data ->
-                                productAdapter!!.setProducts(data.products as ArrayList<ProductModel>)
-                            }
-                            binding.pgbProducts.visibility = View.GONE
-                            binding.rvProductList.visibility = View.VISIBLE
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                            binding.pgbProducts.visibility = View.GONE
-                            binding.rvProductList.visibility = View.VISIBLE
-                        }
-                        Status.LOADING -> {
-                            binding.pgbProducts.visibility = View.VISIBLE
-                            binding.pgbProducts.bringToFront()
-                            binding.rvProductList.visibility = View.INVISIBLE
-                        }
-                    }
-                }
-            }
-        }
-
+        productViewModel.fetchAllProducts()
     }
-
 
     fun loadProductByCategoryId(id: Int) {
-        if (productList == null) {
-            productList = ArrayList()
-        }
-        if (id != 0) {
-            productViewModel.getProductsByCategory(id).observe(context as LifecycleOwner) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data?.let { data ->
-                                productList = data.products
-                                productAdapter!!.setProducts(productList as ArrayList<ProductModel>)
-                            }
-                            binding.pgbProducts.visibility = View.GONE
-                            binding.rvProductList.visibility = View.VISIBLE
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                            binding.pgbProducts.visibility = View.GONE
-                            binding.rvProductList.visibility = View.VISIBLE
-                        }
-                        Status.LOADING -> {
-                            binding.pgbProducts.visibility = View.VISIBLE
-                            binding.pgbProducts.bringToFront()
-                            productList!!.clear()
-                            binding.rvProductList.visibility = View.INVISIBLE
-                        }
-                    }
-                }
-            }
-        } else
+        if (id == 0)
             loadProduct()
+        else
+            productViewModel.fetchProductByCategoryId(id)
     }
+
+//    fun loadProductByCategoryId(id: Int) {
+//        if (productList == null) {
+//            productList = ArrayList()
+//        }
+//        if (id != 0) {
+//            productViewModel.getProductsByCategory(id).observe(context as LifecycleOwner) {
+//                it?.let { resource ->
+//                    when (resource.status) {
+//                        Status.SUCCESS -> {
+//                            resource.data?.let { data ->
+//                                productList = data.products
+//                                productAdapter!!.setProducts(productList as ArrayList<ProductModel>)
+//                            }
+//                            binding.rvProductList.visibility = View.VISIBLE
+//                        }
+//                        Status.ERROR -> {
+//                            Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+//                            binding.rvProductList.visibility = View.VISIBLE
+//                        }
+//                        Status.LOADING -> {
+//                            productList!!.clear()
+//                            binding.rvProductList.visibility = View.INVISIBLE
+//                        }
+//                    }
+//                }
+//            }
+//        } else
+//            loadProduct()
+//    }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         _binding = null
-        productList!!.clear()
-        productList = null
         productAdapter = null
     }
 
