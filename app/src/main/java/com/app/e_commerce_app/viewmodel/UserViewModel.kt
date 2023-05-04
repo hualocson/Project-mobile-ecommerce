@@ -8,6 +8,8 @@ import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.repository.TokenRepository
 import com.app.e_commerce_app.data.repository.UserRepository
 import com.app.e_commerce_app.model.LoginRequest
+import com.app.e_commerce_app.model.PreSignupRequest
+import com.app.e_commerce_app.model.RegisterRequest
 import com.app.e_commerce_app.model.UserJson
 import com.app.e_commerce_app.utils.Resource
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +22,35 @@ class UserViewModel(application: Application) : BaseViewModel() {
 
     private val _userLiveData = MutableLiveData<UserJson>()
     val userLiveData: LiveData<UserJson> = _userLiveData
+
+    fun checkEmail(preSignUpRequest : PreSignupRequest) = liveData(Dispatchers.IO)
+    {
+        emit(Resource.loading(null))
+
+        when (val response = userRepository.checkEmail(preSignUpRequest)) {
+            is NetWorkResult.Success -> {
+                response.data.data.let {
+                    emit(Resource.success(it))
+                }
+            }
+            is NetWorkResult.Error -> emit(Resource.error(null, response.message))
+            is NetWorkResult.Exception -> emit(Resource.error(null, response.e.message))
+        }
+    }
+
+    fun register(registerRequest: RegisterRequest) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(null))
+
+        when (val response = userRepository.register(registerRequest)) {
+            is NetWorkResult.Success -> {
+                response.data.data.let { userJson ->
+                    emit(Resource.success(userJson))
+                }
+            }
+            is NetWorkResult.Error -> emit(Resource.error(null, response.message))
+            is NetWorkResult.Exception -> emit(Resource.error(null, response.e.message))
+        }
+    }
 
     fun login(loginRequest: LoginRequest) = liveData(Dispatchers.IO) {
         emit(Resource.loading(null))

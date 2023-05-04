@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserJson(
+    val id: Int,
     val email: String,
     private val firstName: String,
     private val lastName: String,
