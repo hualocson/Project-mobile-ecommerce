@@ -1,14 +1,10 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentProductDetailBinding
@@ -44,7 +40,6 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
         super.onCreate(savedInstanceState)
         val bundle = arguments
         val id = bundle!!.getInt("id")
-        Log.d("ID:::", id.toString())
         productDetailViewModel.fetchProductDetail(id)
     }
 
@@ -87,9 +82,9 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
         }
     }
 
-    private val onVariationClick: (VariationModel) -> Unit= {}
+    private val onVariationClick: (VariationModel) -> Unit = {}
 
 
-    private val onVariationOptionClick: (VariationOptionModel) -> Unit= {}
+    private val onVariationOptionClick: (VariationOptionModel) -> Unit = {}
 
 }

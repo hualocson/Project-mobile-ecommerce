@@ -2,11 +2,14 @@ package com.app.e_commerce_app.viewmodel
 
 import android.app.Application
 import android.util.Log
+import android.util.MutableDouble
 import androidx.lifecycle.*
 import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.repository.ProductRepository
+import com.app.e_commerce_app.data.repository.UserRepository
 import com.app.e_commerce_app.data.repository.VariationRepository
+import com.app.e_commerce_app.model.AddressJson
 import com.app.e_commerce_app.model.product.ProductDetailModel
 import com.app.e_commerce_app.model.variation.VariationModel
 import kotlinx.coroutines.Dispatchers
