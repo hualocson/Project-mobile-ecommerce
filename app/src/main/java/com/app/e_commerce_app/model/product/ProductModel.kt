@@ -12,7 +12,7 @@ data class ProductModel(
     val name: String,
     val description: String,
     val productImage: String,
-    private val productItems: ArrayList<ProductItemJson>? = null,
+    val productItems: ArrayList<ProductItemJson>? = null,
     val minPrice: Int,
 ) : Parcelable {
     override fun toString(): String {

@@ -5,13 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentProductDetailBinding
+import com.app.e_commerce_app.model.CartModel
 import com.app.e_commerce_app.model.variation.VariationModel
 import com.app.e_commerce_app.model.variation.VariationOptionModel
 import com.app.e_commerce_app.ui.adapter.VariationAdapter
+import com.app.e_commerce_app.viewmodel.CartViewModel
 import com.app.e_commerce_app.viewmodel.ProductDetailViewModel
 
 class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
@@ -29,6 +34,11 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
     private val productDetailViewModel: ProductDetailViewModel by activityViewModels {
         ProductDetailViewModel.ProductDetailViewModelFactory(requireActivity().application)
     }
+
+    private val cartViewModel: CartViewModel by activityViewModels {
+        CartViewModel.CartViewModelFactory(requireActivity().application)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +75,15 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
                 binding.tvDescFull.visibility = View.GONE
                 binding.tvDescFull.maxLines = 2
             }
+        }
+
+
+        binding.btnAddToCart.setOnClickListener {
+            val itemName = binding.tvProductName.text.toString()
+            val itemImg = productDetailViewModel.productDetailData.value!!.product.productImage
+            val itemPrice = binding.tvTotalprice.text.toString()
+            val cartItem: CartModel = CartModel(itemName, itemImg, itemPrice, "1")
+            cartViewModel.insertCart(cartItem)
         }
     }
 
