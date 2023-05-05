@@ -1,9 +1,10 @@
-package com.app.e_commerce_app.data.repository
+package com.app.e_commerce_app.data.services
 
+import com.app.e_commerce_app.base.network.BaseRemoteService
 import com.app.e_commerce_app.common.AppSharePreference
 import com.app.e_commerce_app.model.token.TokenModel
 
-class TokenRepository(private val appSharePreference: AppSharePreference) {
+class TokenRemoteService(private val appSharePreference: AppSharePreference) : BaseRemoteService() {
     companion object {
         private const val ACCESS_TOKEN_KEY = "access_token"
         private const val REFRESH_TOKEN_KEY = "refresh_token"
@@ -54,11 +55,5 @@ class TokenRepository(private val appSharePreference: AppSharePreference) {
         sharedPreferences?.edit()?.remove(ACCESS_TOKEN_KEY)?.apply()
         sharedPreferences?.edit()?.remove(REFRESH_TOKEN_KEY)?.apply()
         sharedPreferences?.edit()?.putBoolean(REMEMBER, false)?.apply()
-    }
-
-    fun checkIsLogin(): Boolean {
-        if (getAccessToken().isNullOrEmpty() or getRefreshToken().isNullOrEmpty())
-            return false
-        return true
     }
 }

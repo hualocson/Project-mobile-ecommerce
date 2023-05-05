@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProductData(
-    var products: ArrayList<ProductModel>
+    var products: List<ProductModel>
 ) : Parcelable

@@ -1,6 +1,8 @@
 package com.app.e_commerce_app.data.api
 
 import com.app.e_commerce_app.MyApplication
+import com.app.e_commerce_app.base.network.BaseNetworkException
+import com.app.e_commerce_app.base.network.NetworkErrorException
 import com.app.e_commerce_app.common.AppSharePreference
 import com.app.e_commerce_app.common.AuthInterceptor
 import com.app.e_commerce_app.data.repository.TokenRepository
@@ -48,23 +50,46 @@ object ApiConfig {
     }
 
     suspend fun <T : Any> handleApi(execute: suspend () -> Response<T>): NetWorkResult<T> {
-        return try {
-            val response = execute()
-            val body = response.body()
-
-            if (response.isSuccessful && body != null) {
-                NetWorkResult.Success(body)
-            } else {
+        val response: Response<T>
+        try {
+            response = execute()
+        }
+        catch (t: Throwable) {
+            return NetWorkResult.Error(parseNetworkErrorException(t))
+        }
+        return if (response.isSuccessful) {
+            if (response.body() == null) {
                 val errBody: CustomResponse<Nothing> = Gson().fromJson<CustomResponse<Nothing>>(
                     response.errorBody()?.string(),
                     CustomResponse::class.java
                 )
-                NetWorkResult.Error(code = response.code(), message = errBody.message)
+                NetWorkResult.Error(BaseNetworkException(responseMessage =  "Response without body, Message ${errBody.message}", responseCode = 200))
+            } else {
+                NetWorkResult.Success(response.body()!!)
             }
-        } catch (e: HttpException) {
-            NetWorkResult.Error(code = e.code(), message = e.message())
-        } catch (e: Throwable) {
-            NetWorkResult.Exception(e)
+        } else {
+            val errorBody = response.errorBody()?.string() ?: ""
+            NetWorkResult.Error(parseError(response.message(), response.code(), errorBody))
         }
     }
+
+    private  fun parseError(
+        responseMessage: String?,
+        responseCode: Int,
+        errorBody: String?
+    ): BaseNetworkException {
+
+        val baseNetworkException =  BaseNetworkException(responseMessage,responseCode)
+        errorBody?.let{
+            baseNetworkException.parseFromString(it)
+        }
+
+        return baseNetworkException
+    }
+
+    private fun parseNetworkErrorException(throwable: Throwable): NetworkErrorException {
+        return NetworkErrorException(throwable.message)
+    }
+
+
 }

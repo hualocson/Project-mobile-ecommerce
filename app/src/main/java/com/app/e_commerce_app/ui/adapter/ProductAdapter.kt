@@ -1,28 +1,26 @@
 package com.app.e_commerce_app.ui.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.common.BindableAdapter
 import com.app.e_commerce_app.databinding.ItemProductBinding
 import com.app.e_commerce_app.model.product.ProductModel
-import com.squareup.picasso.Picasso
 
 class ProductAdapter(
     private val context: Context,
-    private val onClick : (ProductModel) -> Unit,
+    private val onClick: (ProductModel) -> Unit,
 ) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(), BindableAdapter<ProductModel> {
 
-    private var productList: List<ProductModel> = listOf()
-    inner class ProductViewHolder(private val binding: ItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
+    private var productList: ArrayList<ProductModel> = ArrayList()
+
+    inner class ProductViewHolder(private val binding: ItemProductBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bindData(productModel: ProductModel) {
             binding.productData = productModel
             binding.executePendingBindings()
-
-//            binding.tvProductsName.text = productModel.name
-//            binding.productPrice.text = productModel.minPrice.toString()
-//            Picasso.get().load(productModel.productImage).into(binding.productImg)
             binding.layoutProductsItem.setOnClickListener { onClick(productModel) }
         }
     }
@@ -38,18 +36,12 @@ class ProductAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        with(holder)  {
-            bindData(productList[position])
-        }
-    }
-
-    fun setProducts(products : List<ProductModel> ) {
-        this.productList = products
-        notifyDataSetChanged()
+        holder.bindData(productList[position])
     }
 
     override fun setItems(items: List<ProductModel>) {
-        this.productList = items
+        Log.d("SetItems Product", items.toString())
+        this.productList = items as ArrayList<ProductModel>
         notifyDataSetChanged()
     }
 }

@@ -34,9 +34,10 @@ class ProductList @JvmOverloads constructor(
 
     init {
         _binding = CustomProductListBinding.inflate(LayoutInflater.from(context), this, true)
-        binding.lifecycleOwner  = findLifecycleOwner()
-        productViewModel.fetchAllProducts()
+//        productViewModel.fetchAllProducts()
         binding.rvProductList.layoutManager = GridLayoutManager(context, 2)
+        binding.productViewModel = productViewModel
+        binding.lifecycleOwner = findLifecycleOwner()
     }
 
 //    private fun loadProduct() {
@@ -80,16 +81,8 @@ class ProductList @JvmOverloads constructor(
         return context as LifecycleOwner
     }
 
-
-    private fun loadProduct() {
-        productViewModel.fetchAllProducts()
-    }
-
     fun loadProductByCategoryId(id: Int) {
-        if (id == 0)
-            loadProduct()
-        else
-            productViewModel.fetchProductByCategoryId(id)
+        productViewModel.fetchAllProducts()
     }
 
 //    fun loadProductByCategoryId(id: Int) {

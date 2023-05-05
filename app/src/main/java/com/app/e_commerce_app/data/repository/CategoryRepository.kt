@@ -2,10 +2,21 @@ package com.app.e_commerce_app.data.repository
 
 import com.app.e_commerce_app.data.api.ApiConfig
 import com.app.e_commerce_app.data.api.NetWorkResult
+import com.app.e_commerce_app.data.services.CategoryRemoteService
 import com.app.e_commerce_app.model.CategoryData
 import com.app.e_commerce_app.model.CustomResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class CategoryRepository {
-    suspend fun getAllCategories(): NetWorkResult<CustomResponse<CategoryData>> =
-        ApiConfig.handleApi { ApiConfig.categoryApi.getAllCategories() }
+class CategoryRepository(private val categoryRemoteService: CategoryRemoteService) {
+    suspend fun getAllCategories() = withContext(Dispatchers.IO) {
+        when(val result = categoryRemoteService.getAllCategories()) {
+            is NetWorkResult.Success -> {
+                result.data.data
+            }
+            is NetWorkResult.Error -> {
+                throw result.exception
+            }
+        }
+    }
 }

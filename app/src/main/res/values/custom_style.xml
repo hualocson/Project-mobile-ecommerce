@@ -14,4 +14,31 @@
     <style name="LatoFont">
         <item name="android:fontFamily">@font/lato</item>
     </style>
+
+    <style name="body_text_style">
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="cta_button_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/light_text_color</item>
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:background">@drawable/background_cta_button</item>
+    </style>
+
+    <style name="h2_highlight_style">
+        <item name="android:textSize">@dimen/text_size_heading</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="fontFamily">@font/lato</item>
+    </style>
+
+    <style name="button_style_normal">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:background">@drawable/background_button_normal</item>
+    </style>
 </resources>
