@@ -52,7 +52,7 @@ class ProductViewModel(application: Application) : BaseViewModel() {
 
     fun fetchAllProducts() {
         showLoading(true)
-        parentJob = viewModelScope.launch(Dispatchers.IO) {
+        parentJob = viewModelScope.launch(handler) {
             val products = productRepository.getAllProducts()
             _productsData.postValue(products)
         }

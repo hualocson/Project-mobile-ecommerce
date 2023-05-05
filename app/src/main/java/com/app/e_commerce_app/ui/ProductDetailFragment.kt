@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.base.BaseFragment
@@ -79,6 +80,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
             val itemPrice = binding.tvTotalprice.text.toString()
             val cartItem: CartModel = CartModel(itemName, itemImg, itemPrice, "1")
             cartViewModel.insertCart(cartItem)
+            Toast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG).show()
         }
     }
 
