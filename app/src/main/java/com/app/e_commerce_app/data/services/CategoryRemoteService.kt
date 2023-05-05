@@ -8,5 +8,5 @@ import com.app.e_commerce_app.model.CustomResponse
 
 class CategoryRemoteService:BaseRemoteService() {
     suspend fun getAllCategories(): NetWorkResult<CustomResponse<CategoryData>> =
-        ApiConfig.handleApi { ApiConfig.categoryApi.getAllCategories() }
+        handleApi { ApiConfig.categoryApi.getAllCategories() }
 }
