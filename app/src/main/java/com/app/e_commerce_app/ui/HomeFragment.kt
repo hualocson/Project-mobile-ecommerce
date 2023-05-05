@@ -1,12 +1,12 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
@@ -19,6 +19,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 
 class HomeFragment : BaseFragment<FragmentHomepageBinding>() {
+
     private var imageList: ArrayList<SlideModel>? = null
 
     private val userViewModel: UserViewModel by activityViewModels {
@@ -27,9 +28,11 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userViewModel.fetchUser()
+        if (!userViewModel.checkIsLogin())
+            navigateToPage(R.id.action_homeFragment_to_loginFragment)
+        else
+            userViewModel.fetchUser()
     }
-
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -38,19 +41,28 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>() {
         return FragmentHomepageBinding.inflate(inflater, container, false)
     }
 
+    private fun observerEvent() {
+        registerAllExceptionEvent(userViewModel, viewLifecycleOwner)
+        registerObserverLoadingEvent(userViewModel, viewLifecycleOwner)
+        registerObserverNavigateEvent(userViewModel, viewLifecycleOwner)
+
+        registerAllExceptionEvent(binding.layoutCategoryIconList.categoryViewModel, viewLifecycleOwner)
+        registerObserverLoadingEvent(binding.layoutCategoryIconList.categoryViewModel, viewLifecycleOwner)
+        registerObserverNavigateEvent(binding.layoutCategoryIconList.categoryViewModel, viewLifecycleOwner)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        loadProfile()
         loadSlider()
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.userViewModel = userViewModel
+        observerEvent()
 
-        registerObserverLoadingEvent(userViewModel, viewLifecycleOwner)
         binding.layoutCategoryList.setAdapter(onCategoryItemButtonClick)
         binding.layoutProductList.setAdapter(onProductItemClick)
         binding.layoutCategoryIconList.setAdapter(onCategoryIconButtonClick)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.userViewModel = userViewModel
+
         binding.layoutCategoryList.loadCategory()
-//        binding.layoutProductList.loadProductByCategoryId(0)
         binding.layoutProductList.loadProductByCategoryId(0)
         binding.layoutCategoryIconList.loadCategory()
 
@@ -77,8 +89,7 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>() {
     private fun loadSlider() {
         if (imageList == null) {
             imageList = ArrayList()
-        }
-        else
+        } else
             imageList!!.clear()
 
         imageList!!.add(SlideModel(R.drawable.image1));

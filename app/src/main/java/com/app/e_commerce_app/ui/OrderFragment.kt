@@ -14,11 +14,18 @@ import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentHomepageBinding
 import com.app.e_commerce_app.databinding.FragmentOrderBinding
+import com.app.e_commerce_app.databinding.FragmentProductDetailBinding
 import com.app.e_commerce_app.model.CartModel
 import com.app.e_commerce_app.ui.adapter.CartAdapter
 import com.app.e_commerce_app.viewmodel.CartViewModel
 
 class OrderFragment : BaseFragment<FragmentOrderBinding>() {
+    override fun inflateBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentOrderBinding {
+       return FragmentOrderBinding.inflate(inflater, container, false)
+    }
 
     private val cartViewModel: CartViewModel by activityViewModels {
         CartViewModel.CartViewModelFactory(requireActivity().application)
@@ -51,12 +58,4 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>() {
     private val onItemDelete: (CartModel) -> Unit = {
 
     }
-
-    override fun inflateBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentOrderBinding {
-        return FragmentOrderBinding.inflate(inflater, container, false)
-    }
-
 }

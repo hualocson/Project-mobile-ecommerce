@@ -9,6 +9,7 @@ import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.repository.ProductRepository
 import com.app.e_commerce_app.data.repository.UserRepository
 import com.app.e_commerce_app.data.repository.VariationRepository
+import com.app.e_commerce_app.data.services.ProductRemoteService
 import com.app.e_commerce_app.model.AddressJson
 import com.app.e_commerce_app.model.product.ProductDetailModel
 import com.app.e_commerce_app.model.variation.VariationModel
@@ -17,7 +18,8 @@ import kotlinx.coroutines.launch
 
 class ProductDetailViewModel(application: Application) : BaseViewModel() {
 
-    private val productRepository: ProductRepository = ProductRepository()
+    private val productRemoteService = ProductRemoteService()
+    private val productRepository: ProductRepository = ProductRepository(productRemoteService)
     private val variationRepository: VariationRepository = VariationRepository()
 
     private val _productDetailData = MutableLiveData<ProductDetailModel>()

@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+        <variable
+            name="categoryItem"
+            type="com.app.e_commerce_app.model.CategoryRadioButton" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,7 +30,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="All"
+                android:text="@{categoryItem.categoryName}"
+                android:checked="@{categoryItem.checked}"
                 android:textColor="@drawable/custom_radio_text_color"
                 android:background="@drawable/background_button_outline" />
         </androidx.constraintlayout.widget.ConstraintLayout>

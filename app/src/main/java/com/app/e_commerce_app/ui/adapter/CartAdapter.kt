@@ -53,7 +53,6 @@ class CartAdapter(
 
     override fun setItems(items: List<CartModel>) {
         this.carts = items
-        Log.d("SetItem", "")
         notifyDataSetChanged()
     }
 }

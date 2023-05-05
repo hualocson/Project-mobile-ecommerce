@@ -64,24 +64,24 @@ class SignupFragment : Fragment(R.layout.fragment_signup) {
         val preSignupRequest = PreSignupRequest(
             binding.etUsername.text.toString()
         )
-        userViewModel.checkEmail(preSignupRequest).observe(viewLifecycleOwner) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        val bundle = bundleOf(
-                            "email" to binding.etUsername.text.toString(),
-                            "password" to binding.etPassword.text.toString()
-                        )
-                        controller.navigate(R.id.fillProfileFragment, bundle)
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG)
-                            .show()
-                    }
-                    Status.LOADING -> {
-                    }
-                }
-            }
-        }
+//        userViewModel.checkEmail(preSignupRequest).observe(viewLifecycleOwner) {
+//            it?.let { resource ->
+//                when (resource.status) {
+//                    Status.SUCCESS -> {
+//                        val bundle = bundleOf(
+//                            "email" to binding.etUsername.text.toString(),
+//                            "password" to binding.etPassword.text.toString()
+//                        )
+//                        controller.navigate(R.id.fillProfileFragment, bundle)
+//                    }
+//                    Status.ERROR -> {
+//                        Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG)
+//                            .show()
+//                    }
+//                    Status.LOADING -> {
+//                    }
+//                }
+//            }
+//        }
     }
 }

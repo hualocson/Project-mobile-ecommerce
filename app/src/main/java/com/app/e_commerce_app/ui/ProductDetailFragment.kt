@@ -15,7 +15,7 @@ import com.app.e_commerce_app.ui.adapter.VariationAdapter
 import com.app.e_commerce_app.viewmodel.CartViewModel
 import com.app.e_commerce_app.viewmodel.ProductDetailViewModel
 
-class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>() {
+class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
