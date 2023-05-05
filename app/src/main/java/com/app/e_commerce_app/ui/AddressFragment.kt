@@ -15,12 +15,14 @@ import com.app.e_commerce_app.ui.adapter.AddressAdapter
 import com.app.e_commerce_app.ui.adapter.VariationAdapter
 import com.app.e_commerce_app.viewmodel.AddressViewModel
 
-class AddressFragment : BaseFragment<FragmentAddressBinding>() {
+class AddressFragment : BaseFragment<FragmentAddressBinding>(true) {
+
+
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentAddressBinding {
-        return FragmentAddressBinding.inflate(inflater, container, false)
+       return FragmentAddressBinding.inflate(inflater, container, false)
     }
 
     private val addressItemAdapter: AddressAdapter by lazy {

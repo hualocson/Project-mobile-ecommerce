@@ -1,9 +1,11 @@
 package com.app.e_commerce_app.ui.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.app.e_commerce_app.common.BindableAdapter
 import com.app.e_commerce_app.databinding.ItemCategoryBinding
 import com.app.e_commerce_app.model.CategoryModel
 import com.bumptech.glide.Glide
@@ -13,7 +15,7 @@ import com.squareup.picasso.Picasso
 class CategoryAdapter(
    private val context: Context,
    private val onClick : (CategoryModel) -> Unit
-) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(), BindableAdapter<CategoryModel> {
 
     private var categoryList: List<CategoryModel> = listOf()
     inner class CategoryViewHolder(private val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -42,8 +44,9 @@ class CategoryAdapter(
         }
     }
 
-    fun setCategories(categories : List<CategoryModel> ) {
-        this.categoryList = categories
+    override fun setItems(items: List<CategoryModel>) {
+        categoryList = items
+        Log.d("SetItem icon adapter ", "")
         notifyDataSetChanged()
     }
 }

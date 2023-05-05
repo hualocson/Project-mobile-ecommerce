@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.databinding.CustomCategoryListBinding
@@ -29,28 +30,34 @@ class CategoryIconList @JvmOverloads constructor(
 
     private var categoryAdapter: CategoryAdapter? = null
 
-    private val categoryViewModel: CategoryViewModel by lazy {
-//        ViewModelProvider(findViewTreeViewModelStoreOwner()!!)[CategoryViewModel::class.java]
+    val categoryViewModel: CategoryViewModel by lazy {
+//        ViewModelProvider(context as ViewModelStoreOwner)[CategoryViewModel::class.java]
         ViewModelProvider(
             context as ViewModelStoreOwner,
             CategoryViewModel.CategoryViewModelFactory(context.applicationContext as Application)
         )[CategoryViewModel::class.java]
     }
 
-
-
-    private val onCategoryIconClick : OnCategoryIconButtonClick = {
-
-    }
-
     init {
         _binding =
             CustomCategoryListBinding.inflate(LayoutInflater.from(context), this, true)
 
+        binding.lifecycleOwner  = findLifecycleOwner()
+        binding.categoryIconViewModel = categoryViewModel
 
-        categoryAdapter = CategoryAdapter(context, onCategoryIconClick)
         binding.rvCategoryList.layoutManager =
             GridLayoutManager(this.context, 4)
+    }
+
+    private fun findLifecycleOwner(): LifecycleOwner {
+        var parent = parent
+        while (parent != null) {
+            if (parent is LifecycleOwner) {
+                return parent
+            }
+            parent = parent.parent
+        }
+        return context as LifecycleOwner
     }
 
     override fun onDetachedFromWindow() {
@@ -71,29 +78,6 @@ class CategoryIconList @JvmOverloads constructor(
     }
 
     fun loadCategory() {
-        if (categoryViewModel.categoriesData.value == null) {
-            categoryViewModel.getAllCategories().observe(context as LifecycleOwner) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data?.let { data ->
-                                categoryAdapter!!.setCategories(data.categories)
-                            }
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                        }
-                        Status.LOADING -> {
-//                            Toast.makeText(context, "Category Loading", Toast.LENGTH_SHORT)
-//                                .show()
-                        }
-                    }
-                }
-            }
-
-        } else {
-            val data = categoryViewModel.categoriesData.value!!
-            categoryAdapter!!.setCategories(data)
-        }
+        categoryViewModel.fetchAllCategories()
     }
 }

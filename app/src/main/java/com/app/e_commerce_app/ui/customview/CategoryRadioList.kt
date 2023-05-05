@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
@@ -12,10 +11,8 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.databinding.CustomCategoryRadioButtonListBinding
-import com.app.e_commerce_app.model.CategoryModel
 import com.app.e_commerce_app.ui.adapter.CategoryButtonAdapter
 import com.app.e_commerce_app.utils.OnCategoryItemButtonClick
-import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.CategoryViewModel
 
 class CategoryRadioList @JvmOverloads constructor(
@@ -42,6 +39,8 @@ class CategoryRadioList @JvmOverloads constructor(
 
         binding.rvCategoryList.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        binding.lifecycleOwner = findLifecycleOwner()
+        binding.categoryViewModel = categoryViewModel
     }
 
     override fun onDetachedFromWindow() {
@@ -62,31 +61,45 @@ class CategoryRadioList @JvmOverloads constructor(
         binding.rvCategoryList.layoutManager = layoutManager
     }
 
-    fun loadCategory(id: Int = 0) {
-        if (categoryViewModel.categoriesData.value == null) {
-            categoryViewModel.getAllCategories().observe(context as LifecycleOwner) {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data?.let { data ->
-                                categoryButtonAdapter!!.setCategories(data.categories, id)
-                            }
-                        }
-                        Status.ERROR -> {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                        }
-                        Status.LOADING -> {
-                            Toast.makeText(context, "Category Loading", Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    }
-                }
+    private fun findLifecycleOwner(): LifecycleOwner {
+        var parent = parent
+        while (parent != null) {
+            if (parent is LifecycleOwner) {
+                return parent
             }
-
-        } else {
-            val data = categoryViewModel.categoriesData.value!!
-            categoryButtonAdapter!!.setCategories(data, id)
+            parent = parent.parent
         }
+        return context as LifecycleOwner
     }
+
+    fun loadCategory(id: Int = 0) {
+        categoryViewModel.fetchAllCategories()
+    }
+//    fun loadCategory(id: Int = 0) {
+//        if (categoryViewModel.categoriesData.value == null) {
+//            categoryViewModel.getAllCategories().observe(context as LifecycleOwner) {
+//                it?.let { resource ->
+//                    when (resource.status) {
+//                        Status.SUCCESS -> {
+//                            resource.data?.let { data ->
+//                                categoryButtonAdapter!!.setCategories(data.categories, id)
+//                            }
+//                        }
+//                        Status.ERROR -> {
+//                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+//                        }
+//                        Status.LOADING -> {
+//                            Toast.makeText(context, "Category Loading", Toast.LENGTH_SHORT)
+//                                .show()
+//                        }
+//                    }
+//                }
+//            }
+//
+//        } else {
+//            val data = categoryViewModel.categoriesData.value!!
+//            categoryButtonAdapter!!.setCategories(data, id)
+//        }
+
 }
 

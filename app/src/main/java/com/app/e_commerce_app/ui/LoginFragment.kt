@@ -1,63 +1,50 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.app.e_commerce_app.MyApplication
 import com.app.e_commerce_app.R
-import com.app.e_commerce_app.common.AppSharePreference
-import com.app.e_commerce_app.data.repository.TokenRepository
-import com.app.e_commerce_app.data.repository.UserRepository
+import com.app.e_commerce_app.base.BaseFragment
+import com.app.e_commerce_app.databinding.FragmentHomepageBinding
 import com.app.e_commerce_app.databinding.FragmentLoginBinding
 import com.app.e_commerce_app.model.LoginRequest
-import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.UserViewModel
 
 
-class LoginFragment : Fragment(R.layout.fragment_login) {
+class LoginFragment : BaseFragment<FragmentLoginBinding>(true) {
 
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
-
-
-    private val userViewModel: UserViewModel by viewModels {
+    private val userViewModel: UserViewModel by activityViewModels {
         UserViewModel.UserViewModelFactory(requireActivity().application)
     }
 
-    override fun onCreateView(
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        container: ViewGroup?
+    ): FragmentLoginBinding {
+        return FragmentLoginBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val controller = findNavController()
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        registerAllExceptionEvent(userViewModel, viewLifecycleOwner)
+        registerObserverLoadingEvent(userViewModel, viewLifecycleOwner)
+        registerObserverNavigateEvent(userViewModel, viewLifecycleOwner)
 
         binding.tvSignup.setOnClickListener {
-            controller.navigate(R.id.signupFragment)
+            navigateToPage(R.id.signupFragment)
         }
 
         binding.btnLogin.setOnClickListener {
             //Nếu email hoặc password rỗng thì thông báo
-            if (binding.etUsername.text.toString().isEmpty() || binding.etPassword.text.toString().isEmpty()) {
-                Toast.makeText(requireContext(), "Please enter email and password", Toast.LENGTH_LONG).show()
+            if (binding.etUsername.text.toString().isEmpty() || binding.etPassword.text.toString()
+                    .isEmpty()
+            ) {
+                showErrorMessage("Invalid Email or Password!!")
             } else {
                 Login()
             }
@@ -65,31 +52,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun Login() {
-        val controller = findNavController()
 
         val loginRequest =
             LoginRequest(binding.etUsername.text.toString(), binding.etPassword.text.toString())
 
         val isChecked = binding.ckbLogin.isChecked
 
-        userViewModel.login(loginRequest).observe(viewLifecycleOwner) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        resource.data?.let { tokenModel ->
-                            userViewModel.setRemember(isChecked)
-                            controller.navigate(R.id.homeFragment)
-                        }
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG)
-                            .show()
-                    }
-                    Status.LOADING -> {
 
-                    }
-                }
-            }
-        }
+        userViewModel.login(loginRequest)
+        userViewModel.setRemember(isChecked)
     }
 }

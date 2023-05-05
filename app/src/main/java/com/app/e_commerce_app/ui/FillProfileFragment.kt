@@ -63,25 +63,25 @@ class FillProfileFragment : Fragment(R.layout.fragment_order) {
             binding.fillLastname.text.toString(),
             binding.fillPhone.text.toString()
         )
-        userViewModel.register(resgisterRequest).observe(viewLifecycleOwner) {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        //Thông báo đăng ký thành công
-                        Toast.makeText(requireContext(), "Register success", Toast.LENGTH_LONG)
-                            .show()
-                        //Chuyển sang màn hình login
-                        controller.navigate(R.id.loginFragment)
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG)
-                            .show()
-                    }
-                    Status.LOADING -> {
-                    }
-                }
-            }
-        }
+//        userViewModel.register(resgisterRequest).observe(viewLifecycleOwner) {
+//            it?.let { resource ->
+//                when (resource.status) {
+//                    Status.SUCCESS -> {
+//                        //Thông báo đăng ký thành công
+//                        Toast.makeText(requireContext(), "Register success", Toast.LENGTH_LONG)
+//                            .show()
+//                        //Chuyển sang màn hình login
+//                        controller.navigate(R.id.loginFragment)
+//                    }
+//                    Status.ERROR -> {
+//                        Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG)
+//                            .show()
+//                    }
+//                    Status.LOADING -> {
+//                    }
+//                }
+//            }
+//        }
     }
 
     override fun onDestroyView() {

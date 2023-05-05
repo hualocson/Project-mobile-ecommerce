@@ -16,4 +16,6 @@
     <color name="on_switch_button">#0E0E0E</color>
     <color name="off_switch_button">#F6F1F1</color>
     <color name="gray">#9BA4B5</color>
+    <color name="light_text_color">#FFFFFFFF</color>
+    <color name="error">#FD8A8A</color>
 </resources>
