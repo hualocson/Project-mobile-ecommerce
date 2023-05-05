@@ -23,13 +23,21 @@ class CartViewModel(application: Application) : BaseViewModel() {
     fun updateCart(cartModel:CartModel) = viewModelScope.launch {
         cartRespository.updateCart(cartModel)
     }
-    fun deletetCart(cartModel:CartModel) = viewModelScope.launch {
-        cartRespository.deleteCart(cartModel)
+//    fun deletetCart(cartModel:CartModel) = viewModelScope.launch {
+//        cartRespository.deleteCart(cartModel)
+//    }
+
+    fun deleteCart(cartModel: CartModel){
+        parentJob = viewModelScope.launch(handler) {
+            cartRespository.deleteCart(cartModel)
+        }
+        registerJobFinish()
+        getAllItems()
     }
 
     fun getAllItems() {
         showLoading(true)
-        parentJob = viewModelScope.launch(Dispatchers.IO) {
+        parentJob = viewModelScope.launch(handler) {
             val response = cartRespository.getAllItems()
             _cartsData.postValue(response)
         }

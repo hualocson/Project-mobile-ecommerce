@@ -18,7 +18,8 @@ import com.squareup.picasso.Picasso
 class CartAdapter(
    private val context: Context,
    private val onClick : (CartModel) -> Unit,
-   private val onDelete: (CartModel) -> Unit
+   private val onDelete: (CartModel) -> Unit,
+   private val itemClickCallback: (CartModel) -> Unit
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() , BindableAdapter<CartModel> {
 
     private var carts: List<CartModel> = listOf()
@@ -28,7 +29,26 @@ class CartAdapter(
 //            Picasso.get().load(cartModel.img).into(binding.shapeableImageView)
 //            binding.tvPricePopular.text = cartModel.price
             binding.cartitem = cartModel
+            Picasso.get().load(cartModel.img).into(binding.shapeableImageView)
             binding.executePendingBindings()
+            var itemQty: Int = cartModel.quantity.toInt()
+            binding.btnPlusQuantity.setOnClickListener{
+                itemQty = itemQty + 1
+                binding.tvQuantity.text = itemQty.toString()
+                cartModel.quantity = itemQty.toString()
+                itemClickCallback(cartModel)
+            }
+            binding.btnMinusQuantity.setOnClickListener{
+                if(itemQty != 0) {
+                    itemQty = itemQty - 1
+                    if(itemQty == 0){
+                        onDelete(cartModel)
+                    }
+                    binding.tvQuantity.text = itemQty.toString()
+                    cartModel.quantity = itemQty.toString()
+                    itemClickCallback(cartModel)
+                }
+            }
             binding.btnDeleteItemCart.setOnClickListener { onDelete(cartModel)}
             binding.Layout.setOnClickListener { onClick(cartModel)}
         }
@@ -53,6 +73,7 @@ class CartAdapter(
 
     override fun setItems(items: List<CartModel>) {
         this.carts = items
+        Log.d("items" , items.toString())
         notifyDataSetChanged()
     }
 }
