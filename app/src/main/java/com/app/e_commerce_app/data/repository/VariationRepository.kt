@@ -1,11 +1,20 @@
 package com.app.e_commerce_app.data.repository
 
-import com.app.e_commerce_app.data.api.ApiConfig
 import com.app.e_commerce_app.data.api.NetWorkResult
-import com.app.e_commerce_app.model.CustomResponse
-import com.app.e_commerce_app.model.variation.VariationModel
+import com.app.e_commerce_app.data.services.VariationRemoteService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class VariationRepository {
-    suspend fun getVariationsInCategory(id: Int): NetWorkResult<CustomResponse<List<VariationModel>>> =
-        ApiConfig.handleApi { ApiConfig.variationApi.getVariationsInCategory(id) }
+class VariationRepository @Inject constructor(private val variationRemoteService: VariationRemoteService) {
+    suspend fun getVariationsInCategory(id: Int) = withContext(Dispatchers.IO) {
+        when (val response = variationRemoteService.getVariationsInCategory(id)) {
+            is NetWorkResult.Success -> {
+                response.data.data
+            }
+            is NetWorkResult.Error -> {
+                throw response.exception
+            }
+        }
+    }
 }

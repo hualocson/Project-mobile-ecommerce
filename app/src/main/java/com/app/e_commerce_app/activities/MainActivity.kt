@@ -2,24 +2,25 @@ package com.app.e_commerce_app.activities
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import com.app.e_commerce_app.MyApplication
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseActivity
 import com.app.e_commerce_app.common.AppSharePreference
 import com.app.e_commerce_app.data.repository.TokenRepository
 import com.app.e_commerce_app.databinding.ActivityMainBinding
-import com.app.e_commerce_app.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     private var _binding: ActivityMainBinding? = null
@@ -52,15 +53,13 @@ class MainActivity : BaseActivity() {
             hideKeyboard()
             binding.loadingLayout.visibility = View.VISIBLE
         } else {
-            Log.d("MAIN ACTIVITY", "HIDE LOADING")
             binding.loadingLayout.visibility = View.GONE
         }
     }
 
     override fun onStop() {
         super.onStop()
-        val sharePreference = AppSharePreference(this)
-        val tokenRepository = TokenRepository(sharePreference)
+        val tokenRepository = TokenRepository(AppSharePreference(applicationContext))
         if (tokenRepository.getRemember() == false)
             tokenRepository.removeToken()
     }

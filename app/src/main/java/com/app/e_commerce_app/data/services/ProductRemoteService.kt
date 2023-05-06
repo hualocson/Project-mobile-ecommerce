@@ -1,19 +1,21 @@
 package com.app.e_commerce_app.data.services
 
 import com.app.e_commerce_app.base.network.BaseRemoteService
-import com.app.e_commerce_app.data.api.ApiConfig
 import com.app.e_commerce_app.data.api.NetWorkResult
+import com.app.e_commerce_app.data.api.ProductApi
 import com.app.e_commerce_app.model.CustomResponse
 import com.app.e_commerce_app.model.product.ProductData
 import com.app.e_commerce_app.model.product.ProductModel
+import javax.inject.Inject
 
-class ProductRemoteService : BaseRemoteService() {
+class ProductRemoteService @Inject constructor(private val productApi: ProductApi) :
+    BaseRemoteService() {
     suspend fun getAllProducts(): NetWorkResult<CustomResponse<ProductData>> =
-       handleApi { ApiConfig.productApi.getAllProducts() }
+        handleApi { productApi.getAllProducts() }
 
     suspend fun getProductsByCategory(id: Int): NetWorkResult<CustomResponse<ProductData>> =
-        ApiConfig.handleApi { ApiConfig.productApi.getProductsByCategory(id) }
+        handleApi { productApi.getProductsByCategory(id) }
 
     suspend fun getProductsById(id: Int): NetWorkResult<CustomResponse<ProductModel>> =
-        ApiConfig.handleApi { ApiConfig.productApi.getProductsById(id) }
+        handleApi { productApi.getProductsById(id) }
 }

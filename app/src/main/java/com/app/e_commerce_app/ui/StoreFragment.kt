@@ -5,65 +5,83 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
+import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentStoreBinding
-import com.app.e_commerce_app.model.CategoryModel
-import com.app.e_commerce_app.model.CategoryRadioButton
 import com.app.e_commerce_app.ui.adapter.CategoryButtonAdapter
+import com.app.e_commerce_app.ui.adapter.ProductAdapter
 import com.app.e_commerce_app.utils.OnCategoryItemButtonClick
 import com.app.e_commerce_app.utils.OnProductItemClick
-import com.app.e_commerce_app.utils.Status
-import com.app.e_commerce_app.viewmodel.CategoryViewModel
+import com.app.e_commerce_app.viewmodel.StoreViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+class StoreFragment : BaseFragment<FragmentStoreBinding>(true) {
 
-class StoreFragment : Fragment(R.layout.fragment_store) {
-
-    private var _binding: FragmentStoreBinding? = null
-    private val binding get() = _binding!!
     private var categoryId: Int = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentStoreBinding.inflate(inflater, container, false)
-        binding.layoutProductList.setAdapter(onProductItemClick)
-        binding.layoutCategoryList.setAdapter(onCategoryItemButtonClick)
-        return binding.root
+    private val storeViewModel by viewModels<StoreViewModel>()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val controller = findNavController()
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.storeViewModel = storeViewModel
+        observerEvent()
+        setUpRecycleView()
 
 
         val bundle = arguments
         categoryId = bundle!!.getInt("category_id")
 
-        if(categoryId == 0) {
+        if (categoryId == 0) {
             binding.storeHeader.setTitle("Most Popular")
         }
-        binding.layoutProductList.loadProductByCategoryId(categoryId)
-        binding.layoutCategoryList.loadCategory(categoryId)
+//        binding.layoutProductList.loadProductByCategoryId(categoryId)
+//        binding.layoutCategoryList.loadCategory(categoryId)
+        storeViewModel.getProductsByCategory(categoryId)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun observerEvent() {
+        registerAllExceptionEvent(storeViewModel, viewLifecycleOwner)
+        registerObserverLoadingEvent(storeViewModel, viewLifecycleOwner)
+        registerObserverNavigateEvent(storeViewModel, viewLifecycleOwner)
     }
+
+    private fun setUpRecycleView() {
+        binding.layoutProductList.adapter = ProductAdapter(requireContext(), onProductItemClick)
+        binding.layoutProductList.layoutManager = GridLayoutManager(context, 2)
+
+        binding.layoutCategoryList.adapter =
+            CategoryButtonAdapter(requireContext(), onCategoryItemButtonClick)
+        binding.layoutCategoryList.layoutManager =
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    override fun inflateBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentStoreBinding {
+        return FragmentStoreBinding.inflate(inflater, container, false)
+    }
+
     private val onCategoryItemButtonClick: OnCategoryItemButtonClick = { radioButton ->
-        binding.layoutProductList.loadProductByCategoryId(radioButton.id)
+        storeViewModel.getProductsByCategory(radioButton.id)
     }
 
     private val onProductItemClick: OnProductItemClick = {
-        Toast.makeText(context, it.name, Toast.LENGTH_LONG).show()
+        val controller = findNavController()
+        val bundle = bundleOf(
+            "id" to it.id
+        )
+        controller.navigate(R.id.productDetailFragment, bundle)
     }
 }

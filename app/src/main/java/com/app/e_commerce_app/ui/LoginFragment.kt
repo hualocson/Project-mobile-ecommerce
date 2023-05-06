@@ -4,21 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
-import com.app.e_commerce_app.databinding.FragmentHomepageBinding
 import com.app.e_commerce_app.databinding.FragmentLoginBinding
 import com.app.e_commerce_app.model.LoginRequest
 import com.app.e_commerce_app.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(true) {
 
-    private val userViewModel: UserViewModel by activityViewModels {
-        UserViewModel.UserViewModelFactory(requireActivity().application)
-    }
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun inflateBinding(
         inflater: LayoutInflater,

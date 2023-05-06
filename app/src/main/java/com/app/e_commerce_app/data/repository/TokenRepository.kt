@@ -2,8 +2,11 @@ package com.app.e_commerce_app.data.repository
 
 import com.app.e_commerce_app.common.AppSharePreference
 import com.app.e_commerce_app.model.token.TokenModel
+import javax.inject.Inject
 
-class TokenRepository(private val appSharePreference: AppSharePreference) {
+class TokenRepository @Inject constructor(private val appSharePreference: AppSharePreference) {
+
+
     companion object {
         private const val ACCESS_TOKEN_KEY = "access_token"
         private const val REFRESH_TOKEN_KEY = "refresh_token"

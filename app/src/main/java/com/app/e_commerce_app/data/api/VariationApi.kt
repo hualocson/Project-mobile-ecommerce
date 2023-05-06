@@ -7,6 +7,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface VariationApi {
-    @GET(Constants.VARIATION_IN_CATEGORY_URL)
+    @GET(ConstantsURL.VARIATION_IN_CATEGORY_URL)
     suspend fun getVariationsInCategory(@Path("id") id : Int): Response<CustomResponse<List<VariationModel>>>
 }

@@ -3,15 +3,12 @@ package com.app.e_commerce_app.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.app.e_commerce_app.base.BaseViewModel
-import com.app.e_commerce_app.data.repository.CategoryRepository
-import com.app.e_commerce_app.data.services.CategoryRemoteService
 import com.app.e_commerce_app.model.CategoryModel
 import com.app.e_commerce_app.model.CategoryRadioButton
-import kotlinx.coroutines.launch
 
 class CategoryViewModel(application: Application) : BaseViewModel() {
-    private val categoryRemoteService = CategoryRemoteService()
-    private val categoryRepository: CategoryRepository = CategoryRepository(categoryRemoteService)
+//    private val categoryRemoteService = CategoryRemoteService()
+//    private val categoryRepository: CategoryRepository = CategoryRepository(categoryRemoteService)
 
     private val _categoriesData = MutableLiveData<List<CategoryModel>>()
     val categoriesData: LiveData<List<CategoryModel>> = _categoriesData
@@ -19,9 +16,9 @@ class CategoryViewModel(application: Application) : BaseViewModel() {
     private val _categoryRadioData = MutableLiveData<List<CategoryRadioButton>>()
     val categoryRadioData: LiveData<List<CategoryRadioButton>> = _categoryRadioData
 
-    private fun toListCategoryRadioButton(categoris: List<CategoryModel>) : List<CategoryRadioButton> {
+    private fun toListCategoryRadioButton(categories: List<CategoryModel>): List<CategoryRadioButton> {
         val arr = ArrayList<CategoryRadioButton>()
-        categoris.forEach {
+        categories.forEach {
             arr.add(it.toCategoryRadio())
         }
         return arr
@@ -41,13 +38,14 @@ class CategoryViewModel(application: Application) : BaseViewModel() {
 //    }
 
     fun fetchAllCategories() {
-        showLoading(true)
-        parentJob = viewModelScope.launch(handler) {
-            val response = categoryRepository.getAllCategories()
-            _categoriesData.postValue(response!!.categories)
-            _categoryRadioData.postValue(toListCategoryRadioButton(response.categories))
-        }
-        registerJobFinish()
+//        showLoading(true)
+//        parentJob = viewModelScope.launch(handler) {
+//            val response = categoryRepository.getAllCategories()
+//            _categoriesData.postValue(response!!.categories)
+//            _categoryRadioData.postValue(toListCategoryRadioButton(response.categories))
+//
+//        }
+//        registerJobFinish()
     }
 
     class CategoryViewModelFactory(private val application: Application) :

@@ -14,7 +14,9 @@ import com.app.e_commerce_app.model.AddressJson
 import com.app.e_commerce_app.ui.adapter.AddressAdapter
 import com.app.e_commerce_app.ui.adapter.VariationAdapter
 import com.app.e_commerce_app.viewmodel.AddressViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddressFragment : BaseFragment<FragmentAddressBinding>(true) {
 
 
@@ -29,9 +31,7 @@ class AddressFragment : BaseFragment<FragmentAddressBinding>(true) {
         AddressAdapter(requireContext(), onClick)
     }
 
-    private val addressViewModel: AddressViewModel by viewModels {
-        AddressViewModel.AddressViewModelFactory(requireActivity().application)
-    }
+    private val addressViewModel: AddressViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

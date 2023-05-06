@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.databinding.FragmentWalletBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WalletFragment : Fragment(R.layout.fragment_wallet){
     private var _binding: FragmentWalletBinding? = null
     private val binding get() = _binding!!
