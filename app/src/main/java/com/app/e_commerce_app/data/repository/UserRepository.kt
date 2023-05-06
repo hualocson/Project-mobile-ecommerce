@@ -1,21 +1,17 @@
 package com.app.e_commerce_app.data.repository
 
-import com.app.e_commerce_app.data.api.ApiConfig
 import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.services.UserRemoteService
-import com.app.e_commerce_app.model.CustomResponse
 import com.app.e_commerce_app.model.LoginRequest
 import com.app.e_commerce_app.model.PreSignupRequest
 import com.app.e_commerce_app.model.RegisterRequest
-import com.app.e_commerce_app.model.UserJson
-import com.app.e_commerce_app.model.*
-import com.app.e_commerce_app.model.token.TokenJson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class UserRepository(private val userRemoteService: UserRemoteService) {
+class UserRepository @Inject constructor(private val userRemoteService: UserRemoteService) {
     suspend fun login(loginRequest: LoginRequest) = withContext(Dispatchers.IO) {
-        when(val result = userRemoteService.login(loginRequest)){
+        when (val result = userRemoteService.login(loginRequest)) {
             is NetWorkResult.Success -> {
                 result.data.data!!.toTokenModel()
             }
@@ -26,7 +22,7 @@ class UserRepository(private val userRemoteService: UserRemoteService) {
     }
 
     suspend fun getUserProfile() = withContext(Dispatchers.IO) {
-        when(val result = userRemoteService.getUserProfile()) {
+        when (val result = userRemoteService.getUserProfile()) {
             is NetWorkResult.Success -> {
                 result.data.data!!
             }
@@ -38,7 +34,7 @@ class UserRepository(private val userRemoteService: UserRemoteService) {
     }
 
     suspend fun register(registerRequest: RegisterRequest) = withContext(Dispatchers.IO) {
-        when(val result = userRemoteService.register(registerRequest)) {
+        when (val result = userRemoteService.register(registerRequest)) {
             is NetWorkResult.Success -> {
                 result.data.data
             }
@@ -50,7 +46,7 @@ class UserRepository(private val userRemoteService: UserRemoteService) {
     }
 
     suspend fun checkEmail(email: PreSignupRequest) = withContext(Dispatchers.IO) {
-        when(val result = userRemoteService.checkEmail(email)) {
+        when (val result = userRemoteService.checkEmail(email)) {
             is NetWorkResult.Success -> {
                 result.data.data
             }
@@ -62,7 +58,7 @@ class UserRepository(private val userRemoteService: UserRemoteService) {
     }
 
     suspend fun getAllUserAddresses() = withContext(Dispatchers.IO) {
-        when(val result = userRemoteService.getAllUserAddresses()) {
+        when (val result = userRemoteService.getAllUserAddresses()) {
             is NetWorkResult.Success -> {
                 result.data.data
             }

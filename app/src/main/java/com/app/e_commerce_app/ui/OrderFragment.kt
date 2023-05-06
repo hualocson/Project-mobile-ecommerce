@@ -19,7 +19,7 @@ import com.app.e_commerce_app.model.CartModel
 import com.app.e_commerce_app.ui.adapter.CartAdapter
 import com.app.e_commerce_app.viewmodel.CartViewModel
 
-class OrderFragment : BaseFragment<FragmentOrderBinding>() {
+class OrderFragment : BaseFragment<FragmentOrderBinding>(false) {
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?

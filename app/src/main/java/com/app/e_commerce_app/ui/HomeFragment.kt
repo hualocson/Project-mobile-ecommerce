@@ -8,30 +8,38 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
+import com.app.e_commerce_app.common.EventObserver
 import com.app.e_commerce_app.databinding.FragmentHomepageBinding
+import com.app.e_commerce_app.model.CategoryModel
 import com.app.e_commerce_app.model.CategoryRadioButton
+import com.app.e_commerce_app.ui.adapter.CategoryAdapter
+import com.app.e_commerce_app.ui.adapter.CategoryButtonAdapter
+import com.app.e_commerce_app.ui.adapter.ProductAdapter
 import com.app.e_commerce_app.utils.OnCategoryIconButtonClick
 import com.app.e_commerce_app.utils.OnProductItemClick
-import com.app.e_commerce_app.viewmodel.UserViewModel
+import com.app.e_commerce_app.viewmodel.HomeViewModel
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class HomeFragment : BaseFragment<FragmentHomepageBinding>() {
+@AndroidEntryPoint
+class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
 
     private var imageList: ArrayList<SlideModel>? = null
 
-    private val userViewModel: UserViewModel by activityViewModels {
-        UserViewModel.UserViewModelFactory(requireActivity().application)
-    }
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!userViewModel.checkIsLogin())
+        if (!homeViewModel.checkIsLogin())
             navigateToPage(R.id.action_homeFragment_to_loginFragment)
         else
-            userViewModel.fetchUser()
+            homeViewModel.fetchUser()
+        homeViewModel.fetchData()
     }
 
     override fun inflateBinding(
@@ -42,29 +50,32 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>() {
     }
 
     private fun observerEvent() {
-        registerAllExceptionEvent(userViewModel, viewLifecycleOwner)
-        registerObserverLoadingEvent(userViewModel, viewLifecycleOwner)
-        registerObserverNavigateEvent(userViewModel, viewLifecycleOwner)
+        registerAllExceptionEvent(homeViewModel, viewLifecycleOwner)
+        registerObserverLoadingEvent(homeViewModel, viewLifecycleOwner)
+        registerObserverNavigateEvent(homeViewModel, viewLifecycleOwner)
+    }
 
-        registerAllExceptionEvent(binding.layoutCategoryIconList.categoryViewModel, viewLifecycleOwner)
-        registerObserverLoadingEvent(binding.layoutCategoryIconList.categoryViewModel, viewLifecycleOwner)
-        registerObserverNavigateEvent(binding.layoutCategoryIconList.categoryViewModel, viewLifecycleOwner)
+    private fun setupRecycleViewLayout() {
+        binding.layoutCategoryIconList.adapter =
+            CategoryAdapter(requireContext(), onCategoryIconClick)
+        binding.layoutCategoryIconList.layoutManager = GridLayoutManager(context, 4)
+
+        binding.rvProducts.adapter = ProductAdapter(requireContext(), onProductItemClick)
+        binding.rvProducts.layoutManager = GridLayoutManager(context, 2)
+
+        binding.layoutCategoryList.adapter =
+            CategoryButtonAdapter(requireContext(), onCategoryItemButtonClick)
+        binding.layoutCategoryList.layoutManager =
+            LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadSlider()
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.userViewModel = userViewModel
+        binding.homeViewModel = homeViewModel
         observerEvent()
-
-        binding.layoutCategoryList.setAdapter(onCategoryItemButtonClick)
-        binding.layoutProductList.setAdapter(onProductItemClick)
-        binding.layoutCategoryIconList.setAdapter(onCategoryIconButtonClick)
-
-        binding.layoutCategoryList.loadCategory()
-        binding.layoutProductList.loadProductByCategoryId(0)
-        binding.layoutCategoryIconList.loadCategory()
+        setupRecycleViewLayout()
 
 
         val controller = findNavController()
@@ -79,7 +90,13 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>() {
     }
 
     private val onCategoryItemButtonClick: (CategoryRadioButton) -> Unit = {
-        binding.layoutProductList.loadProductByCategoryId(it.id)
+        homeViewModel.fetchProductsByCategoryId(it.id)
+        homeViewModel.isProductsLoading.observe(viewLifecycleOwner, EventObserver { isShow ->
+            if(isShow)
+                binding.productsLoadingLayout.visibility = View.VISIBLE
+            else
+                binding.productsLoadingLayout.visibility = View.GONE
+        })
     }
 
     private val onCategoryIconButtonClick: OnCategoryIconButtonClick = {
@@ -105,5 +122,9 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>() {
             "id" to it.id
         )
         controller.navigate(R.id.productDetailFragment, bundle)
+    }
+
+    private val onCategoryIconClick: (CategoryModel) -> Unit = {
+
     }
 }

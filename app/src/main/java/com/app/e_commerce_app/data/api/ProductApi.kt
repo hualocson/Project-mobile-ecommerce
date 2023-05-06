@@ -8,11 +8,11 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ProductApi {
-    @GET(Constants.PRODUCT_URL)
+    @GET(ConstantsURL.PRODUCT_URL)
     suspend fun getAllProducts(): Response<CustomResponse<ProductData>>
-    @GET(Constants.PRODUCT_BY_CATEGORY_URL)
+    @GET(ConstantsURL.PRODUCT_BY_CATEGORY_URL)
     suspend fun getProductsByCategory(@Path("id") id : Int) : Response<CustomResponse<ProductData>>
 
-    @GET(Constants.PRODUCT_BY_ID)
+    @GET(ConstantsURL.PRODUCT_BY_ID)
     suspend fun getProductsById(@Path("productId") id : Int) : Response<CustomResponse<ProductModel>>
 }

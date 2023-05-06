@@ -13,8 +13,9 @@ import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.network.BaseNetworkException
 import com.app.e_commerce_app.common.EventObserver
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
-abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigationView: Boolean = false) :
+abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigationView: Boolean) :
     Fragment() {
     private var _binding: VB? = null
     protected val binding: VB

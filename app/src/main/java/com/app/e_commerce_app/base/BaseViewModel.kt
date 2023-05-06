@@ -1,8 +1,10 @@
 package com.app.e_commerce_app.base
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.app.e_commerce_app.base.network.BaseNetworkException
 import com.app.e_commerce_app.base.network.NetworkErrorException
 import com.app.e_commerce_app.common.Event

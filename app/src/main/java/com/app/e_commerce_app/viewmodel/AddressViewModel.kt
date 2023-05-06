@@ -3,19 +3,16 @@ package com.app.e_commerce_app.viewmodel
 import android.app.Application
 import androidx.lifecycle.*
 import com.app.e_commerce_app.base.BaseViewModel
-import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.repository.UserRepository
-import com.app.e_commerce_app.data.services.UserRemoteService
 import com.app.e_commerce_app.model.AddressJson
-import com.app.e_commerce_app.utils.Resource
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class AddressViewModel(private val application: Application) : BaseViewModel() {
+@HiltViewModel
+class AddressViewModel @Inject constructor(private val userRepository: UserRepository) :
+    BaseViewModel() {
 
-    private val userRemoteService = UserRemoteService()
 
-    private val userRepository = UserRepository(userRemoteService)
     private val _addressesData = MutableLiveData<List<AddressJson>>()
     val addressesData: LiveData<List<AddressJson>> = _addressesData
 
@@ -45,16 +42,5 @@ class AddressViewModel(private val application: Application) : BaseViewModel() {
 //            }
 //        }
 //        registerJobFinish()
-    }
-    class AddressViewModelFactory(
-        private val application: Application
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(AddressViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return AddressViewModel(application) as T
-            }
-            throw IllegalArgumentException("Unable construct viewModel")
-        }
     }
 }

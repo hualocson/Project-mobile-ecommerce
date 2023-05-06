@@ -1,16 +1,14 @@
 package com.app.e_commerce_app.data.repository
 
-import com.app.e_commerce_app.data.api.ApiConfig
 import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.services.CategoryRemoteService
-import com.app.e_commerce_app.model.CategoryData
-import com.app.e_commerce_app.model.CustomResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class CategoryRepository(private val categoryRemoteService: CategoryRemoteService) {
+class CategoryRepository @Inject constructor(private val categoryRemoteService: CategoryRemoteService) {
     suspend fun getAllCategories() = withContext(Dispatchers.IO) {
-        when(val result = categoryRemoteService.getAllCategories()) {
+        when (val result = categoryRemoteService.getAllCategories()) {
             is NetWorkResult.Success -> {
                 result.data.data
             }
