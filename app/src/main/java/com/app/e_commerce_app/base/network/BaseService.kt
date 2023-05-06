@@ -1,8 +1,9 @@
 package com.app.e_commerce_app.base.network
 
+import android.util.Log
+
 
 abstract class BaseService {
-
     protected fun parseError(
         responseMessage: String?,
         responseCode: Int,
@@ -18,6 +19,6 @@ abstract class BaseService {
     }
 
     protected fun parseNetworkErrorException(throwable: Throwable): NetworkErrorException {
-        return NetworkErrorException(throwable.message)
+        return NetworkErrorException(throwable.message!!)
     }
 }

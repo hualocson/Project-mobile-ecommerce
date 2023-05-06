@@ -5,17 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
-import com.app.e_commerce_app.common.AppSharePreference
-import com.app.e_commerce_app.data.repository.TokenRepository
 import com.app.e_commerce_app.databinding.FragmentProfileBinding
 import com.app.e_commerce_app.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
+@AndroidEntryPoint
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -24,14 +22,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         return FragmentProfileBinding.inflate(inflater, container, false)
     }
 
-    private val userViewModel: UserViewModel by activityViewModels {
-        UserViewModel.UserViewModelFactory(requireActivity().application)
-    }
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("PROFILE", userViewModel.userLiveData.value.toString())
+        userViewModel.fetchUser()
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -42,9 +39,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         registerObserverNavigateEvent(userViewModel, viewLifecycleOwner)
 
         binding.profileLogoutLabel.setOnClickListener {
-            val sharePreference = AppSharePreference(requireContext())
-            val tokenRepository = TokenRepository(sharePreference)
-            tokenRepository.removeToken()
+            userViewModel.logout()
             navigateToPage(R.id.action_profileFragment_to_loginFragment)
         }
 

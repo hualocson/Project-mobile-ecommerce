@@ -1,43 +1,37 @@
 package com.app.e_commerce_app.viewmodel
 
-import android.app.Application
-import android.app.BackgroundServiceStartNotAllowedException
-import android.media.session.MediaSession.Token
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseViewModel
-import com.app.e_commerce_app.common.AppSharePreference
-import com.app.e_commerce_app.common.Event
 import com.app.e_commerce_app.data.repository.TokenRepository
 import com.app.e_commerce_app.data.repository.UserRepository
-import com.app.e_commerce_app.data.services.UserRemoteService
 import com.app.e_commerce_app.model.LoginRequest
 import com.app.e_commerce_app.model.PreSignupRequest
 import com.app.e_commerce_app.model.RegisterRequest
 import com.app.e_commerce_app.model.UserJson
-import com.app.e_commerce_app.model.token.TokenModel
-import kotlinx.coroutines.async
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserViewModel(application: Application) : BaseViewModel() {
-
-    private val userRemoteService = UserRemoteService()
-
-    private val userRepository = UserRepository(userRemoteService)
-    private val tokenRepository = TokenRepository(AppSharePreference(application))
-
+@HiltViewModel
+class UserViewModel @Inject constructor(
+    private val userRepository: UserRepository,
+    private val tokenRepository: TokenRepository
+) : BaseViewModel() {
     private val _userLiveData = MutableLiveData<UserJson>()
     val userLiveData: LiveData<UserJson> = _userLiveData
 
 
-        fun checkEmail(preSignupRequest: PreSignupRequest) {
-            showLoading(true)
-            parentJob = viewModelScope.launch(handler) {
-                val res = userRepository.checkEmail(preSignupRequest)
-            }
-            registerJobFinish()
+    fun checkEmail(preSignupRequest: PreSignupRequest) {
+        showLoading(true)
+        parentJob = viewModelScope.launch(handler) {
+            val res = userRepository.checkEmail(preSignupRequest)
         }
+        registerJobFinish()
+    }
 //    fun checkEmail(preSignUpRequest : PreSignupRequest) = liveData(Dispatchers.IO)
 //    {
 //        emit(Resource.loading(null))
@@ -79,13 +73,16 @@ class UserViewModel(application: Application) : BaseViewModel() {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val token = userRepository.login(loginRequest)
-            if(token.accessToken.isNotEmpty() or token.refreshToken.isNotEmpty())
-            {
+            if (token.accessToken.isNotEmpty() or token.refreshToken.isNotEmpty()) {
                 tokenRepository.saveToken(token)
                 navigateToPage(R.id.action_loginFragment_to_homeFragment)
             }
         }
         registerJobFinish()
+    }
+
+    fun logout() {
+        tokenRepository.removeToken()
     }
 
     fun fetchUser() {
@@ -98,7 +95,7 @@ class UserViewModel(application: Application) : BaseViewModel() {
         registerJobFinish()
     }
 
-//    fun loadUserProfile() = liveData(Dispatchers.IO) {
+    //    fun loadUserProfile() = liveData(Dispatchers.IO) {
 //        emit(Resource.loading(null))
 //
 //        when (val response = userRepository.getUserProfile()) {
@@ -116,10 +113,6 @@ class UserViewModel(application: Application) : BaseViewModel() {
     fun setRemember(remember: Boolean) {
         tokenRepository.setRemember(remember)
     }
-
-    fun checkIsLogin() : Boolean {
-        return tokenRepository.checkIsLogin()
-    }
 //
 //    fun fetchUser() {
 //        showLoading(true)
@@ -131,16 +124,4 @@ class UserViewModel(application: Application) : BaseViewModel() {
 //        }
 //        registerJobFinish()
 //    }
-
-    class UserViewModelFactory(
-        private val application: Application
-    ) : ViewModelProvider.Factory {
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return UserViewModel(application) as T
-            }
-            throw IllegalArgumentException("Unable construct viewModel")
-        }
-    }
 }

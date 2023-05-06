@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentProductDetailBinding
@@ -15,7 +16,9 @@ import com.app.e_commerce_app.model.variation.VariationOptionModel
 import com.app.e_commerce_app.ui.adapter.VariationAdapter
 import com.app.e_commerce_app.viewmodel.CartViewModel
 import com.app.e_commerce_app.viewmodel.ProductDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -28,9 +31,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
         VariationAdapter(requireContext(), onVariationClick)
     }
 
-    private val productDetailViewModel: ProductDetailViewModel by activityViewModels {
-        ProductDetailViewModel.ProductDetailViewModelFactory(requireActivity().application)
-    }
+    private val productDetailViewModel: ProductDetailViewModel by viewModels()
 
     private val cartViewModel: CartViewModel by activityViewModels {
         CartViewModel.CartViewModelFactory(requireActivity().application)

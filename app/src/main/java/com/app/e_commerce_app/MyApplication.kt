@@ -2,8 +2,13 @@ package com.app.e_commerce_app
 
 import android.app.Application
 import android.content.Context
+import androidx.multidex.MultiDexApplication
+import dagger.Provides
+import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
-class MyApplication : Application() {
+@HiltAndroidApp
+class MyApplication : MultiDexApplication() {
     companion object {
         lateinit var appContext: Context
     }

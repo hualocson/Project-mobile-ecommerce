@@ -10,7 +10,7 @@ open class BaseRemoteService : BaseService() {
     suspend fun <T : Any> handleApi(execute: suspend () -> Response<T>): NetWorkResult<T> {
         val response: Response<T>
         try {
-            response = execute()
+            response = execute.invoke()
         } catch (t: Throwable) {
             return NetWorkResult.Error(parseNetworkErrorException(t))
         }

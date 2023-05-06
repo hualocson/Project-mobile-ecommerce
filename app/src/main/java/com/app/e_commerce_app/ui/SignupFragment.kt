@@ -14,16 +14,15 @@ import com.app.e_commerce_app.databinding.FragmentSignupBinding
 import com.app.e_commerce_app.model.PreSignupRequest
 import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignupFragment : Fragment(R.layout.fragment_signup) {
 
     private var _binding : FragmentSignupBinding? = null
     private val binding get() = _binding!!
 
-    private val userViewModel: UserViewModel by viewModels {
-        UserViewModel.UserViewModelFactory(requireActivity().application)
-    }
-
+    private val userViewModel: UserViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

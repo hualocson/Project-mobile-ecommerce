@@ -2,6 +2,13 @@
 
 <layout>
 
+    <data>
+
+        <variable
+            name="storeViewModel"
+            type="com.app.e_commerce_app.viewmodel.StoreViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -42,24 +49,26 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_default_home_horizontal"
             android:orientation="vertical"
+            android:paddingBottom="@dimen/padding_default"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:paddingBottom="@dimen/padding_default"
             app:layout_constraintTop_toBottomOf="@id/layoutStoreFragmentHeader">
 
-            <com.app.e_commerce_app.ui.customview.CategoryRadioList
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/layoutCategoryList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="wrap_content"
+                app:items="@{storeViewModel.categoryRadioData}"
+                tools:listitem="@layout/item_category_button" />
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutRVCategoryStores">
 
@@ -69,14 +78,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_default_home_horizontal">
 
-                <com.app.e_commerce_app.ui.customview.ProductList
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/layoutProductList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:items="@{storeViewModel.productsData}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/item_product" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
