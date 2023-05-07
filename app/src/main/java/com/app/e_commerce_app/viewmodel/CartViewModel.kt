@@ -19,6 +19,7 @@ class CartViewModel(application: Application) : BaseViewModel() {
 
     fun insertCart(cartModel:CartModel) = viewModelScope.launch {
         cartRespository.insertCart(cartModel)
+        getAllItems()
     }
     fun updateCart(cartModel:CartModel) = viewModelScope.launch {
         cartRespository.updateCart(cartModel)

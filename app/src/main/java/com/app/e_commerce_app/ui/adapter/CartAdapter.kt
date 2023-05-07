@@ -49,7 +49,9 @@ class CartAdapter(
                     itemClickCallback(cartModel)
                 }
             }
-            binding.btnDeleteItemCart.setOnClickListener { onDelete(cartModel)}
+            binding.btnDeleteItemCart.setOnClickListener {
+                onDelete(cartModel)
+            }
             binding.Layout.setOnClickListener { onClick(cartModel)}
         }
     }

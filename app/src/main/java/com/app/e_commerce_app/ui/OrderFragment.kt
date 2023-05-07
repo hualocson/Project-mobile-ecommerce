@@ -1,6 +1,8 @@
 package com.app.e_commerce_app.ui
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,17 +41,30 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(false) {
     private fun initControls(){
         registerObserverLoadingEvent(cartViewModel, viewLifecycleOwner)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.cartViewModel = cartViewModel
         binding.rvProductCart.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        handleCartLayout()
         binding.rvProductCart.adapter = cartAdapter
-        binding.cartViewModel = cartViewModel
         cartViewModel.getAllItems()
+    }
+
+    private fun handleCartLayout(){
+        if(cartViewModel.cartsData.value.isNullOrEmpty()){
+            binding.flipper.showNext()
+            Log.d("cart", cartViewModel.cartsData.value?.size.toString())
+        }
+//        if(cartAdapter.itemCount == 0){
+//            binding.flipper.showNext()
+//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initControls()
+        Log.d("cart", cartViewModel.cartsData.value?.size.toString())
     }
+
 
 
     private val itemClickCallback: (CartModel) -> Unit = {
@@ -62,6 +77,9 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(false) {
 
     private val onItemDelete: (CartModel) -> Unit = {
         cartViewModel.deleteCart(it)
-        Toast.makeText(requireContext(), "Delete success !", Toast.LENGTH_LONG).show()
+        if(cartViewModel.cartsData.value?.size == 1){
+            binding.flipper.showNext()
+        }
+//        Toast.makeText(requireContext(), "Delete success !", Toast.LENGTH_LONG).show()
     }
 }
