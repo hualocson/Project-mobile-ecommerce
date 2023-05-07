@@ -121,7 +121,6 @@
             android:background="@drawable/spinner_backgound_dropdown"
             android:paddingVertical="20dp"
             android:paddingLeft="30dp"
-            android:prompt="Gender"
             android:spinnerMode="dropdown"
             android:text="Gender"
             android:textColor="@color/text_color"
