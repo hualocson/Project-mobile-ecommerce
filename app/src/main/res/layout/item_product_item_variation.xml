@@ -4,18 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="com.app.e_commerce_app.model.variation.VariationModel" />
-
-        <import type="com.app.e_commerce_app.model.variation.VariationOptionModel" />
-
         <variable
             name="variation"
             type="com.app.e_commerce_app.model.variation.VariationModel" />
-        <!--        <import type="com.app.e_commerce_app.ui.adapter.VariationOptionAdapter" />-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutVariation"
         android:layout_marginTop="@dimen/padding_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -42,7 +37,6 @@
             android:layout_marginTop="@dimen/padding_small"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvProductItemVariationName"
-            app:variationOptions="@{variation.variationOptions}"
             tools:listitem="@layout/item_product_item_variation_value" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
