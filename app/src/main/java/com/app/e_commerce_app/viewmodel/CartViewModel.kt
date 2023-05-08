@@ -28,6 +28,11 @@ class CartViewModel(application: Application) : BaseViewModel() {
 //        cartRespository.deleteCart(cartModel)
 //    }
 
+    fun insertOrUpdate(cartModel: CartModel) = viewModelScope.launch {
+        cartRespository.insertOrUpdate(cartModel)
+        getAllItems()
+    }
+
     fun deleteCart(cartModel: CartModel){
         parentJob = viewModelScope.launch(handler) {
             cartRespository.deleteCart(cartModel)

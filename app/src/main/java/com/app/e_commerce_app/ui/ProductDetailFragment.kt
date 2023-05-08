@@ -61,6 +61,19 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.productDetailViewModel = productDetailViewModel
 
+        var itemQty: Int = binding.tvQuantity.text.toString().toInt();
+
+        binding.btnPlusQuantity.setOnClickListener{
+            itemQty = itemQty + 1
+            binding.tvQuantity.text = itemQty.toString()
+        }
+
+        binding.btnMinusQuantity.setOnClickListener{
+            if(itemQty > 1){
+                itemQty = itemQty - 1
+            }
+            binding.tvQuantity.text = itemQty.toString()
+        }
 
         binding.layoutDesc.setOnClickListener {
             if (binding.tvDescShort.visibility == View.VISIBLE) {
@@ -76,11 +89,14 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
 
 
         binding.btnAddToCart.setOnClickListener {
+            val productId = productDetailViewModel.productDetailData.value!!.product.id
             val itemName = binding.tvProductName.text.toString()
             val itemImg = productDetailViewModel.productDetailData.value!!.product.productImage
             val itemPrice = binding.tvTotalprice.text.toString()
-            val cartItem: CartModel = CartModel(itemName, itemImg, itemPrice, "1")
-            cartViewModel.insertCart(cartItem)
+            val itemQuantity = binding.tvQuantity.text.toString()
+            val cartItem: CartModel = CartModel(productId, itemName, itemImg, itemPrice, itemQuantity)
+//            cartViewModel.insertCart(cartItem)
+            cartViewModel.insertOrUpdate(cartItem)
             Toast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG).show()
         }
     }
