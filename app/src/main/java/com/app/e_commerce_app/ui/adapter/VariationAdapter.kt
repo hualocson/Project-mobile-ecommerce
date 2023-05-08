@@ -9,24 +9,34 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.common.BindableAdapter
 import com.app.e_commerce_app.databinding.ItemProductItemVariationBinding
 import com.app.e_commerce_app.model.variation.VariationModel
-import com.app.e_commerce_app.model.variation.VariationOptionModel
+import com.app.e_commerce_app.utils.OnVariationOptionClick
 
 class VariationAdapter(
     private val context: Context,
     private val onClick: (VariationModel) -> Unit,
+    private val onVariationOptionClick: OnVariationOptionClick
 ) : RecyclerView.Adapter<VariationAdapter.VariationViewHolder>(), BindableAdapter<VariationModel> {
 
     private var items: ArrayList<VariationModel> = ArrayList()
+    private lateinit var adapter: VariationOptionAdapter
 
     inner class VariationViewHolder(private val binding: ItemProductItemVariationBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(variationModel: VariationModel) {
             binding.variation = variationModel
             binding.executePendingBindings()
-            binding.tvProductItemVariationName.setOnClickListener { onClick(variationModel) }
+            adapter = VariationOptionAdapter(context, variationModel.variationOptions, onVariationOptionClick)
+            binding.rvOptions.adapter = adapter
+            binding.rvOptions.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            binding.rvOptions.setOnClickListener {
+                onClick(variationModel)
+            }
         }
     }
 
+    fun setActive (productItemId : Int) {
+        adapter.setActive(productItemId)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VariationViewHolder {
         val binding =
             ItemProductItemVariationBinding.inflate(LayoutInflater.from(context), parent, false)
@@ -41,7 +51,6 @@ class VariationAdapter(
 
     override fun setItems(items: List<VariationModel>) {
         this.items = items as ArrayList<VariationModel>
-        Log.d("LogItems", items.toString())
         notifyDataSetChanged()
     }
 }

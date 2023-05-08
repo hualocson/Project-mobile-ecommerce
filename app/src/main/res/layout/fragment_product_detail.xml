@@ -37,7 +37,7 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/background_edittext"
             android:padding="@dimen/padding_medium"
-            app:imageSlideList="@{productDetailViewModel.productDetailData.product.productImageList}"
+            app:imageSlideList="@{productDetailViewModel.productDetailData.productImageList}"
             app:iss_auto_cycle="false"
             app:iss_corner_radius="30"
             app:iss_delay="1000"
@@ -103,13 +103,12 @@
                             android:id="@+id/tvProductName"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
+                            android:layout_margin="@dimen/padding_small"
                             android:layout_weight="9"
-                            android:text="@{productDetailViewModel.productDetailData.product.name}"
+                            android:text="@{productDetailViewModel.productDetailData.name}"
                             android:textSize="22sp"
                             android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/btn_favorite"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -163,7 +162,7 @@
                             android:lineHeight="20sp"
                             android:maxLines="2"
                             android:minLines="2"
-                            android:text="@{productDetailViewModel.productDetailData.product.description}"
+                            android:text="@{productDetailViewModel.productDetailData.description}"
                             android:textAlignment="gravity"
                             android:textSize="@dimen/text_size_normal" />
 
@@ -176,7 +175,7 @@
                             android:layout_marginEnd="10dp"
                             android:justificationMode="inter_word"
                             android:lineHeight="20sp"
-                            android:text="@{productDetailViewModel.productDetailData.product.description}"
+                            android:text="@{productDetailViewModel.productDetailData.description}"
                             android:textAlignment="gravity"
                             android:textSize="@dimen/text_size_normal"
                             android:visibility="gone" />
@@ -199,8 +198,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:listitem="@layout/item_product_item_variation" />
+                            app:layout_constraintTop_toTopOf="parent"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -335,7 +333,7 @@
                         android:id="@+id/tvTotalprice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{productDetailViewModel.productDetailData.product.totalPrice}"
+                        android:text="@{productDetailViewModel.activeItemData.getPrice}"
                         android:textSize="@dimen/text_size_normal"
                         android:textStyle="bold" />
 

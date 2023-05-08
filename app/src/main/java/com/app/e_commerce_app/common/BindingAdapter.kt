@@ -1,11 +1,15 @@
 package com.app.e_commerce_app.common
 
+import android.util.Log
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.util.createCancellationSignal
 import com.app.e_commerce_app.model.variation.VariationOptionModel
 import com.app.e_commerce_app.ui.adapter.VariationOptionAdapter
+import com.app.e_commerce_app.utils.OnVariationOptionClick
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
@@ -33,12 +37,4 @@ fun <T> setItems(recyclerView: RecyclerView, items: List<T>?) {
 
 interface BindableAdapter<T> {
     fun setItems(items: List<T>)
-}
-
-@BindingAdapter("app:variationOptions")
-fun RecyclerView.setVariationOptions(variationOptions: List<VariationOptionModel>?) {
-    if (variationOptions == null) return
-    val adapter = VariationOptionAdapter(context, variationOptions) { /* onClick listener */ }
-    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-    setAdapter(adapter)
 }
