@@ -1,15 +1,10 @@
 package com.app.e_commerce_app.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import com.app.e_commerce_app.base.BaseViewModel
-import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.repository.CartRespository
 import com.app.e_commerce_app.model.CartModel
-import com.app.e_commerce_app.model.product.ProductDetailModel
-import com.app.e_commerce_app.model.product.ProductModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CartViewModel(application: Application) : BaseViewModel() {
@@ -17,11 +12,12 @@ class CartViewModel(application: Application) : BaseViewModel() {
     private val _cartsData = MutableLiveData<List<CartModel>>()
     val cartsData: LiveData<List<CartModel>> = _cartsData
 
-    fun insertCart(cartModel:CartModel) = viewModelScope.launch {
+    fun insertCart(cartModel: CartModel) = viewModelScope.launch {
         cartRespository.insertCart(cartModel)
         getAllItems()
     }
-    fun updateCart(cartModel:CartModel) = viewModelScope.launch {
+
+    fun updateCart(cartModel: CartModel) = viewModelScope.launch {
         cartRespository.updateCart(cartModel)
     }
 //    fun deletetCart(cartModel:CartModel) = viewModelScope.launch {
@@ -32,8 +28,7 @@ class CartViewModel(application: Application) : BaseViewModel() {
         cartRespository.insertOrUpdate(cartModel)
         getAllItems()
     }
-
-    fun deleteCart(cartModel: CartModel){
+    fun deleteCart(cartModel: CartModel) {
         parentJob = viewModelScope.launch(handler) {
             cartRespository.deleteCart(cartModel)
         }

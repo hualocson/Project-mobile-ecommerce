@@ -11,7 +11,7 @@ class ProductRepository @Inject constructor(private val productRemoteService: Pr
     suspend fun getProductsByCategory(id: Int) = withContext(Dispatchers.IO) {
         when (val response = productRemoteService.getProductsByCategory(id)) {
             is NetWorkResult.Success -> {
-                response.data.data!!.products
+                response.data.data!!
             }
             is NetWorkResult.Error -> {
                 throw response.exception
@@ -34,7 +34,7 @@ class ProductRepository @Inject constructor(private val productRemoteService: Pr
     suspend fun getAllProducts() = withContext(Dispatchers.IO) {
         when (val result = productRemoteService.getAllProducts()) {
             is NetWorkResult.Success -> {
-                result.data.data!!.products
+                result.data.data!!
             }
 
             is NetWorkResult.Error -> {

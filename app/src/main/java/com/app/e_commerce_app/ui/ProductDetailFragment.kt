@@ -1,6 +1,7 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,7 +29,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
     }
 
     private val variationAdapter: VariationAdapter by lazy {
-        VariationAdapter(requireContext(), onVariationClick)
+        VariationAdapter(requireContext(), onVariationClick, onVariationOptionClick)
     }
 
     private val productDetailViewModel: ProductDetailViewModel by viewModels()
@@ -45,18 +46,22 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
         productDetailViewModel.fetchProductDetail(id)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun observerEvent() {
+        registerAllExceptionEvent(productDetailViewModel, viewLifecycleOwner)
         registerObserverLoadingEvent(productDetailViewModel, viewLifecycleOwner)
+        registerObserverNavigateEvent(productDetailViewModel, viewLifecycleOwner)
+    }
 
-        binding.imageSlider.stopSliding()
-        binding.headerView.bringToFront()
-
-
+    private fun setupRecycleViewLayout() {
 
         binding.rvProductItemOptions.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvProductItemOptions.adapter = variationAdapter
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observerEvent()
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.productDetailViewModel = productDetailViewModel
@@ -74,6 +79,9 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
             }
             binding.tvQuantity.text = itemQty.toString()
         }
+        binding.imageSlider.stopSliding()
+        binding.headerView.bringToFront()
+        setupRecycleViewLayout()
 
         binding.layoutDesc.setOnClickListener {
             if (binding.tvDescShort.visibility == View.VISIBLE) {
@@ -98,12 +106,26 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
 //            cartViewModel.insertCart(cartItem)
             cartViewModel.insertOrUpdate(cartItem)
             Toast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG).show()
+//            val itemName = binding.tvProductName.text.toString()
+//            val itemImg = productDetailViewModel.productDetailData.value!!.product.productImage
+//            val itemPrice = binding.tvTotalprice.text.toString()
+//            val cartItem: CartModel = CartModel(itemName, itemImg, itemPrice, "1")
+//            cartViewModel.insertCart(cartItem)
+//            Toast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG).show()
         }
     }
 
-    private val onVariationClick: (VariationModel) -> Unit = {}
+    private val onVariationClick: (VariationModel) -> Unit = {
+        Log.d("VariationModel", it.name)
+    }
 
+    private fun activeItem(variationOption: VariationOptionModel) {
+        productDetailViewModel.getProductItemId(variationOption)
+        variationAdapter.setActive(variationOption.id)
+    }
 
-    private val onVariationOptionClick: (VariationOptionModel) -> Unit = {}
+    private val onVariationOptionClick: (VariationOptionModel) -> Unit = {
+        activeItem(it)
+    }
 
 }

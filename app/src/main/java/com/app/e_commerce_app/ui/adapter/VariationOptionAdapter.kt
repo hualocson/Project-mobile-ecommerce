@@ -10,7 +10,7 @@ import com.app.e_commerce_app.model.variation.VariationOptionModel
 class VariationOptionAdapter(
     private val context: Context,
     private val items: List<VariationOptionModel>,
-    private val onClick: (VariationOptionModel) -> Unit,
+    private var onClick: (VariationOptionModel) -> Unit,
 ) : RecyclerView.Adapter<VariationOptionAdapter.VariationOptionViewHolder>() {
 
     private var lastCheckedPosition: Int = -1
@@ -25,6 +25,13 @@ class VariationOptionAdapter(
                 onClick(variationOption)
             }
         }
+    }
+
+    fun setActive(productItemId: Int) {
+        items.map {
+            it.isChecked = it.id == productItemId
+        }
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VariationOptionViewHolder {

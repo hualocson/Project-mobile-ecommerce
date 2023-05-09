@@ -7,9 +7,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProductConfigurationJson(
-
     val id: Int,
+    val productItemId: Int,
     val variation: String,
-
     val value: String
 ) : Parcelable

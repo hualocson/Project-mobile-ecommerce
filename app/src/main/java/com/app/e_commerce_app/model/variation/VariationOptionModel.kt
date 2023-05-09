@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class VariationOptionModel(
-    val id: Int,
+    val id: Int, // product item id
 
     val value: String,
     val variationId: Int,
