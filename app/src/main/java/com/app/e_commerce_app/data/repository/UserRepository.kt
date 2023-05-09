@@ -2,6 +2,7 @@ package com.app.e_commerce_app.data.repository
 
 import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.services.UserRemoteService
+import com.app.e_commerce_app.model.AddressRequest
 import com.app.e_commerce_app.model.LoginRequest
 import com.app.e_commerce_app.model.PreSignupRequest
 import com.app.e_commerce_app.model.RegisterRequest
@@ -68,4 +69,39 @@ class UserRepository @Inject constructor(private val userRemoteService: UserRemo
             }
         }
     }
+
+    suspend fun getDefaultAddress() = withContext(Dispatchers.IO) {
+        when (val result = userRemoteService.getDefaultAddress()) {
+            is NetWorkResult.Success -> {
+                result.data.data
+            }
+
+            is NetWorkResult.Error -> {
+                throw result.exception
+            }
+        }
+    }
+
+    suspend fun addAddress(addressRequest: AddressRequest) = withContext(Dispatchers.IO) {
+        when (val response = userRemoteService.addAddress(addressRequest)) {
+            is NetWorkResult.Success -> {
+                response.data.data
+            }
+            is NetWorkResult.Error -> {
+                throw response.exception
+            }
+        }
+    }
+
+    suspend fun updateAddress(addressId: Int, addressRequest: AddressRequest) =
+        withContext(Dispatchers.IO) {
+            when (val response = userRemoteService.updateAddress(addressId, addressRequest)) {
+                is NetWorkResult.Success -> {
+                    response.data.data
+                }
+                is NetWorkResult.Error -> {
+                    throw response.exception
+                }
+            }
+        }
 }

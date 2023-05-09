@@ -26,5 +26,6 @@
         <!-- Customize your theme here. -->
         <item name="android:textViewStyle">@style/LatoFont</item>
         <item name="android:buttonStyle">@style/LatoFont</item>
+        <item name="android:editTextStyle">@style/myEditText</item>
     </style>
 </resources>

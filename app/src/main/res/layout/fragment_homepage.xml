@@ -192,17 +192,26 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/layoutCategoryIconList"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:minHeight="200dp"
-                    app:items="@{homeViewModel.categoriesData}"
+                    android:id="@+id/layoutCategoryIconList"
                     app:layout_constraintBottom_toTopOf="@id/layoutSectionPopular"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/layoutSectionSpecial" />
+                    app:layout_constraintTop_toBottomOf="@id/layoutSectionSpecial"
+                    android:layout_marginTop="@dimen/padding_medium"
+                    >
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_gravity="fill"
+                        android:id="@+id/rvCategoryIcon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:items="@{homeViewModel.categoriesData}" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layoutSectionPopular"
