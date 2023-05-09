@@ -38,12 +38,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
         registerObserverLoadingEvent(userViewModel, viewLifecycleOwner)
         registerObserverNavigateEvent(userViewModel, viewLifecycleOwner)
 
-        binding.profileLogoutLabel.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
             userViewModel.logout()
             navigateToPage(R.id.action_profileFragment_to_loginFragment)
         }
 
-        binding.profileAddressLabel.setOnClickListener {
+        binding.btnAddress.setOnClickListener {
             navigateToPage(R.id.action_profileFragment_to_addressFragment)
         }
     }

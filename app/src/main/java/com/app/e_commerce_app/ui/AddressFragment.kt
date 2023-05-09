@@ -1,10 +1,12 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
@@ -18,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AddressFragment : BaseFragment<FragmentAddressBinding>(true) {
-
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -38,8 +39,26 @@ class AddressFragment : BaseFragment<FragmentAddressBinding>(true) {
         addressViewModel.fetchAddresses()
     }
 
+    private fun listenClickEvent() {
+        binding.headerView.btnLeft.setOnClickListener {
+            navigateToPage(R.id.profileFragment)
+        }
+
+        binding.btnAddAddress.setOnClickListener {
+            navigateToPage(R.id.action_addressFragment_to_addAddressFragment)
+        }
+    }
+
+
+    private fun observerEvent() {
+        registerAllExceptionEvent(addressViewModel, viewLifecycleOwner)
+        registerObserverLoadingEvent(addressViewModel, viewLifecycleOwner)
+        registerObserverNavigateEvent(addressViewModel, viewLifecycleOwner)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observerEvent()
 
         registerObserverLoadingEvent(addressViewModel, viewLifecycleOwner)
         binding.rvAddress.layoutManager =
@@ -48,13 +67,12 @@ class AddressFragment : BaseFragment<FragmentAddressBinding>(true) {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.addressViewModel = addressViewModel
-
-        binding.headerView.btnLeft.setOnClickListener {
-            findNavController().navigate(R.id.profileFragment)
-        }
+        listenClickEvent()
     }
 
-    val onClick : (AddressJson) -> Unit ={
 
+    private val onClick : (AddressJson) -> Unit ={
+        val action: NavDirections = AddressFragmentDirections.actionAddressFragmentToAddAddressFragment(it)
+        navigateAction(action)
     }
 }

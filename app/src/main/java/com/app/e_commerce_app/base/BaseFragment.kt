@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.app.e_commerce_app.R
@@ -46,6 +47,10 @@ abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigation
 
     protected fun navigateToPage(actionId: Int) {
         findNavController().navigate(actionId)
+    }
+
+    protected fun navigateAction(action: NavDirections) {
+        findNavController().navigate(action)
     }
 
     protected fun showErrorMessage(e: BaseNetworkException) {
