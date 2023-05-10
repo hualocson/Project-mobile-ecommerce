@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseViewModel
+import com.app.e_commerce_app.common.Event
 import com.app.e_commerce_app.data.repository.TokenRepository
 import com.app.e_commerce_app.data.repository.UserRepository
 import com.app.e_commerce_app.model.LoginRequest
@@ -22,52 +23,28 @@ class UserViewModel @Inject constructor(
     private val tokenRepository: TokenRepository
 ) : BaseViewModel() {
     private val _userLiveData = MutableLiveData<UserJson>()
+    private val _checkSuccess = MutableLiveData<Boolean>()
     val userLiveData: LiveData<UserJson> = _userLiveData
-
-
+    val checkSuccess: LiveData<Boolean> = _checkSuccess
     fun checkEmail(preSignupRequest: PreSignupRequest) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val res = userRepository.checkEmail(preSignupRequest)
+            if (res.statusCode == 200) {
+                _checkSuccess.postValue(true)
+            }
         }
         registerJobFinish()
     }
-//    fun checkEmail(preSignUpRequest : PreSignupRequest) = liveData(Dispatchers.IO)
-//    {
-//        emit(Resource.loading(null))
-//
-//        when (val response = userRepository.checkEmail(preSignUpRequest)) {
-//            is NetWorkResult.Success -> {
-//                response.data.data.let {
-//                    emit(Resource.success(it))
-//                }
-//            }
-//            is NetWorkResult.Error -> emit(Resource.error(null, response.message))
-//            is NetWorkResult.Exception -> emit(Resource.error(null, response.e.message))
-//        }
-//    }
 
     fun register(registerRequest: RegisterRequest) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val res = userRepository.register(registerRequest)
+            navigateToPage(R.id.action_fillProfileFragment_to_loginFragment)
         }
         registerJobFinish()
     }
-
-//    fun register(registerRequest: RegisterRequest) = liveData(Dispatchers.IO) {
-//        emit(Resource.loading(null))
-//
-//        when (val response = userRepository.register(registerRequest)) {
-//            is NetWorkResult.Success -> {
-//                response.data.data.let { userJson ->
-//                    emit(Resource.success(userJson))
-//                }
-//            }
-//            is NetWorkResult.Error -> emit(Resource.error(null, response.message))
-//            is NetWorkResult.Exception -> emit(Resource.error(null, response.e.message))
-//        }
-//    }
 
     fun login(loginRequest: LoginRequest) {
         showLoading(true)
@@ -80,11 +57,9 @@ class UserViewModel @Inject constructor(
         }
         registerJobFinish()
     }
-
     fun logout() {
         tokenRepository.removeToken()
     }
-
     fun fetchUser() {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
@@ -94,25 +69,20 @@ class UserViewModel @Inject constructor(
         }
         registerJobFinish()
     }
-
-    //    fun loadUserProfile() = liveData(Dispatchers.IO) {
-//        emit(Resource.loading(null))
-//
-//        when (val response = userRepository.getUserProfile()) {
-//            is NetWorkResult.Success -> {
-//                response.data.data.let { user ->
-//                    emit(Resource.success(user))
-//                    _userLiveData.postValue(user)
-//                }
-//            }
-//            is NetWorkResult.Error -> emit(Resource.error(null, response.message))
-//            is NetWorkResult.Exception -> emit(Resource.error(null, response.e.message))
-//        }
-//    }
-//
     fun setRemember(remember: Boolean) {
         tokenRepository.setRemember(remember)
     }
+
+    fun updateProfile(userJson: UserJson) {
+        showLoading(true)
+        parentJob = viewModelScope.launch(handler) {
+            val user = userRepository.updateUserProfile(userJson)
+            _userLiveData.postValue(user)
+            navigateToPage(R.id.action_fillProfileFragment_to_profileFragment)
+        }
+        registerJobFinish()
+    }
+
 //
 //    fun fetchUser() {
 //        showLoading(true)
