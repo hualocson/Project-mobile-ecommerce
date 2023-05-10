@@ -39,11 +39,13 @@ class CartFragment : BaseFragment<FragmentCartBinding>(false) {
         handleCartLayout()
         binding.rvProductCart.adapter = cartAdapter
         cartViewModel.getAllItems()
+        binding.tvTotalprice.text = cartViewModel.countTotalPrice().toString()
     }
 
     private fun handleCartLayout(){
         if(cartViewModel.cartsData.value.isNullOrEmpty()){
             binding.flipper.showNext()
+            binding.tvTotalprice.text = "0"
             Log.d("cart", cartViewModel.cartsData.value?.size.toString())
         }
 //        if(cartAdapter.itemCount == 0){
@@ -61,6 +63,7 @@ class CartFragment : BaseFragment<FragmentCartBinding>(false) {
 
     private val itemClickCallback: (CartModel) -> Unit = {
         cartViewModel.updateCart(it)
+        binding.tvTotalprice.text = cartViewModel.countTotalPrice().toString()
     }
 
     private val onItemClick: (CartModel) -> Unit = {
@@ -69,8 +72,10 @@ class CartFragment : BaseFragment<FragmentCartBinding>(false) {
 
     private val onItemDelete: (CartModel) -> Unit = {
         cartViewModel.deleteCart(it)
+        binding.tvTotalprice.text = cartViewModel.countTotalPrice().toString()
         if(cartViewModel.cartsData.value?.size == 1){
             binding.flipper.showNext()
+            binding.tvTotalprice.text = "0"
         }
 //        Toast.makeText(requireContext(), "Delete success !", Toast.LENGTH_LONG).show()
     }

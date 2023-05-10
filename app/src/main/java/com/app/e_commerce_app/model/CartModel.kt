@@ -17,6 +17,8 @@ data class CartModel(
     var price: String,
     @ColumnInfo("quantity_col")
     var quantity: String,
+    @ColumnInfo("desc_col")
+    var desc: String
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id_col")
