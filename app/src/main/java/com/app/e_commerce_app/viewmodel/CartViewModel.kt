@@ -12,6 +12,17 @@ class CartViewModel(application: Application) : BaseViewModel() {
     private val _cartsData = MutableLiveData<List<CartModel>>()
     val cartsData: LiveData<List<CartModel>> = _cartsData
 
+    fun countTotalPrice(): Int{
+        var _totalPrice: Int = 0
+        parentJob = viewModelScope.launch(handler) {
+            _cartsData.value!!.forEach {
+                item -> _totalPrice = _totalPrice + (item.price.toInt() * item.quantity.toInt())
+            }
+        }
+        registerJobFinish()
+        return _totalPrice
+    }
+
     fun insertCart(cartModel: CartModel) = viewModelScope.launch {
         cartRespository.insertCart(cartModel)
         getAllItems()
@@ -24,9 +35,15 @@ class CartViewModel(application: Application) : BaseViewModel() {
 //        cartRespository.deleteCart(cartModel)
 //    }
 
+    fun insertOrUpdate(cartModel: CartModel) = viewModelScope.launch {
+        cartRespository.insertOrUpdate(cartModel)
+        getAllItems()
+    }
     fun deleteCart(cartModel: CartModel) {
         parentJob = viewModelScope.launch(handler) {
             cartRespository.deleteCart(cartModel)
+            val response = cartRespository.getAllItems()
+            _cartsData.postValue(response)
         }
         registerJobFinish()
         getAllItems()

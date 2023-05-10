@@ -18,4 +18,6 @@ class CartRespository(app:Application) {
     suspend fun deleteCart(cartModel: CartModel) = cartDao.deleteCartItem(cartModel)
 
     suspend fun  getAllItems(): List<CartModel> = cartDao.getAllItems()
+
+    suspend fun insertOrUpdate(cartModel: CartModel) = cartDao.insertOrUpdate(cartModel)
 }

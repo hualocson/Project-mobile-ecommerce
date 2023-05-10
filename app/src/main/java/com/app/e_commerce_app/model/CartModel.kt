@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey
 
 @Entity("cart_table")
 data class CartModel(
+    @ColumnInfo("productId_col")
+    var productId: Int,
     @ColumnInfo("name_col")
     var name: String = "",
     @ColumnInfo("img_col")
@@ -15,6 +17,8 @@ data class CartModel(
     var price: String,
     @ColumnInfo("quantity_col")
     var quantity: String,
+    @ColumnInfo("desc_col")
+    var desc: String
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id_col")

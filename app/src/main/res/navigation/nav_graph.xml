@@ -67,10 +67,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/orderFragment"
+        android:id="@+id/cartFragment"
         android:label="Order"
-        android:name="com.app.e_commerce_app.ui.OrderFragment"
-        tools:layout="@layout/fragment_order"
+        android:name="com.app.e_commerce_app.ui.CartFragment"
+        tools:layout="@layout/fragment_cart"
         />
 
     <fragment

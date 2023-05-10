@@ -6,28 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
-import com.app.e_commerce_app.databinding.FragmentHomepageBinding
-import com.app.e_commerce_app.databinding.FragmentOrderBinding
-import com.app.e_commerce_app.databinding.FragmentProductDetailBinding
+import com.app.e_commerce_app.databinding.FragmentCartBinding
 import com.app.e_commerce_app.model.CartModel
 import com.app.e_commerce_app.ui.adapter.CartAdapter
 import com.app.e_commerce_app.viewmodel.CartViewModel
 
-class OrderFragment : BaseFragment<FragmentOrderBinding>(false) {
+class CartFragment : BaseFragment<FragmentCartBinding>(false) {
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentOrderBinding {
-       return FragmentOrderBinding.inflate(inflater, container, false)
+    ): FragmentCartBinding {
+       return FragmentCartBinding.inflate(inflater, container, false)
     }
 
     private val cartViewModel: CartViewModel by activityViewModels {
@@ -47,11 +39,13 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(false) {
         handleCartLayout()
         binding.rvProductCart.adapter = cartAdapter
         cartViewModel.getAllItems()
+        binding.tvTotalprice.text = cartViewModel.countTotalPrice().toString()
     }
 
     private fun handleCartLayout(){
         if(cartViewModel.cartsData.value.isNullOrEmpty()){
             binding.flipper.showNext()
+            binding.tvTotalprice.text = "0"
             Log.d("cart", cartViewModel.cartsData.value?.size.toString())
         }
 //        if(cartAdapter.itemCount == 0){
@@ -69,6 +63,7 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(false) {
 
     private val itemClickCallback: (CartModel) -> Unit = {
         cartViewModel.updateCart(it)
+        binding.tvTotalprice.text = cartViewModel.countTotalPrice().toString()
     }
 
     private val onItemClick: (CartModel) -> Unit = {
@@ -77,8 +72,10 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(false) {
 
     private val onItemDelete: (CartModel) -> Unit = {
         cartViewModel.deleteCart(it)
+        binding.tvTotalprice.text = cartViewModel.countTotalPrice().toString()
         if(cartViewModel.cartsData.value?.size == 1){
             binding.flipper.showNext()
+            binding.tvTotalprice.text = "0"
         }
 //        Toast.makeText(requireContext(), "Delete success !", Toast.LENGTH_LONG).show()
     }
