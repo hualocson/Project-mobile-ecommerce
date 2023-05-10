@@ -1,10 +1,13 @@
 package com.app.e_commerce_app.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 
+@Parcelize
 @Entity("cart_table")
 data class CartModel(
     @ColumnInfo("productId_col")
@@ -19,7 +22,7 @@ data class CartModel(
     var quantity: String,
     @ColumnInfo("desc_col")
     var desc: String
-) {
+):Parcelable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id_col")
     var id: Int = 0

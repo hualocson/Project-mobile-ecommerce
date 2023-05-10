@@ -74,7 +74,11 @@
         android:label="Order"
         android:name="com.app.e_commerce_app.ui.CartFragment"
         tools:layout="@layout/fragment_cart"
-        />
+        >
+        <action
+            android:id="@+id/action_cartFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/walletFragment"
@@ -138,4 +142,14 @@
           android:label="Search"
           tools:layout="@layout/fragment_search">
       </fragment>
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.app.e_commerce_app.ui.CheckoutFragment"
+        android:label="CheckoutFragment"
+        tools:layout="@layout/fragment_final_checkout"
+        >
+        <argument
+            android:name="productList"
+            app:argType="com.app.e_commerce_app.model.CartModel[]" />
+    </fragment>
 </navigation>

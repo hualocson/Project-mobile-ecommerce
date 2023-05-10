@@ -15,11 +15,11 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Layout"
+            android:padding="@dimen/padding_medium"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_small"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@drawable/custom_layout_item_popular"
             android:elevation="15dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -62,50 +62,52 @@
                 android:layout_marginBottom="20dp"
                 android:text="@{cartitem.price}"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_size_normal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/LayoutBtnQuantity"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <ImageView
                 android:id="@+id/shapeableImageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/default_img"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:background="@drawable/background_product_item"
+                android:padding="5dp"
                 android:scaleType="fitXY"
+                app:imageUrl="@{cartitem.img}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/LayoutBtnQuantity"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_small"
+                app:layout_constraintStart_toEndOf="@id/tvPricePopular"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
                     android:id="@+id/btnMinusQuantity"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="@drawable/custom_btn_quantity_minus"
                     android:gravity="center"
                     android:text="-"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_size_normal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvQuantity"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="@drawable/custom_text_quantity"
                     android:gravity="center"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_size_normal"
                     android:text="@{cartitem.quantity}"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toStartOf="@+id/btnPlusQuantity"
@@ -114,13 +116,13 @@
 
                 <TextView
                     android:id="@+id/btnPlusQuantity"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="@drawable/custom_btn_quantity_plus"
                     android:gravity="center"
                     android:text="+"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/text_size_normal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -130,12 +132,11 @@
                 android:id="@+id/btnDeleteItemCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/ic_delete"
-                android:padding="20dp"
+                android:layout_marginBottom="@dimen/padding_small"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/LayoutBtnQuantity"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

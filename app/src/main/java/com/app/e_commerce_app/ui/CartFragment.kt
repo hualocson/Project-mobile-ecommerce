@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentCartBinding
 import com.app.e_commerce_app.model.CartModel
@@ -48,9 +49,10 @@ class CartFragment : BaseFragment<FragmentCartBinding>(false) {
 //            binding.tvTotalprice.text = "0"
 //        }
         cartViewModel.cartsData.observe(viewLifecycleOwner) {
-            if(it.isNullOrEmpty()) {
+            if (it.isNullOrEmpty()) {
                 binding.flipper.showNext()
                 binding.tvTotalprice.text = "0"
+                binding.btnCheckout.isEnabled = false
             }
         }
 //        if(cartAdapter.itemCount == 0){
@@ -61,6 +63,11 @@ class CartFragment : BaseFragment<FragmentCartBinding>(false) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initControls()
+        Log.d("cart", cartViewModel.cartsData.value?.size.toString())
+        binding.btnCheckout.setOnClickListener {
+            val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment(cartViewModel.cartsData.value!!.toTypedArray())
+            navigateAction(action)
+        }
     }
 
 

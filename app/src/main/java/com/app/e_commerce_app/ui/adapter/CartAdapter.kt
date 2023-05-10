@@ -29,7 +29,6 @@ class CartAdapter(
 //            Picasso.get().load(cartModel.img).into(binding.shapeableImageView)
 //            binding.tvPricePopular.text = cartModel.price
             binding.cartitem = cartModel
-            Picasso.get().load(cartModel.img).into(binding.shapeableImageView)
             binding.executePendingBindings()
             var itemQty: Int = cartModel.quantity.toInt()
             binding.btnPlusQuantity.setOnClickListener{
