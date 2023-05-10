@@ -3,6 +3,7 @@ package com.app.e_commerce_app.ui.adapter
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.common.BindableAdapter
@@ -22,6 +23,7 @@ class AddressAdapter(
         fun bindData(addressJson: AddressJson) {
             binding.addressData = addressJson
             binding.executePendingBindings()
+            binding.btnUpdate.setOnClickListener { onClick(addressJson) }
         }
     }
 
@@ -42,7 +44,6 @@ class AddressAdapter(
 
     override fun setItems(items: List<AddressJson>) {
         this.items = items as ArrayList<AddressJson>
-        Log.d("setitem::::", "")
         notifyDataSetChanged()
     }
 }

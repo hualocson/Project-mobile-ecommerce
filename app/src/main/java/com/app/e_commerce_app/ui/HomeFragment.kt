@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,15 +32,6 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
 
     private val homeViewModel: HomeViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (!homeViewModel.checkIsLogin())
-            navigateToPage(R.id.action_homeFragment_to_loginFragment)
-        else
-            homeViewModel.fetchUser()
-        homeViewModel.fetchData()
-    }
-
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -56,9 +46,9 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
     }
 
     private fun setupRecycleViewLayout() {
-        binding.layoutCategoryIconList.adapter =
+        binding.rvCategoryIcon.adapter =
             CategoryAdapter(requireContext(), onCategoryIconClick)
-        binding.layoutCategoryIconList.layoutManager = GridLayoutManager(context, 4)
+        binding.rvCategoryIcon.layoutManager = GridLayoutManager(context, 4)
 
         binding.rvProducts.adapter = ProductAdapter(requireContext(), onProductItemClick)
         binding.rvProducts.layoutManager = GridLayoutManager(context, 2)
@@ -77,6 +67,12 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
         observerEvent()
         setupRecycleViewLayout()
 
+        if (!homeViewModel.checkIsLogin())
+            navigateToPage(R.id.action_homeFragment_to_loginFragment)
+        else {
+            homeViewModel.fetchUser()
+            homeViewModel.fetchData()
+        }
 
         val controller = findNavController()
 
@@ -96,7 +92,7 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
     private val onCategoryItemButtonClick: (CategoryRadioButton) -> Unit = {
         homeViewModel.fetchProductsByCategoryId(it.id)
         homeViewModel.isProductsLoading.observe(viewLifecycleOwner, EventObserver { isShow ->
-            if(isShow)
+            if (isShow)
                 binding.productsLoadingLayout.visibility = View.VISIBLE
             else
                 binding.productsLoadingLayout.visibility = View.GONE

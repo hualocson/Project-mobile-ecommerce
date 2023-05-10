@@ -12,25 +12,26 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/secondary_color">
 
         <com.app.e_commerce_app.ui.customview.HeaderView
             android:id="@+id/headerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:ic_left="@drawable/ic_back"
             app:is_show_ic_left="true"
             app:is_show_ic_right="false"
             app:is_show_title="true"
-            app:title="Address"
-            app:ic_left="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Address" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/btn_address"
+            app:layout_constraintBottom_toTopOf="@id/btn_add_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/headerView"
@@ -43,10 +44,11 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_address"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:scrollbars="none"
+                    android:layout_height="wrap_content"
                     app:items="@{addressViewModel.addressesData}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/item_address" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -54,18 +56,19 @@
         </androidx.core.widget.NestedScrollView>
 
         <Button
-            android:id="@+id/btn_address"
+            android:id="@+id/btn_add_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="@dimen/padding_small"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/background_button"
             android:text="Add Address"
-            android:layout_marginTop="@dimen/padding_small"
-            app:layout_constraintTop_toBottomOf="@id/scrollView2"
+            android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/scrollView2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

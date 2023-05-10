@@ -44,39 +44,33 @@
 
 
             <EditText
+                style="@style/myEditText"
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_large"
-                android:background="@drawable/background_edittext"
                 android:drawableStart="@drawable/ic_baseline_email_24"
                 android:drawablePadding="20dp"
                 android:hint="Username"
                 android:paddingVertical="@dimen/padding_medium"
-                android:paddingStart="30dp"
                 android:singleLine="true"
-                android:textColorHint="@color/on_secondary_color"
-                android:textColor="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLoginHeader" />
 
             <EditText
+                style="@style/myEditText"
                 android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_medium"
-                android:background="@drawable/background_edittext"
                 android:drawableStart="@drawable/ic_outline_lock"
                 android:drawablePadding="20dp"
                 android:textColorHint="@color/on_secondary_color"
                 app:layout_constraintBottom_toTopOf="@id/ckb_login"
                 android:hint="Password"
                 android:paddingVertical="20dp"
-                android:paddingLeft="30dp"
-                android:password="true"
-                android:singleLine="true"
-                android:textColor="@color/text_color"
+                android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_username" />

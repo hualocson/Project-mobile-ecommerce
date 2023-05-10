@@ -5,7 +5,10 @@ import com.app.e_commerce_app.model.token.TokenJson
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface UserApi {
     @POST(ConstantsURL.LOGIN_URL)
@@ -18,7 +21,14 @@ interface UserApi {
     suspend fun getUserProfile(): Response<CustomResponse<UserJson>>
 
     @POST(ConstantsURL.CHECK_EMAIL)
-    suspend fun checkEmail(@Body email : PreSignupRequest) : Response<CustomResponse<CheckEmailResponse>>
+    suspend fun checkEmail(@Body email: PreSignupRequest): Response<CustomResponse<CheckEmailResponse>>
+
     @GET(ConstantsURL.USER_ADDRESS)
-    suspend fun getAllUserAddresses(): Response<CustomResponse<List<AddressJson>>>
+    suspend fun getUserAddresses(@Query("flag") flag: String = ""): Response<CustomResponse<List<AddressJson>>>
+
+    @POST(ConstantsURL.USER_ADDRESS)
+    suspend fun addAddress(@Body addressRequest: AddressRequest): Response<CustomResponse<AddressJson>>
+
+    @PATCH(ConstantsURL.USER_ADDRESS_UPDATE)
+    suspend fun updateAddress(@Path("addressId") addressId: Int, @Body addressRequest: AddressRequest) : Response<CustomResponse<AddressJson>>
 }
