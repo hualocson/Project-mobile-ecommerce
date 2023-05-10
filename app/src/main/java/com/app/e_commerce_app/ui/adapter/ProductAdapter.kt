@@ -44,4 +44,8 @@ class ProductAdapter(
         this.productList = items as ArrayList<ProductModel>
         notifyDataSetChanged()
     }
+    fun setFilterList(items: List<ProductModel>){
+        this.productList = items as ArrayList<ProductModel>
+        notifyDataSetChanged()
+    }
 }
