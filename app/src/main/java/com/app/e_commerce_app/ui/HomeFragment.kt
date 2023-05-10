@@ -77,6 +77,10 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
         val controller = findNavController()
 
 
+        binding.inputSearchHome.setOnClickListener {
+            controller.navigate(R.id.searchFragment)
+        }
+
         binding.tvSeeAllPopular.setOnClickListener {
             val bundle = bundleOf(
                 "category_id" to 0

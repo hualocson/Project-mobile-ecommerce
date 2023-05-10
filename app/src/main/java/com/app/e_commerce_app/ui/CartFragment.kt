@@ -36,17 +36,22 @@ class CartFragment : BaseFragment<FragmentCartBinding>(false) {
         binding.cartViewModel = cartViewModel
         binding.rvProductCart.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        cartViewModel.getAllItems()
         handleCartLayout()
         binding.rvProductCart.adapter = cartAdapter
-        cartViewModel.getAllItems()
         binding.tvTotalprice.text = cartViewModel.countTotalPrice().toString()
     }
 
     private fun handleCartLayout(){
-        if(cartViewModel.cartsData.value.isNullOrEmpty()){
-            binding.flipper.showNext()
-            binding.tvTotalprice.text = "0"
-            Log.d("cart", cartViewModel.cartsData.value?.size.toString())
+//        if(cartViewModel.cartsData.value.isNullOrEmpty()){
+//            binding.flipper.showNext()
+//            binding.tvTotalprice.text = "0"
+//        }
+        cartViewModel.cartsData.observe(viewLifecycleOwner) {
+            if(it.isNullOrEmpty()) {
+                binding.flipper.showNext()
+                binding.tvTotalprice.text = "0"
+            }
         }
 //        if(cartAdapter.itemCount == 0){
 //            binding.flipper.showNext()
@@ -56,7 +61,6 @@ class CartFragment : BaseFragment<FragmentCartBinding>(false) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initControls()
-        Log.d("cart", cartViewModel.cartsData.value?.size.toString())
     }
 
 
