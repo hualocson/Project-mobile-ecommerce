@@ -15,7 +15,7 @@ import com.app.e_commerce_app.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FillProfileFragment : Fragment(R.layout.fragment_order) {
+class FillProfileFragment : Fragment(R.layout.fragment_cart) {
     private var _binding: FragmentFillProfileBinding? = null
     private val binding get() = _binding!!
     private val userViewModel: UserViewModel by viewModels()

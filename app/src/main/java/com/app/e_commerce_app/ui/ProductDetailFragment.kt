@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentProductDetailBinding
+import com.app.e_commerce_app.model.CartModel
 import com.app.e_commerce_app.model.variation.VariationModel
 import com.app.e_commerce_app.model.variation.VariationOptionModel
 import com.app.e_commerce_app.ui.adapter.VariationAdapter
@@ -64,6 +66,19 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.productDetailViewModel = productDetailViewModel
 
+        var itemQty: Int = binding.tvQuantity.text.toString().toInt();
+
+        binding.btnPlusQuantity.setOnClickListener{
+            itemQty = itemQty + 1
+            binding.tvQuantity.text = itemQty.toString()
+        }
+
+        binding.btnMinusQuantity.setOnClickListener{
+            if(itemQty > 1){
+                itemQty = itemQty - 1
+            }
+            binding.tvQuantity.text = itemQty.toString()
+        }
         binding.imageSlider.stopSliding()
         binding.headerView.bringToFront()
         setupRecycleViewLayout()
@@ -82,12 +97,23 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
 
 
         binding.btnAddToCart.setOnClickListener {
-//            val itemName = binding.tvProductName.text.toString()
-//            val itemImg = productDetailViewModel.productDetailData.value!!.product.productImage
-//            val itemPrice = binding.tvTotalprice.text.toString()
-//            val cartItem: CartModel = CartModel(itemName, itemImg, itemPrice, "1")
-//            cartViewModel.insertCart(cartItem)
-//            Toast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG).show()
+            val productId = productDetailViewModel.activeItemData.value!!.id;
+            val itemName = binding.tvProductName.text.toString()
+            val itemImg = productDetailViewModel.activeItemData.value!!.productImage;
+            var itemDesc = ""
+            productDetailViewModel.activeItemData.value!!.productConfigurations.forEach {
+                item -> itemDesc = itemDesc + item.value + " "
+            }
+            val itemPrice = binding.tvTotalprice.text.toString()
+            val itemQuantity = binding.tvQuantity.text.toString()
+            val cartItem: CartModel = CartModel(productId, itemName, itemImg, itemPrice, itemQuantity,itemDesc)
+            if(productDetailViewModel.activeItemData.value!!.id != 0){
+                cartViewModel.insertOrUpdate(cartItem)
+                Toast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG).show()
+            }
+            else{
+                Toast.makeText(requireContext(), "Please choose option for product", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -102,6 +128,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
 
     private val onVariationOptionClick: (VariationOptionModel) -> Unit = {
         activeItem(it)
+        Log.d("Item", it.toString())
     }
 
 }
