@@ -1,16 +1,18 @@
 package com.app.e_commerce_app.model
 
 import android.os.Parcelable
+import com.app.e_commerce_app.utils.Gender
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserJson(
     val id: Int,
     val email: String,
-    private val firstName: String,
-    private val lastName: String,
+    val firstName: String,
+    val lastName: String,
     val phone: String,
     val avatar: String,
+    val gender: String,
 ) : Parcelable {
     val name
         get(): String {

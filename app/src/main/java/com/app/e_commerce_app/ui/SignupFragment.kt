@@ -8,8 +8,11 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.app.e_commerce_app.R
+import com.app.e_commerce_app.base.BaseFragment
+import com.app.e_commerce_app.databinding.FragmentAddressBinding
 import com.app.e_commerce_app.databinding.FragmentSignupBinding
 import com.app.e_commerce_app.model.PreSignupRequest
 import com.app.e_commerce_app.utils.Status
@@ -17,70 +20,69 @@ import com.app.e_commerce_app.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignupFragment : Fragment(R.layout.fragment_signup) {
-
-    private var _binding : FragmentSignupBinding? = null
-    private val binding get() = _binding!!
-
-    private val userViewModel: UserViewModel by viewModels()
-    override fun onCreateView(
+class SignupFragment : BaseFragment<FragmentSignupBinding>(true) {
+    override fun inflateBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSignupBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentSignupBinding {
+        return FragmentSignupBinding.inflate(inflater, container, false)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private val userViewModel: UserViewModel by viewModels()
+    private fun listenClickEvent() {
+        binding.signupHeader.btnLeft.setOnClickListener {
+            navigateToPage(R.id.profileFragment)
+        }
+    }
+
+    private fun observerEvent() {
+        registerAllExceptionEvent(userViewModel, viewLifecycleOwner)
+        registerObserverLoadingEvent(userViewModel, viewLifecycleOwner)
+        registerObserverNavigateEvent(userViewModel, viewLifecycleOwner)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val controller = findNavController()
-        binding.tvLogin.setOnClickListener {
-            controller.navigate(R.id.loginFragment)
-        }
-
+        listenClickEvent()
+        observerEvent()
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.userViewModel = userViewModel
         binding.btnSignup.setOnClickListener {
-            //Check password and confirm password
-            if (binding.etPassword.text.toString() != binding.etPasswordcf.text.toString()) {
-                Toast.makeText(requireContext(), "Password not match", Toast.LENGTH_LONG).show()
+            //Check null for all fields
+            if (binding.etUsername.text.toString().isEmpty() || binding.etPassword.text.toString()
+                    .isEmpty() || binding.etPasswordcf.text.toString().isEmpty()
+            ) {
+                Toast.makeText(requireContext(), "Please enter all information", Toast.LENGTH_LONG)
+                    .show()
             }
-            else
-            {
-                checkEmail()
+            else {
+                //Check password and confirm password
+                if (binding.etPassword.text.toString() != binding.etPasswordcf.text.toString()) {
+                    Toast.makeText(requireContext(), "Password not match", Toast.LENGTH_LONG).show()
+                } else {
+                    checkEmail()
+                }
             }
         }
     }
 
-    fun checkEmail()
+
+
+    private fun checkEmail()
     {
-        val controller = findNavController()
         val preSignupRequest = PreSignupRequest(
-            binding.etUsername.text.toString()
+            binding.etUsername.text.toString(),
+            binding.etPassword.text.toString()
         )
-//        userViewModel.checkEmail(preSignupRequest).observe(viewLifecycleOwner) {
-//            it?.let { resource ->
-//                when (resource.status) {
-//                    Status.SUCCESS -> {
-//                        val bundle = bundleOf(
-//                            "email" to binding.etUsername.text.toString(),
-//                            "password" to binding.etPassword.text.toString()
-//                        )
-//                        controller.navigate(R.id.fillProfileFragment, bundle)
-//                    }
-//                    Status.ERROR -> {
-//                        Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG)
-//                            .show()
-//                    }
-//                    Status.LOADING -> {
-//                    }
-//                }
-//            }
-//        }
+
+        userViewModel.checkEmail(preSignupRequest)
+        userViewModel.checkSuccess.observe(viewLifecycleOwner) {
+            if (it == true) {
+                val action: NavDirections = SignupFragmentDirections.actionSignupFragmentToFillProfileFragment(
+                    preSignupRequest
+                )
+                navigateAction(action)
+            }
+        }
     }
 }
