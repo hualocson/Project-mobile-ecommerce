@@ -1,6 +1,7 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import com.app.e_commerce_app.ui.adapter.CategoryButtonAdapter
 import com.app.e_commerce_app.ui.adapter.ProductAdapter
 import com.app.e_commerce_app.utils.OnCategoryItemButtonClick
 import com.app.e_commerce_app.utils.OnProductItemClick
+import com.app.e_commerce_app.utils.Resource
 import com.app.e_commerce_app.viewmodel.SearchViewModel
 import com.app.e_commerce_app.viewmodel.StoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(true) {
 
     private val searchViewModel by viewModels<SearchViewModel>()
+    private var isOnPageEmpty: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -52,6 +55,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(true) {
             }
             override fun onQueryTextChange(newText: String): Boolean {
                 filterList(newText.toLowerCase())
+                binding.tvSearch.text = newText
                 return false
             }
         })
@@ -92,9 +96,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(true) {
         }
         }
         if(newproductList.isEmpty()){
-            // Handle Empty
+            if(!isOnPageEmpty){
+                binding.searchFlipper.showNext()
+            }
+            isOnPageEmpty = true
         }
         else{
+            if(isOnPageEmpty){
+                binding.searchFlipper.showPrevious()
+            }
+            isOnPageEmpty = false
             productAdapter.setFilterList(newproductList)
         }
     }
