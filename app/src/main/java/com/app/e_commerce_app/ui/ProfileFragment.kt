@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentProfileBinding
@@ -31,9 +32,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.userViewModel = userViewModel
+
         registerAllExceptionEvent(userViewModel, viewLifecycleOwner)
         registerObserverLoadingEvent(userViewModel, viewLifecycleOwner)
         registerObserverNavigateEvent(userViewModel, viewLifecycleOwner)
@@ -45,6 +46,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
 
         binding.btnAddress.setOnClickListener {
             navigateToPage(R.id.action_profileFragment_to_addressFragment)
+        }
+        binding.btnEditProfile.setOnClickListener {
+            val action: NavDirections = ProfileFragmentDirections.actionProfileFragmentToFillProfileFragment(
+                isLogged = true
+            )
+            navigateAction(action)
         }
     }
 

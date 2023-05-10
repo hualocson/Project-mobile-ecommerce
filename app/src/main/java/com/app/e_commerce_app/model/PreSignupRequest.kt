@@ -5,5 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PreSignupRequest(
-    val email : String
+    val email : String,
+    val password : String
 ): Parcelable
