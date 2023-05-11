@@ -137,5 +137,11 @@
           android:name="com.app.e_commerce_app.ui.SearchFragment"
           android:label="Search"
           tools:layout="@layout/fragment_search">
-      </fragment>
+    </fragment>
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="com.app.e_commerce_app.ui.UploadImageFragment"
+        android:label="Upload"
+        tools:layout="@layout/fragment_upload_img">
+    </fragment>
 </navigation>

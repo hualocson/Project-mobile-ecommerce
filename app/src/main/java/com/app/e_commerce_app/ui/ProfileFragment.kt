@@ -46,6 +46,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
         binding.btnAddress.setOnClickListener {
             navigateToPage(R.id.action_profileFragment_to_addressFragment)
         }
+        binding.btnUpload.setOnClickListener {
+            navigateToPage(R.id.uploadFragment)
+        }
     }
 
     private fun loadProfile() {

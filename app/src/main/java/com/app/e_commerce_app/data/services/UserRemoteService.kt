@@ -5,6 +5,7 @@ import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.api.UserApi
 import com.app.e_commerce_app.model.*
 import com.app.e_commerce_app.model.token.TokenJson
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class UserRemoteService @Inject constructor(private val userApi: UserApi) : BaseRemoteService() {
@@ -28,6 +29,9 @@ class UserRemoteService @Inject constructor(private val userApi: UserApi) : Base
 
     suspend fun addAddress(addressRequest: AddressRequest): NetWorkResult<CustomResponse<AddressJson>> =
         handleApi { userApi.addAddress(addressRequest) }
+
+    suspend fun uploadImage(avatar: MultipartBody.Part): NetWorkResult<CustomResponse<UserJson>> =
+        handleApi { userApi.uploadImage(avatar) }
 
     suspend fun updateAddress(
         addressId: Int,

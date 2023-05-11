@@ -8,6 +8,7 @@ import com.app.e_commerce_app.model.PreSignupRequest
 import com.app.e_commerce_app.model.RegisterRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val userRemoteService: UserRemoteService) {
@@ -76,6 +77,17 @@ class UserRepository @Inject constructor(private val userRemoteService: UserRemo
                 result.data.data
             }
 
+            is NetWorkResult.Error -> {
+                throw result.exception
+            }
+        }
+    }
+
+    suspend fun uploadImage(avatar: MultipartBody.Part) = withContext((Dispatchers.IO)) {
+        when (val result = userRemoteService.uploadImage(avatar)){
+            is NetWorkResult.Success -> {
+                result.data.data
+            }
             is NetWorkResult.Error -> {
                 throw result.exception
             }
