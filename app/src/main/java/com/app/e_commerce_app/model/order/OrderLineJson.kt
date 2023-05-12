@@ -5,9 +5,17 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class OrderLineJson(
-    val id : Int,
+    val id: Int,
     val productItemId: Int,
     val orderId: Int,
     val qty: Int,
     val price: Long
-): Parcelable
+) : Parcelable {
+    constructor(productItemId: Int, qty: Int, price: Long) : this(
+        id = 0,
+        productItemId = productItemId,
+        orderId = 0,
+        qty = qty,
+        price = price
+    )
+}

@@ -1,5 +1,6 @@
 package com.app.e_commerce_app.di
 
+import androidx.room.Index
 import com.app.e_commerce_app.common.AppSharePreference
 import com.app.e_commerce_app.common.AuthInterceptor
 import com.app.e_commerce_app.data.api.*
@@ -72,5 +73,10 @@ class NetworkModule {
     @Provides
     fun provideShippingAPI(retrofit: Retrofit) : ShippingApi {
         return retrofit.create(ShippingApi::class.java)
+    }
+
+    @Provides
+    fun provideOrderAPI(retrofit: Retrofit) : OrderApi {
+        return retrofit.create(OrderApi::class.java)
     }
 }
