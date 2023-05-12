@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.ViewStub
 import android.widget.ImageButton
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,9 +18,10 @@ import com.app.e_commerce_app.model.CartModel
 import com.app.e_commerce_app.ui.adapter.CartAdapter
 import com.app.e_commerce_app.viewmodel.CheckoutViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true) {
+class CheckoutFragment: BaseFragment<FragmentFinalCheckoutBinding>(true) {
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -30,10 +30,10 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true) {
     }
 
     private lateinit var viewStub: ViewStub
+    private val viewModel : CheckoutViewModel by viewModels()
 
     private val args by navArgs<CheckoutFragmentArgs>()
 
-    private val viewModel: CheckoutViewModel by viewModels()
 
     private val cartAdapter: CartAdapter by lazy {
         CartAdapter(requireContext(), onItemClick, onItemDelete, itemClickCallback)
@@ -76,6 +76,30 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true) {
                 navigateAction(action)
             }
         }
+
+        binding.btnCheckout.setOnClickListener {
+            var total: Long = 0
+            var shippingMethodId: Int = 0
+            var shippingAddressId: Int = 0
+            var items: List<CartModel> = listOf()
+
+            viewModel.sumTotal.observe(viewLifecycleOwner) {
+                total = it
+            }
+
+            viewModel.shippingMethod.observe(viewLifecycleOwner) {
+                shippingMethodId = it.id
+            }
+            viewModel.productsData.observe(viewLifecycleOwner) {
+                items = it
+            }
+            viewModel.addressData.observe(viewLifecycleOwner) {
+                shippingAddressId = it.id
+            }
+            viewModel.createOrder(
+                total, shippingMethodId, shippingAddressId, items
+            )
+        }
     }
 
     private fun listenChooseShippingClick() {
@@ -95,6 +119,7 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true) {
             }
         }
     }
+
     private fun listenShippingClick() {
         viewStub = binding.layoutShipping.viewStub!!
         val button = viewStub.inflate().findViewById<ImageButton>(R.id.btnUpdate)
@@ -115,7 +140,6 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         binding.rvOrderList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvOrderList.adapter = cartAdapter
@@ -136,15 +160,14 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true) {
             listenChooseShippingClick()
         } else if (args.addressSelected != null && args.shippingMethodSelected == null) { //selected address
             viewModel.updateAddressSelected(args.addressSelected!!)
-            if(viewModel.shippingMethod.value != null)
+            if (viewModel.shippingMethod.value != null)
                 listenShippingClick()
             else
                 listenChooseShippingClick()
         } else if (args.addressSelected == null && args.shippingMethodSelected != null) {
             viewModel.updateShippingMethod(args.shippingMethodSelected!!)
             listenShippingClick()
-        }
-        else {
+        } else {
             Log.d("ELSE", "")
         }
 

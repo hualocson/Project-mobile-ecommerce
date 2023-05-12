@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.app.e_commerce_app.model.order.OrderLineJson
 import kotlinx.parcelize.Parcelize
 
 
@@ -26,4 +27,8 @@ data class CartModel(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id_col")
     var id: Int = 0
+
+    fun toOrderLineJson() : OrderLineJson {
+        return OrderLineJson(productId, quantity.toInt(), price.toLong())
+    }
 }

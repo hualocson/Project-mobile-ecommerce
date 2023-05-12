@@ -4,29 +4,26 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavDirections
 import com.app.e_commerce_app.base.BaseViewModel
+import com.app.e_commerce_app.data.repository.OrderRepository
 import com.app.e_commerce_app.data.repository.ShippingRepository
 import com.app.e_commerce_app.data.repository.UserRepository
 import com.app.e_commerce_app.model.AddressJson
 import com.app.e_commerce_app.model.CartModel
 import com.app.e_commerce_app.model.ShippingJson
-import com.app.e_commerce_app.ui.CheckoutFragmentDirections
-import com.app.e_commerce_app.utils.Utils
+import com.app.e_commerce_app.model.order.OrderRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewScoped
-import dagger.internal.InjectedFieldSignature
-import kotlinx.coroutines.launch
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.*
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
 class CheckoutViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val shippingRepository: ShippingRepository
+    private val shippingRepository: ShippingRepository,
+    private val orderRepository: OrderRepository
 ) : BaseViewModel() {
+    private val supervisorJob = SupervisorJob()
+    private val viewModelScope = CoroutineScope(Dispatchers.IO + supervisorJob)
 
     private val _addressData = MutableLiveData<AddressJson>()
     val addressData: LiveData<AddressJson> = _addressData
@@ -41,14 +38,14 @@ class CheckoutViewModel @Inject constructor(
     val totalPrice: LiveData<Long> = _totalPrice
 
     private val _addresses = MutableLiveData<List<AddressJson>>()
-    val addresses : LiveData<List<AddressJson>> = _addresses
+    val addresses: LiveData<List<AddressJson>> = _addresses
 
     private val _shippingMethods = MutableLiveData<List<ShippingJson>>()
-    val shippingMethods : LiveData<List<ShippingJson>> = _shippingMethods
+    val shippingMethods: LiveData<List<ShippingJson>> = _shippingMethods
 
 
     private val _sumTotal = MutableLiveData<Long>()
-    val sumTotal : LiveData<Long> = _sumTotal
+    val sumTotal: LiveData<Long> = _sumTotal
 
     fun fetchDefaultAddress() {
         showLoading(true)
@@ -56,6 +53,29 @@ class CheckoutViewModel @Inject constructor(
             val defaultAddress = userRepository.getDefaultAddress()
             _addressData.postValue(defaultAddress)
         }
+        registerJobFinish()
+    }
+
+    fun createOrder(
+        totalPrice: Long,
+        shippingMethodId: Int,
+        shippingAddressId: Int,
+        productItems: List<CartModel>
+    ) {
+        showLoading(true)
+        parentJob = viewModelScope.launch(handler) {
+            parentJob!!.ensureActive()
+            val orderLines = productItems.map { item ->
+                item.toOrderLineJson()
+            }
+            val orderRequest =
+                OrderRequest(totalPrice, shippingMethodId, shippingAddressId, orderLines)
+
+            val response = orderRepository.createOrder(orderRequest)
+
+            Log.d("Create", response.orderTotal.toString())
+        }
+
         registerJobFinish()
     }
 
@@ -80,14 +100,16 @@ class CheckoutViewModel @Inject constructor(
     fun updateAddressSelected(addressJson: AddressJson) {
         _addressData.postValue(addressJson)
     }
+
     fun updateShippingMethod(shippingJson: ShippingJson) {
         _shippingMethod.postValue(shippingJson)
     }
+
     fun updateProductsData(productsData: List<CartModel>) {
         _productsData.postValue(productsData)
     }
 
-    fun updateTotalPrice(total : String) {
+    fun updateTotalPrice(total: String) {
         parentJob = viewModelScope.launch(handler) {
             val price = total.toLong()
             _totalPrice.postValue(price)
@@ -95,7 +117,7 @@ class CheckoutViewModel @Inject constructor(
         registerJobFinish()
     }
 
-    fun calculateTotal(shippingPrice : Long) {
+    fun calculateTotal(shippingPrice: Long) {
         val price = totalPrice.value!! + shippingPrice
         _sumTotal.postValue(price)
     }

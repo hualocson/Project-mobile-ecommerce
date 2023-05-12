@@ -20,4 +20,5 @@ object ConstantsURL {
     const val EDIT_PROFILE = "users"
 
     const val SHIPPING_URL = "shippings"
+    const val ORDER_URL = "orders"
 }
