@@ -41,7 +41,7 @@ class AddressFragment : BaseFragment<FragmentAddressBinding>(true) {
 
     private fun listenClickEvent() {
         binding.headerView.btnLeft.setOnClickListener {
-            navigateToPage(R.id.profileFragment)
+            navigateBack()
         }
 
         binding.btnAddAddress.setOnClickListener {

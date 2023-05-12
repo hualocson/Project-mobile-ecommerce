@@ -24,7 +24,7 @@ interface UserApi {
     suspend fun getUserProfile(): Response<CustomResponse<UserJson>>
 
     @PATCH(ConstantsURL.EDIT_PROFILE)
-    suspend fun updateUserProfile(userJson: UserJson): Response<CustomResponse<UserJson>>
+    suspend fun updateUserProfile(@Body userJson: UserJson): Response<CustomResponse<UserJson>>
 
     @POST(ConstantsURL.CHECK_EMAIL)
     suspend fun checkEmail(@Body email: PreSignupRequest): Response<CustomResponse<CheckEmailResponse>>

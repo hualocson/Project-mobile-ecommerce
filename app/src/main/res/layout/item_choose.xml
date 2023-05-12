@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
-            name="shippingMethod"
-            type="com.app.e_commerce_app.model.ShippingJson" />
+            name="item"
+            type="com.app.e_commerce_app.model.ChooseItem" />
 
         <import type="android.view.View" />
     </data>
@@ -34,8 +33,9 @@
                 android:id="@+id/icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                app:imageUrl="@{item.icon}"
+                app:imageId="@{item.iconId}"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{shippingMethod.iconUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +58,7 @@
                     style="@style/myTextViewHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{shippingMethod.name}"
+                    android:text="@{item.title}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_small"
-                    android:text="@{shippingMethod.description}"
+                    android:text="@{item.desc}"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -81,24 +81,25 @@
                     style="@style/myTextViewHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="65.000"
+                    app:numberValue="@{item.price}"
+                    android:visibility="@{item.price == null ? View.GONE : View.VISIBLE }"
                     android:layout_marginEnd="@dimen/padding_small"
-                    android:text="0"
-                    app:numberValue="@{shippingMethod.price}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tvTitle" />
+                    app:layout_constraintTop_toTopOf="@id/tvTitle"
+                    />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageButton
-                android:id="@+id/btnUpdate"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@color/transparent"
-                android:contentDescription="Update"
-                android:src="@drawable/ic_edit_24"
+            <RadioButton
+                android:id="@+id/radioButton"
+                style="@style/Widget.Material3.CompoundButton.RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="@{item.checked}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                tools:ignore="TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

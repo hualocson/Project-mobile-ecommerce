@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentProductDetailBinding
 import com.app.e_commerce_app.model.CartModel
@@ -59,12 +60,23 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
         binding.rvProductItemOptions.adapter = variationAdapter
     }
 
+    private fun listenHeaderClick() {
+        binding.headerView.btnLeft.setOnClickListener {
+            navigateBack()
+        }
+
+        binding.headerView.btnRight.setOnClickListener {
+            navigateToPage(R.id.action_productDetailFragment_to_cartFragment)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observerEvent()
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.productDetailViewModel = productDetailViewModel
+        listenHeaderClick()
 
         var itemQty: Int = binding.tvQuantity.text.toString().toInt();
 
@@ -106,7 +118,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
             }
             val itemPrice = binding.tvTotalprice.text.toString()
             val itemQuantity = binding.tvQuantity.text.toString()
-            val cartItem: CartModel = CartModel(productId, itemName, itemImg, itemPrice, itemQuantity,itemDesc)
+            val cartItem = CartModel(productId, itemName, itemImg, itemPrice, itemQuantity,itemDesc)
             if(productDetailViewModel.activeItemData.value!!.id != 0){
                 cartViewModel.insertOrUpdate(cartItem)
                 Toast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG).show()
@@ -118,7 +130,6 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
     }
 
     private val onVariationClick: (VariationModel) -> Unit = {
-        Log.d("VariationModel", it.name)
     }
 
     private fun activeItem(variationOption: VariationOptionModel) {
@@ -128,7 +139,6 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
 
     private val onVariationOptionClick: (VariationOptionModel) -> Unit = {
         activeItem(it)
-        Log.d("Item", it.toString())
     }
 
 }

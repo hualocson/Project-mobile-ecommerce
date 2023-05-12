@@ -23,6 +23,7 @@ class HeaderView @JvmOverloads constructor(
     private var isShowIcRight: Boolean = true
     private var isShowTitle: Boolean = true
     private var icLeft: Int
+    private var icRight: Int
 
     init {
         _binding = CustomHeaderViewBinding.inflate(LayoutInflater.from(context), this, true)
@@ -39,7 +40,8 @@ class HeaderView @JvmOverloads constructor(
                 isShowIcLeft = getBoolean(R.styleable.CustomHeader_is_show_ic_left, true)
                 isShowIcRight = getBoolean(R.styleable.CustomHeader_is_show_ic_right, true)
                 isShowTitle = getBoolean(R.styleable.CustomHeader_is_show_title, true)
-                icLeft = getResourceId(R.styleable.CustomHeader_ic_left, 0)
+                icLeft = getResourceId(R.styleable.CustomHeader_ic_left, R.drawable.ic_back)
+                icRight = getResourceId(R.styleable.CustomHeader_ic_right, R.drawable.ic_search_24)
             } finally {
                 recycle()
             }
@@ -54,14 +56,14 @@ class HeaderView @JvmOverloads constructor(
 
         if (isShowIcLeft) {
             binding.btnLeft.visibility = View.VISIBLE
-            if (icLeft != 0)
-                binding.btnLeft.icon = ContextCompat.getDrawable(context, icLeft)
+            binding.btnLeft.icon = ContextCompat.getDrawable(context, icLeft)
         } else
             binding.btnLeft.visibility = View.GONE
 
-        if (isShowIcRight)
+        if (isShowIcRight) {
             binding.btnRight.visibility = View.VISIBLE
-        else
+            binding.btnRight.icon = ContextCompat.getDrawable(context, icRight)
+        } else
             binding.btnRight.visibility = View.GONE
     }
 
@@ -77,7 +79,7 @@ class HeaderView @JvmOverloads constructor(
         }
 
     val btnRight
-        get(): ImageButton {
+        get(): Button {
             return binding.btnRight
         }
 

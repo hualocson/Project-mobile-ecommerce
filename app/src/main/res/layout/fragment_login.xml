@@ -20,32 +20,32 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/loginHeader"
             android:paddingHorizontal="@dimen/padding_medium"
-            android:layout_height="wrap_content">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/loginHeader">
 
             <TextView
                 android:id="@+id/tvLoginHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minLines="2"
                 android:text="Log in to your Account"
                 android:textColor="@color/text_color"
                 android:textSize="40dp"
                 android:textStyle="bold"
-                android:minLines="2"
                 app:layout_constraintBottom_toTopOf="@id/et_username"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
 
             <EditText
-                style="@style/myEditText"
                 android:id="@+id/et_username"
+                style="@style/myEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_large"
@@ -59,18 +59,18 @@
                 app:layout_constraintTop_toBottomOf="@id/tvLoginHeader" />
 
             <EditText
-                style="@style/myEditText"
                 android:id="@+id/et_password"
+                style="@style/myEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_medium"
                 android:drawableStart="@drawable/ic_outline_lock"
                 android:drawablePadding="20dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingVertical="20dp"
                 android:textColorHint="@color/on_secondary_color"
                 app:layout_constraintBottom_toTopOf="@id/ckb_login"
-                android:hint="Password"
-                android:paddingVertical="20dp"
-                android:inputType="textPassword"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_username" />
@@ -81,9 +81,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_small"
                 android:buttonTint="@color/text_color"
-                android:textColor="@color/text_color"
                 android:gravity="center"
                 android:text="Remember me"
+                android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size_normal"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -98,8 +98,8 @@
                 android:layout_marginBottom="@dimen/padding_medium"
                 android:background="@drawable/background_button"
                 android:text="Login"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ckb_login" />
 
             <TextView
@@ -164,8 +164,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="20dp"
                 android:layout_marginTop="@dimen/padding_small"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -193,7 +193,6 @@
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

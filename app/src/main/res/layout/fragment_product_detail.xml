@@ -20,11 +20,13 @@
 
         <com.app.e_commerce_app.ui.customview.HeaderView
             android:id="@+id/headerView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:is_show_ic_left="true"
-            app:is_show_ic_right="false"
+            app:is_show_ic_right="true"
             app:is_show_title="false"
+            app:ic_right="@drawable/ic_cart_outline"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
 
             app:layout_constraintTop_toTopOf="parent" />

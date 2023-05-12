@@ -35,7 +35,7 @@ open class BaseActivity: AppCompatActivity() {
         showNotifyDialog(message, title, textButton)
     }
 
-    open fun showNotifyDialog(message: String, title: String, textButton: String? = null) {
+    open fun showNotifyDialog(title: String, message: String, textButton: String? = null) {
         val notifyDialog = NotifyDialog(this, title, message, textButton)
         notifyDialog.show()
         notifyDialog.window?.setGravity(Gravity.CENTER)

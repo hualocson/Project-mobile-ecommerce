@@ -9,7 +9,7 @@
         android:id="@+id/loginFragment"
         android:name="com.app.e_commerce_app.ui.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
@@ -25,7 +25,7 @@
         android:id="@+id/homeFragment"
         android:name="com.app.e_commerce_app.ui.HomeFragment"
         android:label=""
-        tools:layout="@layout/fragment_homepage" >
+        tools:layout="@layout/fragment_homepage">
         <action
             android:id="@+id/action_homeFragment_to_storeFragment"
             app:destination="@id/storeFragment" />
@@ -38,29 +38,32 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            app:destination="@+id/productDetailFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.app.e_commerce_app.ui.SignupFragment"
         android:label="Signup"
-        tools:layout="@layout/fragment_signup"
-        >
+        tools:layout="@layout/fragment_signup">
         <action
             android:id="@+id/action_signupFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_signupFragment_to_fillProfileFragment"
-            app:destination="@id/fillProfileFragment" >
-        </action>
+            app:destination="@id/fillProfileFragment"></action>
     </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.app.e_commerce_app.ui.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile"
-        >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -69,44 +72,44 @@
             app:destination="@id/addressFragment" />
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            />
+            app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_profileFragment_to_fillProfileFragment"
-            app:destination="@id/fillProfileFragment" >
-        </action>
+            app:destination="@id/fillProfileFragment"></action>
     </fragment>
 
     <fragment
         android:id="@+id/cartFragment"
-        android:label="Order"
         android:name="com.app.e_commerce_app.ui.CartFragment"
-        tools:layout="@layout/fragment_cart"
-        />
+        android:label="Order"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/walletFragment"
-        android:label="Wallet"
         android:name="com.app.e_commerce_app.ui.WalletFragment"
-        tools:layout="@layout/fragment_wallet"
-        />
+        android:label="Wallet"
+        tools:layout="@layout/fragment_wallet" />
     <fragment
         android:id="@+id/fillProfileFragment"
         android:name="com.app.e_commerce_app.ui.FillProfileFragment"
         android:label="fragment_fill_profile"
-        tools:layout="@layout/fragment_fill_profile" >
+        tools:layout="@layout/fragment_fill_profile">
         <argument
             android:name="signupData"
+            android:defaultValue="@null"
             app:argType="com.app.e_commerce_app.model.PreSignupRequest"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <action
             android:id="@+id/action_fillProfileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <argument
             android:name="isLogged"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_fillProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -116,7 +119,7 @@
         android:id="@+id/storeFragment"
         android:name="com.app.e_commerce_app.ui.StoreFragment"
         android:label="Store"
-        tools:layout="@layout/fragment_store" >
+        tools:layout="@layout/fragment_store">
         <action
             android:id="@+id/action_storeFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -125,14 +128,16 @@
         android:id="@+id/productDetailFragment"
         android:name="com.app.e_commerce_app.ui.ProductDetailFragment"
         android:label="Product Detail"
-        tools:layout="@layout/fragment_product_detail"
-        />
+        tools:layout="@layout/fragment_product_detail">
+        <action
+            android:id="@+id/action_productDetailFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addressFragment"
         android:name="com.app.e_commerce_app.ui.AddressFragment"
         android:label="AddressFragment"
-        tools:layout="@layout/fragment_address"
-        >
+        tools:layout="@layout/fragment_address">
         <action
             android:id="@+id/action_addressFragment_to_addAddressFragment"
             app:destination="@id/addAddressFragment"
@@ -143,8 +148,7 @@
         android:id="@+id/addAddressFragment"
         android:name="com.app.e_commerce_app.ui.AddAddressFragment"
         android:label="AddAddressFragment"
-        tools:layout="@layout/fragment_add_address"
-        >
+        tools:layout="@layout/fragment_add_address">
         <action
             android:id="@+id/action_addAddressFragment_to_addressFragment"
             app:destination="@id/addressFragment"
@@ -152,20 +156,71 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="address"
+            android:defaultValue="@null"
             app:argType="com.app.e_commerce_app.model.AddressJson"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
     <fragment
-          android:id="@+id/searchFragment"
-          android:name="com.app.e_commerce_app.ui.SearchFragment"
-          android:label="Search"
-          tools:layout="@layout/fragment_search">
-    </fragment>
+        android:id="@+id/searchFragment"
+        android:name="com.app.e_commerce_app.ui.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search"></fragment>
     <fragment
         android:id="@+id/uploadFragment"
         android:name="com.app.e_commerce_app.ui.UploadImageFragment"
         android:label="Upload"
-        tools:layout="@layout/fragment_upload_img">
+        tools:layout="@layout/fragment_upload_img"></fragment>
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.app.e_commerce_app.ui.CheckoutFragment"
+        android:label="CheckoutFragment"
+        tools:layout="@layout/fragment_final_checkout">
+        <argument
+            android:name="productList"
+            android:defaultValue="@null"
+            app:argType="com.app.e_commerce_app.model.CartModel[]"
+            app:nullable="true" />
+        <argument
+            android:name="totalPrice"
+            android:defaultValue=''
+            app:argType="string" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_chooseFragment"
+            app:destination="@id/chooseFragment" />
+        <argument
+            android:name="addressSelected"
+            android:defaultValue="@null"
+            app:argType="com.app.e_commerce_app.model.AddressJson"
+            app:nullable="true" />
+        <argument
+            android:name="shippingMethodSelected"
+            android:defaultValue="@null"
+            app:argType="com.app.e_commerce_app.model.ShippingJson"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/cartFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseFragment"
+        android:name="com.app.e_commerce_app.ui.ChooseFragment"
+        android:label="ChooseFragment"
+        tools:layout="@layout/item_choose">
+        <argument
+            android:name="items"
+            app:argType="com.app.e_commerce_app.model.ChooseItem[]" />
+        <argument
+            android:name="chooseAddress"
+            android:defaultValue="true"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_chooseFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/checkoutFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

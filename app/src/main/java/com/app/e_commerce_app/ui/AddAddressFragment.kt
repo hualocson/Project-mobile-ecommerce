@@ -29,7 +29,7 @@ class AddAddressFragment : BaseFragment<FragmentAddAddressBinding>(true) {
 
     private fun listenClickEvent() {
         binding.headerView.btnLeft.setOnClickListener {
-            navigateToPage(R.id.action_addAddressFragment_to_addressFragment)
+            navigateBack()
         }
     }
 

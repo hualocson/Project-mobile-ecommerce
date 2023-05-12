@@ -26,9 +26,6 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(true) {
     private var categoryId: Int = 0
 
     private val storeViewModel by viewModels<StoreViewModel>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
