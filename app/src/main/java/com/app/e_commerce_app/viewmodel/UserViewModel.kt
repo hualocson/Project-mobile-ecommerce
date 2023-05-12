@@ -9,12 +9,11 @@ import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.common.Event
 import com.app.e_commerce_app.data.repository.TokenRepository
 import com.app.e_commerce_app.data.repository.UserRepository
-import com.app.e_commerce_app.model.LoginRequest
-import com.app.e_commerce_app.model.PreSignupRequest
-import com.app.e_commerce_app.model.RegisterRequest
-import com.app.e_commerce_app.model.UserJson
+import com.app.e_commerce_app.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -57,6 +56,15 @@ class UserViewModel @Inject constructor(
         }
         registerJobFinish()
     }
+
+    fun uploadImage(avatar: MultipartBody.Part){
+        showLoading(true)
+        parentJob = viewModelScope.launch(handler){
+            val user = userRepository.uploadImage(avatar)
+        }
+        registerJobFinish()
+    }
+
     fun logout() {
         tokenRepository.removeToken()
     }

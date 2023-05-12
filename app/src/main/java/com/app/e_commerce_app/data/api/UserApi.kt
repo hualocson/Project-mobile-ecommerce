@@ -2,11 +2,14 @@ package com.app.e_commerce_app.data.api
 
 import com.app.e_commerce_app.model.*
 import com.app.e_commerce_app.model.token.TokenJson
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -34,4 +37,8 @@ interface UserApi {
 
     @PATCH(ConstantsURL.USER_ADDRESS_UPDATE)
     suspend fun updateAddress(@Path("addressId") addressId: Int, @Body addressRequest: AddressRequest) : Response<CustomResponse<AddressJson>>
+
+    @Multipart
+    @PATCH(ConstantsURL.USER_UPLOAD_IMG)
+    suspend fun uploadImage(@Part avatar: MultipartBody.Part): Response<CustomResponse<UserJson>>
 }

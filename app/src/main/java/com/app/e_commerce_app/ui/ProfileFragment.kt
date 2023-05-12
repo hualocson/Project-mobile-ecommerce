@@ -47,6 +47,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
         binding.btnAddress.setOnClickListener {
             navigateToPage(R.id.action_profileFragment_to_addressFragment)
         }
+        binding.btnUpload.setOnClickListener {
+            navigateToPage(R.id.uploadFragment)
+        }
         binding.btnEditProfile.setOnClickListener {
             val action: NavDirections = ProfileFragmentDirections.actionProfileFragmentToFillProfileFragment(
                 isLogged = true
