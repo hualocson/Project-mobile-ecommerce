@@ -1,10 +1,9 @@
 package com.app.e_commerce_app.base
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
 import com.app.e_commerce_app.base.network.BaseNetworkException
 import com.app.e_commerce_app.base.network.NetworkErrorException
 import com.app.e_commerce_app.common.Event
@@ -21,6 +20,9 @@ open class BaseViewModel : ViewModel() {
     var onNavigateToPage = MutableLiveData<Event<Int>>()
         protected set
 
+    var onNavigateAction = MutableLiveData<Event<NavDirections>>()
+        protected set
+
     var isLoading = MutableLiveData<Event<Boolean>>()
         protected set
 
@@ -35,6 +37,10 @@ open class BaseViewModel : ViewModel() {
 
     protected fun navigateToPage(actionId: Int) {
         onNavigateToPage.postValue(Event(actionId))
+    }
+
+    protected fun navigateAction(action : NavDirections) {
+        onNavigateAction.postValue(Event(action))
     }
 
     protected fun registerJobFinish() {

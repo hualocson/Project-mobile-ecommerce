@@ -68,4 +68,9 @@ class NetworkModule {
     fun provideVariationAPI(retrofit: Retrofit) : VariationApi {
         return retrofit.create(VariationApi::class.java)
     }
+
+    @Provides
+    fun provideShippingAPI(retrofit: Retrofit) : ShippingApi {
+        return retrofit.create(ShippingApi::class.java)
+    }
 }

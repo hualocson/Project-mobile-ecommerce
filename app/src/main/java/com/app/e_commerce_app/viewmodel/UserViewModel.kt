@@ -46,7 +46,7 @@ class UserViewModel @Inject constructor(
     }
 
     fun login(loginRequest: LoginRequest) {
-        showLoading(true)
+        showLoading(false)
         parentJob = viewModelScope.launch(handler) {
             val token = userRepository.login(loginRequest)
             if (token.accessToken.isNotEmpty() or token.refreshToken.isNotEmpty()) {
@@ -72,7 +72,6 @@ class UserViewModel @Inject constructor(
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val user = userRepository.getUserProfile()
-            Log.d("USer", user.toString())
             _userLiveData.postValue(user)
         }
         registerJobFinish()
@@ -90,16 +89,4 @@ class UserViewModel @Inject constructor(
         }
         registerJobFinish()
     }
-
-//
-//    fun fetchUser() {
-//        showLoading(true)
-//        parentJob = viewModelScope.launch(Dispatchers.IO) {
-//            val response = userRepository.getUserProfile()
-//            if (response is NetWorkResult.Success) {
-//                _userLiveData.postValue(response.data.data!!)
-//            }
-//        }
-//        registerJobFinish()
-//    }
 }

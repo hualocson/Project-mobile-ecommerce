@@ -15,10 +15,12 @@
     <dimen name="category_width">80dp</dimen>
     <dimen name="product_item_width">160dp</dimen>
 
+    <!--    text size-->
     <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_heading">20sp</dimen>
     <dimen name="text_size_subtitle">25sp</dimen>
     <dimen name="text_size_fragment_heading">28sp</dimen>
 
+    <dimen name="default_elevation">8dp</dimen>
 </resources>

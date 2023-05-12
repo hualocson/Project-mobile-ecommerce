@@ -18,4 +18,6 @@ object ConstantsURL {
     const val PRODUCT_BY_ID = "categories/products/{productId}"
     const val USER_UPLOAD_IMG = "users/avatar"
     const val EDIT_PROFILE = "users"
+
+    const val SHIPPING_URL = "shippings"
 }

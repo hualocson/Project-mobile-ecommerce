@@ -34,18 +34,12 @@ class UserRepository @Inject constructor(private val userRemoteService: UserRemo
     }
 
     suspend fun updateUserProfile(userJson: UserJson) = withContext(Dispatchers.IO) {
-
         when (val result = userRemoteService.updateUserProfile(userJson)) {
             is NetWorkResult.Success -> {
-                Log.d("REPO", "updateUserProfile: ${result.data.data}")
                 result.data.data!!
             }
 
             is NetWorkResult.Error -> {
-                result.exception.stackTrace.forEach {
-                    Log.d("REPO ERR", "updateUserProfile: ${it.toString()}")
-                }
-
                 throw result.exception
             }
         }
@@ -88,9 +82,9 @@ class UserRepository @Inject constructor(private val userRemoteService: UserRemo
     }
 
     suspend fun getDefaultAddress() = withContext(Dispatchers.IO) {
-        when (val result = userRemoteService.getDefaultAddress()) {
+        when (val result = userRemoteService.getUserAddresses("default")) {
             is NetWorkResult.Success -> {
-                result.data.data
+                result.data.data!!.first()
             }
 
             is NetWorkResult.Error -> {
