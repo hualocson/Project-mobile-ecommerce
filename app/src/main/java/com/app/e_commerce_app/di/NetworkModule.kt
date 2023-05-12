@@ -13,6 +13,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.PrimitiveIterator
 import javax.inject.Singleton
 
@@ -78,5 +79,9 @@ class NetworkModule {
     @Provides
     fun provideOrderAPI(retrofit: Retrofit) : OrderApi {
         return retrofit.create(OrderApi::class.java)
+    }
+    @Provides
+    fun provideNewAPI(retrofit: Retrofit) : NewApi {
+        return retrofit.create(NewApi::class.java)
     }
 }
