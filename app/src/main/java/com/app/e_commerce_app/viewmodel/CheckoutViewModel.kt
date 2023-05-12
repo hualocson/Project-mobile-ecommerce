@@ -11,6 +11,8 @@ import com.app.e_commerce_app.data.repository.UserRepository
 import com.app.e_commerce_app.model.AddressJson
 import com.app.e_commerce_app.model.CartModel
 import com.app.e_commerce_app.model.ShippingJson
+import com.app.e_commerce_app.model.order.OrderJson
+import com.app.e_commerce_app.model.order.OrderLineJson
 import com.app.e_commerce_app.model.order.OrderRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -65,9 +67,11 @@ class CheckoutViewModel @Inject constructor(
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             parentJob!!.ensureActive()
-            val orderLines = productItems.map { item ->
-                item.toOrderLineJson()
-            }
+//            val orderLines = productItems.map { item ->
+//                item.toOrderLineJson()
+//            }
+
+            val orderLines : List<OrderLineJson> = listOf()
             val orderRequest =
                 OrderRequest(totalPrice, shippingMethodId, shippingAddressId, orderLines)
 

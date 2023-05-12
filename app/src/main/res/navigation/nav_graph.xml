@@ -176,11 +176,6 @@
         android:label="CheckoutFragment"
         tools:layout="@layout/fragment_final_checkout">
         <argument
-            android:name="productList"
-            android:defaultValue="@null"
-            app:argType="com.app.e_commerce_app.model.CartModel[]"
-            app:nullable="true" />
-        <argument
             android:name="totalPrice"
             android:defaultValue=''
             app:argType="string" />

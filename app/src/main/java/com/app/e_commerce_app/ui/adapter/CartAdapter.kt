@@ -39,7 +39,7 @@ class CartAdapter(
                 binding.btnPlusQuantity.setOnClickListener {
                     itemQty = itemQty + 1
                     binding.tvQuantity.text = itemQty.toString()
-                    cartModel.quantity = itemQty.toString()
+                    cartModel.quantity = itemQty
                     itemClickCallback(cartModel)
                 }
                 binding.btnMinusQuantity.setOnClickListener {
@@ -49,7 +49,7 @@ class CartAdapter(
                             onDelete(cartModel)
                         }
                         binding.tvQuantity.text = itemQty.toString()
-                        cartModel.quantity = itemQty.toString()
+                        cartModel.quantity = itemQty
                         itemClickCallback(cartModel)
                     }
                 }
