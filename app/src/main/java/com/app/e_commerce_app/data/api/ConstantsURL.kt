@@ -2,7 +2,7 @@ package com.app.e_commerce_app.data.api
 
 object ConstantsURL {
     // Endpoints
-    const val BASE_URL = "http://10.0.2.2:5002/api/v1/" // For local api
+    const val BASE_URL = "http://10.0.2.2:5001/api/v1/" // For local api
 //    const val BASE_URL = "https://server-rests-api-mobile.onrender.com/api/v1/"
 //    const val BASE_URL = "https://server-rests-api-mobile-dev.onrender.com/api/v1/" //dev
     const val LOGIN_URL = "users/signin"
@@ -17,4 +17,6 @@ object ConstantsURL {
     const val PRODUCT_BY_CATEGORY_URL = "categories/{id}/products"
     const val PRODUCT_BY_ID = "categories/products/{productId}"
     const val EDIT_PROFILE = "users"
+
+    const val SHIPPING_URL = "shippings"
 }

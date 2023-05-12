@@ -4,8 +4,13 @@ import android.os.Parcelable
 import android.util.Log
 import com.app.e_commerce_app.model.variation.VariationModel
 import com.app.e_commerce_app.model.variation.VariationOptionModel
+import com.app.e_commerce_app.utils.Utils
 import com.denzcoskun.imageslider.models.SlideModel
 import kotlinx.parcelize.Parcelize
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 @Parcelize
 data class ProductModel(
@@ -15,7 +20,7 @@ data class ProductModel(
     val description: String,
     val productImage: String,
     val productItems: ArrayList<ProductItemJson>? = null,
-    val minPrice: Int,
+    val minPrice: Long,
 ) : Parcelable {
     override fun toString(): String {
         return "${id.toString()}  ${name.toString()}"
@@ -33,9 +38,7 @@ data class ProductModel(
         }
 
     val totalPrice
-        get() : String {
-            return minPrice.toString()
-        }
+        get() : String = Utils.formatNumber(minPrice)
     private val productItemOptions
         get() : List<ProductConfigurationJson> {
             val arr = ArrayList<ProductConfigurationJson>()

@@ -38,6 +38,12 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            app:destination="@+id/productDetailFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -130,7 +136,11 @@
         android:name="com.app.e_commerce_app.ui.ProductDetailFragment"
         android:label="Product Detail"
         tools:layout="@layout/fragment_product_detail"
-        />
+        >
+        <action
+            android:id="@+id/action_productDetailFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addressFragment"
         android:name="com.app.e_commerce_app.ui.AddressFragment"
@@ -174,6 +184,52 @@
         >
         <argument
             android:name="productList"
-            app:argType="com.app.e_commerce_app.model.CartModel[]" />
+            app:argType="com.app.e_commerce_app.model.CartModel[]"
+            app:nullable="true"
+            android:defaultValue="@null"
+            />
+        <argument
+            android:name="totalPrice"
+            app:argType="string"
+            android:defaultValue='' />
+        <action
+            android:id="@+id/action_checkoutFragment_to_chooseFragment"
+            app:destination="@id/chooseFragment" />
+        <argument
+            android:name="addressSelected"
+            app:argType="com.app.e_commerce_app.model.AddressJson"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="shippingMethodSelected"
+            app:argType="com.app.e_commerce_app.model.ShippingJson"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/cartFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseFragment"
+        android:name="com.app.e_commerce_app.ui.ChooseFragment"
+        android:label="ChooseFragment"
+        tools:layout="@layout/item_choose"
+        >
+        <argument
+            android:name="items"
+            app:argType="com.app.e_commerce_app.model.ChooseItem[]" />
+        <argument
+            android:name="chooseAddress"
+            app:argType="boolean"
+            android:defaultValue="true" />
+        <action
+            android:id="@+id/action_chooseFragment_to_checkoutFragment"
+            app:destination="@id/checkoutFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/checkoutFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

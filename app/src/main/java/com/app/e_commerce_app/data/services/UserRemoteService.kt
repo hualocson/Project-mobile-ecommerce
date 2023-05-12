@@ -26,8 +26,9 @@ class UserRemoteService @Inject constructor(private val userApi: UserApi) : Base
     suspend fun getAllUserAddresses(): NetWorkResult<CustomResponse<List<AddressJson>>> =
         handleApi { userApi.getUserAddresses() }
 
-    suspend fun getDefaultAddress(): NetWorkResult<CustomResponse<List<AddressJson>>> =
-        handleApi { userApi.getUserAddresses("default") }
+    suspend fun getUserAddresses(flag: String): NetWorkResult<CustomResponse<List<AddressJson>>> =
+        handleApi { userApi.getUserAddresses(flag) }
+
 
     suspend fun addAddress(addressRequest: AddressRequest): NetWorkResult<CustomResponse<AddressJson>> =
         handleApi { userApi.addAddress(addressRequest) }

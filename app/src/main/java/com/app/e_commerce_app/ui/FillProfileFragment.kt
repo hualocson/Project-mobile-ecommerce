@@ -64,16 +64,15 @@ class FillProfileFragment : BaseFragment<FragmentFillProfileBinding>(true) {
             autoCompleteTextView.setText(selectedItem, false)
         }
         if(args.isLogged) {
-            Log.d("User data", userViewModel.userLiveData.value.toString())
-            userViewModel.userLiveData.observe(viewLifecycleOwner) {
-                Log.d("User data", it.toString())
-                if (it != null) {
-                    binding.fillFirstname.setText(it.firstName)
-                    binding.fillLastname.setText(it.lastName)
-                    binding.fillPhone.setText(it.phone)
-                    autoCompleteTextView?.setText(it.gender, false)
+            userViewModel.userLiveData.observe(viewLifecycleOwner) { user ->
+                if (user != null) {
+                    binding.fillFirstname.setText(user.firstName)
+                    binding.fillLastname.setText(user.lastName)
+                    binding.fillPhone.setText(user.phone)
+                    autoCompleteTextView?.setText(user.gender, false)
                 }
             }
+            binding.btnFill.setText(R.string.update)
         }
         else
         {

@@ -25,13 +25,10 @@ abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigation
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         if (isHideBottomNavigationView) {
             requireActivity().findViewById<BottomNavigationView>(R.id.navigation_view).visibility =
                 View.GONE
-            Log.d("BaseFragment", "Hide bottom naviagtion")
         }
-
         else requireActivity().findViewById<BottomNavigationView>(R.id.navigation_view).visibility =
             View.VISIBLE
     }
@@ -47,6 +44,10 @@ abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigation
 
     protected fun navigateToPage(actionId: Int) {
         findNavController().navigate(actionId)
+    }
+
+    protected fun navigateBack() {
+        findNavController().popBackStack()
     }
 
     protected fun navigateAction(action: NavDirections) {
@@ -107,7 +108,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigation
         viewLifecycleOwner: LifecycleOwner
     ) {
         viewModel.networkException.observe(viewLifecycleOwner, EventObserver {
-            showNotify(getDefaultNotifyTitle(), it.message ?: "Network error")
+            showNotify(getDefaultNotifyTitle(), it.responseMessage ?: "Network error")
         })
     }
 
@@ -126,6 +127,9 @@ abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigation
     ) {
         viewModel.onNavigateToPage.observe(viewLifecycleOwner, EventObserver {
             navigateToPage(it)
+        })
+        viewModel.onNavigateAction.observe(viewLifecycleOwner, EventObserver {
+            navigateAction(it)
         })
     }
 

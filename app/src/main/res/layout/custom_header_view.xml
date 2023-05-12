@@ -32,15 +32,17 @@
             app:layout_constraintStart_toEndOf="@+id/btnLeft"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:minWidth="70dp"
+            android:background="@color/transparent"
+            android:minWidth="80dp"
             android:minHeight="80dp"
-            android:padding="@dimen/padding_default"
-            android:src="@drawable/ic_search_24"
+            app:icon="@drawable/ic_search_24"
+            app:iconSize="30dp"
+            app:iconTint="@color/black"
+            app:iconGravity="textEnd"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
