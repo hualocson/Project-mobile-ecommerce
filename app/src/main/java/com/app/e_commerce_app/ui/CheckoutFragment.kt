@@ -47,8 +47,8 @@ class CheckoutFragment: BaseFragment<FragmentFinalCheckoutBinding>(true) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (args.productList != null)
-            viewModel.updateProductsData(args.productList!!.toList())
+//        if (args.productList != null)
+//            viewModel.updateProductsData(args.productList!!.toList())
 
         if (args.totalPrice.isNotEmpty())
             viewModel.updateTotalPrice(args.totalPrice)

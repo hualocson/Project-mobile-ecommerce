@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.base.BaseFragment
@@ -29,25 +30,30 @@ class CartFragment : BaseFragment<FragmentCartBinding>(false) {
     }
 
     private fun initControls() {
+        registerAllExceptionEvent(cartViewModel, viewLifecycleOwner)
         registerObserverLoadingEvent(cartViewModel, viewLifecycleOwner)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.cartViewModel = cartViewModel
         binding.rvProductCart.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        cartViewModel.getAllItems()
-        handleCartLayout()
         binding.rvProductCart.adapter = cartAdapter
+
+
+        cartViewModel.setEmpty()
+        cartViewModel.getAllItems()
+
+        handleCartLayout()
     }
 
     private fun handleCartLayout() {
-//        if(cartViewModel.cartsData.value.isNullOrEmpty()){
-//            binding.flipper.showNext()
-//            binding.tvTotalprice.text = "0"
-//        }
+        if(!cartViewModel.cartsData.value.isNullOrEmpty()){
+            binding.flipper.showNext()
+            binding.btnCheckout.isEnabled = true
+        }
         cartViewModel.cartsData.observe(viewLifecycleOwner) {
-            if (it.isNullOrEmpty()) {
+            if (it.isNotEmpty()) {
                 binding.flipper.showNext()
-                binding.btnCheckout.isEnabled = false
+                binding.btnCheckout.isEnabled = true
             }
         }
     }
@@ -58,9 +64,14 @@ class CartFragment : BaseFragment<FragmentCartBinding>(false) {
         binding.btnCheckout.setOnClickListener {
             cartViewModel.cartsData.observe(viewLifecycleOwner) {
                 val action =
-                    CartFragmentDirections.actionCartFragmentToCheckoutFragment(it.toTypedArray(), cartViewModel.totalPrice.value!!)
+                    CartFragmentDirections.actionCartFragmentToCheckoutFragment(cartViewModel.totalPrice.value!!)
+//                CartFragmentDirections.actionCartFragmentToCheckoutFragment(it.toTypedArray(), cartViewModel.totalPrice.value!!)
                 navigateAction(action)
             }
+        }
+
+        cartViewModel.cartsData.observe(viewLifecycleOwner) {
+            cartAdapter.setItems(it)
         }
     }
 
@@ -76,7 +87,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(false) {
     private val onItemDelete: (CartModel) -> Unit = {
         cartViewModel.deleteCart(it)
         if (cartViewModel.cartsData.value?.size == 1) {
-            binding.flipper.showNext()
+            binding.flipper.showPrevious()
+            binding.btnCheckout.isEnabled = true
         }
     }
 }

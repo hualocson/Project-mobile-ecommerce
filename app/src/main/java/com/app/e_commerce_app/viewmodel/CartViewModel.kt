@@ -1,10 +1,12 @@
 package com.app.e_commerce_app.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.data.repository.CartRespository
 import com.app.e_commerce_app.model.CartModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 
 class CartViewModel(application: Application) : BaseViewModel() {
@@ -58,6 +60,14 @@ class CartViewModel(application: Application) : BaseViewModel() {
             val response = cartRepository.getAllItems()
             updateTotalPrice(response)
             _cartsData.postValue(response)
+        }
+        registerJobFinish()
+    }
+
+    fun setEmpty() {
+        showLoading(true)
+        parentJob = viewModelScope.launch(handler) {
+            _cartsData.postValue(listOf())
         }
         registerJobFinish()
     }

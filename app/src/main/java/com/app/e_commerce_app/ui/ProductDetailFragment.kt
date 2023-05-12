@@ -118,7 +118,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
             }
             val itemPrice = binding.tvTotalprice.text.toString()
             val itemQuantity = binding.tvQuantity.text.toString()
-            val cartItem = CartModel(productId, itemName, itemImg, itemPrice, itemQuantity,itemDesc)
+            val cartItem = CartModel(productId, itemName, itemImg, itemPrice.toLong(), itemQuantity.toInt(),itemDesc)
             if(productDetailViewModel.activeItemData.value!!.id != 0){
                 cartViewModel.insertOrUpdate(cartItem)
                 Toast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG).show()
