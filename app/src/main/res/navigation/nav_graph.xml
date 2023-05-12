@@ -175,10 +175,6 @@
         android:name="com.app.e_commerce_app.ui.CheckoutFragment"
         android:label="CheckoutFragment"
         tools:layout="@layout/fragment_final_checkout">
-        <argument
-            android:name="totalPrice"
-            android:defaultValue=''
-            app:argType="string" />
         <action
             android:id="@+id/action_checkoutFragment_to_chooseFragment"
             app:destination="@id/chooseFragment" />
@@ -198,6 +194,15 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/cartFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="cartItemList"
+            app:argType="com.app.e_commerce_app.model.CartItemModel[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="totalPrice"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
     <fragment
         android:id="@+id/chooseFragment"

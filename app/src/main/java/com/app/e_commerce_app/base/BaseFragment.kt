@@ -11,10 +11,10 @@ import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.app.e_commerce_app.R
+import com.app.e_commerce_app.base.dialogs.ConfirmDialog
 import com.app.e_commerce_app.base.network.BaseNetworkException
 import com.app.e_commerce_app.common.EventObserver
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import dagger.hilt.android.AndroidEntryPoint
 
 abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigationView: Boolean) :
     Fragment() {
@@ -22,23 +22,18 @@ abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigation
     protected val binding: VB
         get() = _binding ?: throw IllegalStateException("View binding is null")
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        if (isHideBottomNavigationView) {
-            requireActivity().findViewById<BottomNavigationView>(R.id.navigation_view).visibility =
-                View.GONE
-        }
-        else requireActivity().findViewById<BottomNavigationView>(R.id.navigation_view).visibility =
-            View.VISIBLE
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = inflateBinding(inflater, container)
+        if (isHideBottomNavigationView) {
+            Log.d("HIDE", "BOTTOM")
+            requireActivity().findViewById<BottomNavigationView>(R.id.navigation_view).visibility =
+                View.GONE
+        } else requireActivity().findViewById<BottomNavigationView>(R.id.navigation_view).visibility =
+            View.VISIBLE
         return binding.root
     }
 
@@ -53,6 +48,7 @@ abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigation
     protected fun navigateAction(action: NavDirections) {
         findNavController().navigate(action)
     }
+
 
     protected fun showErrorMessage(e: BaseNetworkException) {
         showErrorMessage(e.mainMessage)
@@ -84,6 +80,22 @@ abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigation
         }
     }
 
+    protected fun showConfirm(
+        title: String, message: String?, positiveButtonTitle: String,
+        negativeButtonTitle: String,
+        callback: ConfirmDialog.ConfirmCallback
+    ) {
+        val activity = requireActivity()
+        if (activity is BaseActivity) {
+            activity.showConfirmDialog(
+                title,
+                message,
+                positiveButtonTitle,
+                negativeButtonTitle,
+                callback
+            )
+        }
+    }
 
     protected fun registerAllExceptionEvent(
         viewModel: BaseViewModel,

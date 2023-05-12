@@ -134,7 +134,7 @@
                     android:layout_marginTop="@dimen/padding_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{cartViewModel.totalPrice}"/>
+                    app:numberValue="@{cartViewModel.totalPrice}"/>
             </LinearLayout>
 
             <Button

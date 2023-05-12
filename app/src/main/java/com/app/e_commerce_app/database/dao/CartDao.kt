@@ -1,38 +1,40 @@
 package com.app.e_commerce_app.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.app.e_commerce_app.model.CartModel
+import com.app.e_commerce_app.model.CartEntity
 
 @Dao
 interface CartDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCartItem(cartModel: CartModel)
+    suspend fun insertCartItem(cartEntity: CartEntity)
 
     @Update
-    suspend fun uppdateCartItem(cartModel: CartModel)
+    suspend fun uppdateCartItem(cartEntity: CartEntity)
 
     @Delete
-    suspend fun deleteCartItem(cartModel: CartModel)
+    suspend fun deleteCartItem(cartEntity: CartEntity)
 
     @Query("select * from cart_table")
-    suspend fun getAllItems(): List<CartModel>
+    suspend fun getAllItems(): List<CartEntity>
 
     @Query("select * from cart_table where productId_col = :id")
-    suspend fun getItemByProductId(id: Int): List<CartModel>
+    suspend fun getItemByProductId(id: Int): List<CartEntity>
 
     @Query("update cart_table set quantity_col = :quantity where productId_col = :id")
     suspend fun updateQuantity(id: Int, quantity: String)
 
-    suspend fun insertOrUpdate(cartModel: CartModel){
+    @Query("DELETE FROM cart_table")
+    fun deleteAll()
+
+    suspend fun insertOrUpdate(cartEntity: CartEntity){
         var newQty : Int
-        var itemFromDB : List<CartModel> = getItemByProductId(cartModel.productId)
+        var itemFromDB : List<CartEntity> = getItemByProductId(cartEntity.productId)
         if(itemFromDB.isEmpty()){
-            insertCartItem(cartModel)
+            insertCartItem(cartEntity)
         } else{
-            newQty = itemFromDB.get(cartModel.id).quantity.toInt() + cartModel.quantity.toInt()
-            updateQuantity(cartModel.productId, newQty.toString())
+            newQty = itemFromDB.get(cartEntity.id).quantity.toInt() + cartEntity.quantity.toInt()
+            updateQuantity(cartEntity.productId, newQty.toString())
         }
     }
 }
