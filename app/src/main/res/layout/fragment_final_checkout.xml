@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_small"
                     android:scrollbars="none"
-                    app:items="@{viewModel.productsData}"
+                    app:items="@{viewModel.cartEntity}"
                     tools:itemCount="1" />
 
                 <TextView

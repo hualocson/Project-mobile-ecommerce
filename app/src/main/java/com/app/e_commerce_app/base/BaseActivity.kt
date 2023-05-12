@@ -50,21 +50,18 @@ open class BaseActivity: AppCompatActivity() {
         messageResourceId: Int = -1,
         positiveTitleResourceId: Int,
         negativeTitleResourceId: Int,
-        textButtonResourceId: Int = -1,
         callback: ConfirmDialog.ConfirmCallback
     ) {
         val title = getString(titleResourceId)
         val message = if (messageResourceId != -1) getString(messageResourceId) else null
         val negativeButtonTitle = getString(negativeTitleResourceId)
         val positiveButtonTitle = getString(positiveTitleResourceId)
-        val textButton = if (textButtonResourceId == -1) null else getString(textButtonResourceId)
 
         showConfirmDialog(
             title,
             message,
             negativeButtonTitle,
             positiveButtonTitle,
-            textButton,
             callback
         )
     }
@@ -74,7 +71,6 @@ open class BaseActivity: AppCompatActivity() {
         message: String?,
         positiveButtonTitle: String,
         negativeButtonTitle: String,
-        textButton: String?,
         callback: ConfirmDialog.ConfirmCallback
     ) {
         val confirmDialog = ConfirmDialog(

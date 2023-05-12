@@ -21,7 +21,7 @@ class ConfirmDialog constructor(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_confirm)
-
+        window?.setBackgroundDrawableResource(R.color.transparent)
         val tvTitle = findViewById<TextView>(R.id.tvTitle)
         tvTitle.text = title
 

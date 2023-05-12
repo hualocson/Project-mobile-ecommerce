@@ -1,7 +1,6 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentProductDetailBinding
-import com.app.e_commerce_app.model.CartModel
+import com.app.e_commerce_app.model.CartEntity
 import com.app.e_commerce_app.model.variation.VariationModel
 import com.app.e_commerce_app.model.variation.VariationOptionModel
 import com.app.e_commerce_app.ui.adapter.VariationAdapter
@@ -35,9 +34,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
 
     private val productDetailViewModel: ProductDetailViewModel by viewModels()
 
-    private val cartViewModel: CartViewModel by activityViewModels {
-        CartViewModel.CartViewModelFactory(requireActivity().application)
-    }
+    private val cartViewModel: CartViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,7 +115,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
             }
             val itemPrice = binding.tvTotalprice.text.toString()
             val itemQuantity = binding.tvQuantity.text.toString()
-            val cartItem = CartModel(productId, itemName, itemImg, itemPrice.toLong(), itemQuantity.toInt(),itemDesc)
+            val cartItem = CartEntity(productId, itemName, itemImg, itemPrice.toLong(), itemQuantity.toInt(),itemDesc)
             if(productDetailViewModel.activeItemData.value!!.id != 0){
                 cartViewModel.insertOrUpdate(cartItem)
                 Toast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG).show()

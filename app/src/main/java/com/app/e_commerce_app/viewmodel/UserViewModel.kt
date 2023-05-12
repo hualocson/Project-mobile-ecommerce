@@ -46,7 +46,7 @@ class UserViewModel @Inject constructor(
     }
 
     fun login(loginRequest: LoginRequest) {
-        showLoading(false)
+        showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val token = userRepository.login(loginRequest)
             if (token.accessToken.isNotEmpty() or token.refreshToken.isNotEmpty()) {

@@ -1,5 +1,6 @@
 package com.app.e_commerce_app.di
 
+import com.app.e_commerce_app.data.repository.CartRepository
 import com.app.e_commerce_app.data.repository.OrderRepository
 import com.app.e_commerce_app.data.repository.ShippingRepository
 import com.app.e_commerce_app.data.repository.UserRepository
@@ -22,8 +23,9 @@ class ViewModelModule {
     fun provideCheckoutViewModel(
         userRepository: UserRepository,
         shippingRepository: ShippingRepository,
-        orderRepository: OrderRepository
+        orderRepository: OrderRepository,
+        cartRepository: CartRepository
     ): CheckoutViewModel {
-        return CheckoutViewModel(userRepository, shippingRepository, orderRepository)
+        return CheckoutViewModel(userRepository, shippingRepository, orderRepository, cartRepository)
     }
 }

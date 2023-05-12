@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.app.e_commerce_app.database.dao.CartDao
-import com.app.e_commerce_app.model.CartModel
+import com.app.e_commerce_app.model.CartEntity
 
-@Database(entities = [CartModel::class], version = 1)
+@Database(entities = [CartEntity::class], version = 1)
 abstract class CartDatabase :RoomDatabase(){
     abstract fun getCartDao(): CartDao
 

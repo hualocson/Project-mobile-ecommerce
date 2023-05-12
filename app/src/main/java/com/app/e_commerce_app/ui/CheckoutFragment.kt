@@ -1,27 +1,30 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewStub
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
+import com.app.e_commerce_app.base.dialogs.ConfirmDialog
+import com.app.e_commerce_app.common.EventObserver
 import com.app.e_commerce_app.databinding.FragmentFinalCheckoutBinding
-import com.app.e_commerce_app.model.CartModel
+import com.app.e_commerce_app.model.CartItemModel
+import com.app.e_commerce_app.model.toCartItemModel
 import com.app.e_commerce_app.ui.adapter.CartAdapter
 import com.app.e_commerce_app.viewmodel.CheckoutViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class CheckoutFragment: BaseFragment<FragmentFinalCheckoutBinding>(true) {
+class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
+    ConfirmDialog.ConfirmCallback {
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -30,13 +33,13 @@ class CheckoutFragment: BaseFragment<FragmentFinalCheckoutBinding>(true) {
     }
 
     private lateinit var viewStub: ViewStub
-    private val viewModel : CheckoutViewModel by viewModels()
+    private val viewModel: CheckoutViewModel by viewModels()
 
     private val args by navArgs<CheckoutFragmentArgs>()
 
 
     private val cartAdapter: CartAdapter by lazy {
-        CartAdapter(requireContext(), onItemClick, onItemDelete, itemClickCallback)
+        CartAdapter(requireContext())
     }
 
     private fun observerEvent() {
@@ -47,18 +50,14 @@ class CheckoutFragment: BaseFragment<FragmentFinalCheckoutBinding>(true) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        if (args.productList != null)
-//            viewModel.updateProductsData(args.productList!!.toList())
+        if (args.cartItemList != null)
+            viewModel.updateProductsData(args.cartItemList!!.toList())
 
-        if (args.totalPrice.isNotEmpty())
+        if (args.totalPrice != 0L)
             viewModel.updateTotalPrice(args.totalPrice)
-        viewModel.fetchAddresses()
-        viewModel.fetchShippingMethods()
-        viewModel.fetchDefaultAddress()
     }
 
     private fun listenClickEvent() {
-
         binding.headerView.btnLeft.setOnClickListener {
             navigateBack()
         }
@@ -78,10 +77,10 @@ class CheckoutFragment: BaseFragment<FragmentFinalCheckoutBinding>(true) {
         }
 
         binding.btnCheckout.setOnClickListener {
-            var total: Long = 0
+            var total: Long = 0L
             var shippingMethodId: Int = 0
             var shippingAddressId: Int = 0
-            var items: List<CartModel> = listOf()
+            var items: List<CartItemModel> = listOf()
 
             viewModel.sumTotal.observe(viewLifecycleOwner) {
                 total = it
@@ -90,8 +89,8 @@ class CheckoutFragment: BaseFragment<FragmentFinalCheckoutBinding>(true) {
             viewModel.shippingMethod.observe(viewLifecycleOwner) {
                 shippingMethodId = it.id
             }
-            viewModel.productsData.observe(viewLifecycleOwner) {
-                items = it
+            viewModel.cartEntity.observe(viewLifecycleOwner) { entity ->
+                items = entity.map { it.toCartItemModel() }
             }
             viewModel.addressData.observe(viewLifecycleOwner) {
                 shippingAddressId = it.id
@@ -124,7 +123,6 @@ class CheckoutFragment: BaseFragment<FragmentFinalCheckoutBinding>(true) {
         viewStub = binding.layoutShipping.viewStub!!
         val button = viewStub.inflate().findViewById<ImageButton>(R.id.btnUpdate)
         button.setOnClickListener {
-            viewModel.fetchShippingMethods()
             viewModel.shippingMethods.observe(viewLifecycleOwner) { data ->
                 val arr = data!!.map { shippingMethod ->
                     shippingMethod.toChooseItem()
@@ -149,6 +147,8 @@ class CheckoutFragment: BaseFragment<FragmentFinalCheckoutBinding>(true) {
         observerEvent()
         cartAdapter.isInCheckout = true
 
+
+
         viewModel.totalPrice.observe(viewLifecycleOwner) {
             viewModel.calculateTotal(0)
         }
@@ -158,6 +158,7 @@ class CheckoutFragment: BaseFragment<FragmentFinalCheckoutBinding>(true) {
 
         if (args.addressSelected == null && args.shippingMethodSelected == null) {
             listenChooseShippingClick()
+            viewModel.fetchData()
         } else if (args.addressSelected != null && args.shippingMethodSelected == null) { //selected address
             viewModel.updateAddressSelected(args.addressSelected!!)
             if (viewModel.shippingMethod.value != null)
@@ -167,21 +168,25 @@ class CheckoutFragment: BaseFragment<FragmentFinalCheckoutBinding>(true) {
         } else if (args.addressSelected == null && args.shippingMethodSelected != null) {
             viewModel.updateShippingMethod(args.shippingMethodSelected!!)
             listenShippingClick()
-        } else {
-            Log.d("ELSE", "")
         }
 
         listenClickEvent()
+
+        viewModel.orderSuccess.observe(viewLifecycleOwner, EventObserver { isSuccess ->
+            if (isSuccess) {
+                showConfirm("Order Successful!", "You have successfully made order", "View Order", "Back Home", this)
+                viewModel.deleteAllCart()
+            }
+        })
     }
 
-
-    private val itemClickCallback: (CartModel) -> Unit = {
+    override fun negativeAction() {
+        Toast.makeText(requireContext(), "Back Home", Toast.LENGTH_SHORT).show()
+        navigateToPage(R.id.homeFragment)
     }
 
-    private val onItemClick: (CartModel) -> Unit = {
-
-    }
-
-    private val onItemDelete: (CartModel) -> Unit = {
+    override fun positiveAction() {
+        Toast.makeText(requireContext(), "View Order", Toast.LENGTH_SHORT).show()
+        navigateToPage(R.id.action_checkoutFragment_to_cartFragment)
     }
 }

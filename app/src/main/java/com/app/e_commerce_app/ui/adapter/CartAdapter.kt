@@ -8,27 +8,28 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.common.BindableAdapter
 import com.app.e_commerce_app.databinding.ItemCartBinding
-import com.app.e_commerce_app.model.CartModel
+import com.app.e_commerce_app.model.CartEntity
+import com.app.e_commerce_app.model.toCartItemModel
 
 class CartAdapter(
     private val context: Context,
-    private val onClick: (CartModel) -> Unit,
-    private val onDelete: (CartModel) -> Unit,
-    private val itemClickCallback: (CartModel) -> Unit
-) : RecyclerView.Adapter<CartAdapter.CartViewHolder>(), BindableAdapter<CartModel> {
+    private val onClick: ((CartEntity) -> Unit)? = null,
+    private val onDelete: ((CartEntity) -> Unit)? = null,
+    private val itemClickCallback: ((CartEntity) -> Unit)? = null
+) : RecyclerView.Adapter<CartAdapter.CartViewHolder>(), BindableAdapter<CartEntity> {
 
-    private var carts: List<CartModel> = listOf()
+    private var carts: List<CartEntity> = listOf()
     var isInCheckout = false
 
     inner class CartViewHolder(private val binding: ItemCartBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(cartModel: CartModel) {
+        fun bindData(cartEntity: CartEntity) {
 //            binding.textView.text = cartModel.name
 //            Picasso.get().load(cartModel.img).into(binding.shapeableImageView)
 //            binding.tvPricePopular.text = cartModel.price
-            binding.cartitem = cartModel
+            binding.cartitem = cartEntity.toCartItemModel()
             binding.executePendingBindings()
-            var itemQty: Int = cartModel.quantity.toInt()
+            var itemQty: Int = cartEntity.quantity.toInt()
 
             if (isInCheckout) {
                 binding.btnDeleteItemCart.visibility = View.GONE
@@ -39,24 +40,24 @@ class CartAdapter(
                 binding.btnPlusQuantity.setOnClickListener {
                     itemQty = itemQty + 1
                     binding.tvQuantity.text = itemQty.toString()
-                    cartModel.quantity = itemQty
-                    itemClickCallback(cartModel)
+                    cartEntity.quantity = itemQty
+                    itemClickCallback?.let { it(cartEntity) }
                 }
                 binding.btnMinusQuantity.setOnClickListener {
                     if (itemQty != 0) {
                         itemQty = itemQty - 1
                         if (itemQty == 0) {
-                            onDelete(cartModel)
+                            onDelete?.let { it(cartEntity) }
                         }
                         binding.tvQuantity.text = itemQty.toString()
-                        cartModel.quantity = itemQty
-                        itemClickCallback(cartModel)
+                        cartEntity.quantity = itemQty
+                        itemClickCallback?.let { it(cartEntity) }
                     }
                 }
                 binding.btnDeleteItemCart.setOnClickListener {
-                    onDelete(cartModel)
+                    onDelete?.let { it(cartEntity) }
                 }
-                binding.Layout.setOnClickListener { onClick(cartModel) }
+                binding.Layout.setOnClickListener { onClick?.let { it(cartEntity) } }
 
             }
         }
@@ -78,8 +79,7 @@ class CartAdapter(
         }
     }
 
-
-    override fun setItems(items: List<CartModel>) {
+    override fun setItems(items: List<CartEntity>) {
         this.carts = items
         Log.d("items", items.toString())
         notifyDataSetChanged()
