@@ -15,10 +15,13 @@ class UserRemoteService @Inject constructor(private val userApi: UserApi) : Base
     suspend fun getUserProfile(): NetWorkResult<CustomResponse<UserJson>> =
         handleApi { userApi.getUserProfile() }
 
+    suspend fun updateUserProfile(userJson: UserJson): NetWorkResult<CustomResponse<UserJson>> =
+        handleApi { userApi.updateUserProfile(userJson) }
+
     suspend fun register(registerRequest: RegisterRequest): NetWorkResult<CustomResponse<UserJson>> =
         handleApi { userApi.register(registerRequest) }
 
-    suspend fun checkEmail(email: PreSignupRequest) =
+    suspend fun checkEmail(email: PreSignupRequest): NetWorkResult<CustomResponse<CheckEmailResponse>> =
         handleApi { userApi.checkEmail(email) }
 
     suspend fun getAllUserAddresses(): NetWorkResult<CustomResponse<List<AddressJson>>> =

@@ -49,6 +49,10 @@
         <action
             android:id="@+id/action_signupFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_signupFragment_to_fillProfileFragment"
+            app:destination="@id/fillProfileFragment" >
+        </action>
     </fragment>
 
     <fragment
@@ -67,6 +71,10 @@
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             />
+        <action
+            android:id="@+id/action_profileFragment_to_fillProfileFragment"
+            app:destination="@id/fillProfileFragment" >
+        </action>
     </fragment>
 
     <fragment
@@ -86,7 +94,23 @@
         android:id="@+id/fillProfileFragment"
         android:name="com.app.e_commerce_app.ui.FillProfileFragment"
         android:label="fragment_fill_profile"
-        tools:layout="@layout/fragment_fill_profile" />
+        tools:layout="@layout/fragment_fill_profile" >
+        <argument
+            android:name="signupData"
+            app:argType="com.app.e_commerce_app.model.PreSignupRequest"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_fillProfileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <argument
+            android:name="isLogged"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <action
+            android:id="@+id/action_fillProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/storeFragment"

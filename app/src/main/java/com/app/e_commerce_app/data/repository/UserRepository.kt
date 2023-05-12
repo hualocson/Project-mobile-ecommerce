@@ -1,11 +1,9 @@
 package com.app.e_commerce_app.data.repository
 
+import android.util.Log
 import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.services.UserRemoteService
-import com.app.e_commerce_app.model.AddressRequest
-import com.app.e_commerce_app.model.LoginRequest
-import com.app.e_commerce_app.model.PreSignupRequest
-import com.app.e_commerce_app.model.RegisterRequest
+import com.app.e_commerce_app.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
@@ -35,6 +33,24 @@ class UserRepository @Inject constructor(private val userRemoteService: UserRemo
         }
     }
 
+    suspend fun updateUserProfile(userJson: UserJson) = withContext(Dispatchers.IO) {
+
+        when (val result = userRemoteService.updateUserProfile(userJson)) {
+            is NetWorkResult.Success -> {
+                Log.d("REPO", "updateUserProfile: ${result.data.data}")
+                result.data.data!!
+            }
+
+            is NetWorkResult.Error -> {
+                result.exception.stackTrace.forEach {
+                    Log.d("REPO ERR", "updateUserProfile: ${it.toString()}")
+                }
+
+                throw result.exception
+            }
+        }
+    }
+
     suspend fun register(registerRequest: RegisterRequest) = withContext(Dispatchers.IO) {
         when (val result = userRemoteService.register(registerRequest)) {
             is NetWorkResult.Success -> {
@@ -50,7 +66,7 @@ class UserRepository @Inject constructor(private val userRemoteService: UserRemo
     suspend fun checkEmail(email: PreSignupRequest) = withContext(Dispatchers.IO) {
         when (val result = userRemoteService.checkEmail(email)) {
             is NetWorkResult.Success -> {
-                result.data.data
+                result.data
             }
 
             is NetWorkResult.Error -> {
