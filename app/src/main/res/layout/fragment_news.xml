@@ -3,10 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="newViewModel"
+            type="com.app.e_commerce_app.viewmodel.NewViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/secondary_color" >
+        android:background="@color/secondary_color"
+        tools:context=".ui.NewFragment"
+        >
 
         <com.app.e_commerce_app.ui.customview.HeaderView
             android:id="@+id/headerView"
@@ -32,9 +40,10 @@
             app:layout_constraintVertical_bias="0.0">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_product_cart"
+                android:id="@+id/rv_news"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:items="@{newViewModel.newData}"
                 android:scrollbars="none"
                 tools:itemCount="4"
                 tools:layout_editor_absoluteX="0dp"

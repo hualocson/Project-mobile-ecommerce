@@ -3,11 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!--    <data>-->
-<!--        <variable-->
-<!--            name="cartitem"-->
-<!--            type="com.app.e_commerce_app.model.CartModel" />-->
-<!--    </data>-->
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="newData"
+            type="com.app.e_commerce_app.model.NewJson" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:background="@color/white"
+                    app:imageUrl="@{newData.imageUrl}"
                     android:scaleType="fitXY"
                     android:src="@drawable/image1" />
             </androidx.cardview.widget.CardView>
@@ -55,7 +59,7 @@
                 android:layout_marginTop="10dp"
                 android:maxLines="2"
                 android:minLines="2"
-                android:text="30% Discount 30% Discount 30% Discount 30% Discount 30% Discount"
+                android:text="@{newData.title}"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -70,7 +74,7 @@
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:minLines="1"
-                android:text="by: Hua Loc Son"
+                android:text="@{newData.author}"
                 android:textColor="@color/on_secondary_color"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +87,7 @@
                 android:layout_marginTop="10dp"
                 android:maxLines="1"
                 android:minLines="1"
-                android:text="12/5/2023"
+                android:text="@{newData.date}"
                 android:textColor="@color/on_secondary_color"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"

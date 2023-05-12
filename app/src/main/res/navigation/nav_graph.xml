@@ -218,4 +218,9 @@
             app:popUpTo="@id/checkoutFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.app.e_commerce_app.ui.NewFragment"
+        android:label="News"
+        tools:layout="@layout/fragment_news"/>
 </navigation>
