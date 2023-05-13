@@ -4,7 +4,8 @@ object ConstantsURL {
     // Endpoints
 //    const val BASE_URL = "http://10.0.2.2:5001/api/v1/" // For local api
 //    const val BASE_URL = "https://server-rests-api-mobile.onrender.com/api/v1/"
-    const val BASE_URL = "https://server-rests-api-mobile-dev.onrender.com/api/v1/" //dev
+//    const val BASE_URL = "https://server-rests-api-mobile-dev.onrender.com/api/v1/" //dev
+    const val BASE_URL = "https://2825-2402-800-63ba-f200-d9c2-597a-c0d0-85a1.ngrok-free.app/api/v1/"
     const val LOGIN_URL = "users/signin"
     const val USER_ADDRESS = "users/addresses"
     const val USER_ADDRESS_UPDATE = "users/addresses/{addressId}"

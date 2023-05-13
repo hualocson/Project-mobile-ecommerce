@@ -81,7 +81,7 @@
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.app.e_commerce_app.ui.CartFragment"
-        android:label="Order"
+        android:label="Cart"
         tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_cartFragment_to_checkoutFragment"
@@ -242,4 +242,9 @@
             app:argType="com.app.e_commerce_app.model.SaleJson"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.app.e_commerce_app.ui.OrderFragment"
+        android:label="Order"
+        tools:layout="@layout/fragment_order" />
 </navigation>
