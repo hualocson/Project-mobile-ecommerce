@@ -17,6 +17,7 @@ import com.app.e_commerce_app.base.BaseActivity
 import com.app.e_commerce_app.common.AppSharePreference
 import com.app.e_commerce_app.data.repository.TokenRepository
 import com.app.e_commerce_app.databinding.ActivityMainBinding
+import com.app.e_commerce_app.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -50,7 +51,7 @@ class MainActivity : BaseActivity() {
     override fun showLoading(isShow: Boolean) {
         binding.loadingLayout.bringToFront()
         if (isShow) {
-            hideKeyboard()
+            Utils.hideSoftKeyboard(binding.root, this)
             binding.loadingLayout.visibility = View.VISIBLE
         } else {
             binding.loadingLayout.visibility = View.GONE
@@ -62,10 +63,5 @@ class MainActivity : BaseActivity() {
         val tokenRepository = TokenRepository(AppSharePreference(applicationContext))
         if (tokenRepository.getRemember() == false)
             tokenRepository.removeToken()
-    }
-
-    private fun hideKeyboard() {
-        val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 }

@@ -71,10 +71,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_username"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="@dimen/padding_medium"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/background_edittext"
-                android:drawableStart="@drawable/ic_outline_lock"
+                android:drawableStart="@drawable/ic_lock_fill_24"
                 android:drawablePadding="20dp"
                 android:hint="Password"
                 android:paddingVertical="20dp"
@@ -91,9 +91,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_password"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="@dimen/padding_medium"
                 android:background="@drawable/background_edittext"
-                android:drawableStart="@drawable/ic_outline_lock"
+                android:drawableStart="@drawable/ic_lock_fill_24"
                 android:drawablePadding="20dp"
                 android:hint="Comform Password"
                 android:paddingVertical="20dp"
@@ -114,15 +114,15 @@
             <!--            android:textStyle="bold" />-->
 
             <Button
+                style="@style/button_style_primary"
                 android:id="@+id/btn_signup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/padding_large"
                 android:layout_marginBottom="18dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="@drawable/background_button"
-                android:text="Sign Up"
+                android:text="Continue Sign Up"
                 app:layout_constraintTop_toBottomOf="@+id/et_passwordcf" />
 
             <TextView
@@ -131,7 +131,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:text="Or continute with"
+                app:layout_constraintBottom_toTopOf="@id/login_options"
                 app:layout_constraintTop_toBottomOf="@+id/btn_signup" />
 
 
@@ -140,7 +143,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toTopOf="@id/layoutLogin"
                 android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_options">
 
                 <ImageButton
@@ -169,11 +175,15 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="@dimen/padding_small"
                 android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_options">
 
 
@@ -197,6 +207,8 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
