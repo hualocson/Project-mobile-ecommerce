@@ -1,12 +1,10 @@
 package com.app.e_commerce_app.model
 
 import android.os.Parcelable
-import com.app.e_commerce_app.R
 import kotlinx.parcelize.Parcelize
-import java.util.Date
 
 @Parcelize
-data class NewJson(
+data class SaleJson(
     val id: Int,
     val title: String,
     val content: String,

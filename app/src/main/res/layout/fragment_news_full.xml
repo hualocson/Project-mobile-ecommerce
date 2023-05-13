@@ -3,6 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="newModel"
+            type="com.app.e_commerce_app.model.SaleJson" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -40,6 +46,7 @@
                     android:layout_marginEnd="10dp"
                     android:background="@color/white"
                     android:scaleType="fitXY"
+                    app:imageUrl="@{newModel.imageUrl}"
                     android:src="@drawable/image1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +60,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="10dp"
                     android:minLines="2"
-                    android:text="30% Discount 30% Discount 30% Discount"
+                    android:text="@{newModel.title}"
                     android:textAlignment="gravity"
                     android:textColor="@color/black"
                     android:textSize="24sp"
@@ -70,7 +77,7 @@
                     android:layout_marginTop="10dp"
                     android:maxLines="1"
                     android:minLines="1"
-                    android:text="by: Hua Loc Son"
+                    android:text="@{newModel.author}"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
@@ -83,18 +90,19 @@
                     android:layout_marginEnd="10dp"
                     android:maxLines="1"
                     android:minLines="1"
-                    android:text="12/5/2023"
+                    android:text="@{newModel.date}"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
                 <TextView
+                    android:id="@+id/tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
-                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                    android:text="@{newModel.content}"
                     android:padding="5dp"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"

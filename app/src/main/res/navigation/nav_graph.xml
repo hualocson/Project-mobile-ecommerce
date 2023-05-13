@@ -224,8 +224,22 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.app.e_commerce_app.ui.NewFragment"
-        android:label="News"
-        tools:layout="@layout/fragment_news"/>
+        android:id="@+id/saleFragment"
+        android:name="com.app.e_commerce_app.ui.SaleFragment"
+        android:label="Sales"
+        tools:layout="@layout/fragment_news">
+        <action
+            android:id="@+id/action_saleFragment_to_saleDetailsFragment"
+            app:destination="@id/saleDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/saleDetailsFragment"
+        android:name="com.app.e_commerce_app.ui.SaleDetailsFragment"
+        android:label="Sales Details"
+        tools:layout="@layout/fragment_news_full">
+        <argument
+            android:name="saleModel"
+            app:argType="com.app.e_commerce_app.model.SaleJson"
+            app:nullable="true" />
+    </fragment>
 </navigation>

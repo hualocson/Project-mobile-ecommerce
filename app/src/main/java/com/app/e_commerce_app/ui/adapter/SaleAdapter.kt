@@ -1,31 +1,25 @@
 package com.app.e_commerce_app.ui.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.common.BindableAdapter
-import com.app.e_commerce_app.databinding.ItemAddressBinding
 import com.app.e_commerce_app.databinding.ItemNewsBinding
-import com.app.e_commerce_app.databinding.ItemProductItemVariationBinding
-import com.app.e_commerce_app.model.AddressJson
-import com.app.e_commerce_app.model.NewJson
-import com.app.e_commerce_app.model.variation.VariationModel
+import com.app.e_commerce_app.model.SaleJson
 
-class NewAdapter(
+class SaleAdapter(
     private val context: Context,
-    private val onClick: (NewJson) -> Unit,
-) : RecyclerView.Adapter<NewAdapter.NewViewHolder>(), BindableAdapter<NewJson> {
-    private var items: ArrayList<NewJson> = ArrayList()
+    private val onClick: (SaleJson) -> Unit,
+) : RecyclerView.Adapter<SaleAdapter.NewViewHolder>(), BindableAdapter<SaleJson> {
+    private var items: ArrayList<SaleJson> = ArrayList()
 
     inner class NewViewHolder(private val binding: ItemNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(newJson: NewJson) {
-            binding.newData = newJson
+        fun bindData(saleJson: SaleJson) {
+            binding.newData = saleJson
             binding.executePendingBindings()
-            binding.Layout.setOnClickListener { onClick(newJson)}
+            binding.tvTitle.setOnClickListener { onClick(saleJson)}
         }
     }
 
@@ -44,8 +38,8 @@ class NewAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    override fun setItems(items: List<NewJson>) {
-        this.items = items as ArrayList<NewJson>
+    override fun setItems(items: List<SaleJson>) {
+        this.items = items as ArrayList<SaleJson>
         notifyDataSetChanged()
     }
 }

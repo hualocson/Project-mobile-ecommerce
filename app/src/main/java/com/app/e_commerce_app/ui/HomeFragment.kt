@@ -88,7 +88,7 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
             controller.navigate(R.id.storeFragment, bundle)
         }
         binding.tvSeeAllSpecial.setOnClickListener {
-            navigateToPage(R.id.newsFragment)
+            navigateToPage(R.id.saleFragment)
         }
     }
 

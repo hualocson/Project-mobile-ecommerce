@@ -25,6 +25,8 @@ class UserViewModel @Inject constructor(
     private val _checkSuccess = MutableLiveData<Boolean>()
     val userLiveData: LiveData<UserJson> = _userLiveData
     val checkSuccess: LiveData<Boolean> = _checkSuccess
+    private var _uploadSuccess = MutableLiveData<Event<Boolean>>()
+    val uploadSuccess: LiveData<Event<Boolean>> = _uploadSuccess
     fun checkEmail(preSignupRequest: PreSignupRequest) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
@@ -61,6 +63,7 @@ class UserViewModel @Inject constructor(
         showLoading(true)
         parentJob = viewModelScope.launch(handler){
             val user = userRepository.uploadImage(avatar)
+            _uploadSuccess.postValue(Event(true))
         }
         registerJobFinish()
     }
