@@ -190,11 +190,11 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
 
     override fun negativeAction() {
         Toast.makeText(requireContext(), "Back Home", Toast.LENGTH_SHORT).show()
-        navigateToPage(R.id.homeFragment)
+        navigateToPage(R.id.action_checkoutFragment_to_homeFragment)
     }
 
     override fun positiveAction() {
         Toast.makeText(requireContext(), "View Order", Toast.LENGTH_SHORT).show()
-        navigateToPage(R.id.action_checkoutFragment_to_cartFragment)
+        navigateToPage(R.id.action_checkoutFragment_to_homeFragment)
     }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,6 +46,15 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(true) {
 //        binding.layoutProductList.loadProductByCategoryId(categoryId)
 //        binding.layoutCategoryList.loadCategory(categoryId)
         storeViewModel.getProductsByCategory(categoryId)
+
+        binding.storeHeader.btnLeft.setOnClickListener {
+            navigateBack()
+        }
+
+        binding.storeHeader.btnRight.setOnClickListener {
+            navigateToPage(R.id.searchFragment)
+        }
+
     }
 
     private fun observerEvent() {
@@ -75,10 +85,7 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(true) {
     }
 
     private val onProductItemClick: OnProductItemClick = {
-        val controller = findNavController()
-        val bundle = bundleOf(
-            "id" to it.id
-        )
-        controller.navigate(R.id.productDetailFragment, bundle)
+        val action : NavDirections = StoreFragmentDirections.actionStoreFragmentToProductDetailFragment(it.id)
+        navigateAction(action)
     }
 }

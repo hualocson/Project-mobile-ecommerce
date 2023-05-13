@@ -17,7 +17,7 @@ import com.app.e_commerce_app.common.EventObserver
 import com.app.e_commerce_app.utils.Status
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigationView: Boolean) :
+abstract class BaseFragment<VB : ViewBinding>(val isHideBottomNavigationView: Boolean) :
     Fragment() {
     private var _binding: VB? = null
     protected val binding: VB
