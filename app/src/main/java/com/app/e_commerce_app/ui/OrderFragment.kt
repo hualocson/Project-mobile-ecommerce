@@ -1,6 +1,7 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +15,15 @@ import com.app.e_commerce_app.databinding.FragmentOrderBinding
 import com.app.e_commerce_app.model.SaleJson
 import com.app.e_commerce_app.ui.adapter.SaleAdapter
 import com.app.e_commerce_app.ui.adapter.ViewPagerAdapter
+import com.app.e_commerce_app.viewmodel.OrderViewModel
 import com.app.e_commerce_app.viewmodel.SaleViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderFragment : BaseFragment<FragmentOrderBinding>(true) {
+class OrderFragment : BaseFragment<FragmentOrderBinding>(false) {
 
-    private val orderViewModel by viewModels<SaleViewModel>()
+    private val orderViewModel by viewModels<OrderViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -42,6 +44,9 @@ class OrderFragment : BaseFragment<FragmentOrderBinding>(true) {
                 }
             }
         }.attach()
+//        orderViewModel.fetchAllUserOrders()
+        binding.orderViewModel = orderViewModel
+//        orderViewModel.fetchAllUserOrders()
     }
 
 //    private fun observerEvent() {

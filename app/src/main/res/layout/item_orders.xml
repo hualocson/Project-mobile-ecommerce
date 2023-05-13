@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!--    <data>-->
-<!--        <variable-->
-<!--            name="cartitem"-->
-<!--            type="com.app.e_commerce_app.model.CartModel" />-->
-<!--    </data>-->
+    <data>
+        <variable
+            name="orderitem"
+            type="com.app.e_commerce_app.model.order.OrderJson" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,6 +33,7 @@
                 android:background="@drawable/background_product_item"
                 android:padding="@dimen/padding_small"
                 android:scaleType="fitXY"
+                app:imageUrl="@{orderitem.orderLines.get(0).img}"
                 android:src="@drawable/default_img"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +53,7 @@
                     android:id="@+id/textView"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="@{orderitem.orderLines.get(0).name}"
                     android:maxLines="1"
                     android:minLines="1"
                     app:layout_constraintEnd_toStartOf="@id/btnDeleteItemCart"
@@ -89,27 +90,27 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutLineThree"
-                android:layout_marginStart="@dimen/padding_small"
                 android:layout_width="0dp"
-                android:layout_marginTop="@dimen/padding_small"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/layoutLineTwo"
-                app:layout_constraintStart_toEndOf="@id/shapeableImageView"
+                android:layout_marginStart="@dimen/padding_small"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                >
+                app:layout_constraintStart_toEndOf="@id/shapeableImageView"
+                app:layout_constraintTop_toBottomOf="@+id/layoutLineOne">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_medium"
                     android:background="@drawable/background_default_tag"
                     android:padding="8dp"
+                    android:text="@{orderitem.orderStatus}"
+                    android:textColor="@color/text_color"
                     android:textSize="14sp"
                     android:textStyle="italic"
-                    android:layout_marginStart="@dimen/padding_medium"
-                    android:text="Default"
-                    android:textColor="@color/text_color"
+                    app:layout_constraintBottom_toBottomOf="@id/tvAddressName"
                     app:layout_constraintStart_toEndOf="@id/tvAddressName"
-                    app:layout_constraintTop_toTopOf="@+id/tvAddressName"
-                    app:layout_constraintBottom_toBottomOf="@id/tvAddressName"/>
+                    app:layout_constraintTop_toTopOf="@+id/tvAddressName" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -127,7 +128,8 @@
                     android:id="@+id/tvPricePopular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="19000000"
+                    android:text=""
+                    app:numberValue="@{orderitem.orderTotal}"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="@dimen/text_size_normal"

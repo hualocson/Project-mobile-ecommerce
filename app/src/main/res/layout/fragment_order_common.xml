@@ -2,22 +2,30 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="orderViewModel"
+            type="com.app.e_commerce_app.viewmodel.OrderViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <TextView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            text
-            />
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rvcordercommon"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="fill"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"  >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvcordercommon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:items="@{orderViewModel.orderCommonData}"
+                android:layout_gravity="fill" />
+        </androidx.core.widget.NestedScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

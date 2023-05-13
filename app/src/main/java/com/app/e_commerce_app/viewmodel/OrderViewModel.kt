@@ -1,5 +1,6 @@
 package com.app.e_commerce_app.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -32,10 +33,10 @@ class OrderViewModel @Inject constructor(
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val orders = orderRepository.getAllUserOrder()
-            _orderData.postValue(orders)
+            Log.d("order", orders.toString())
             val orderComplete: ArrayList<OrderJson> = ArrayList()
             val orderCommon: ArrayList<OrderJson> = ArrayList()
-            _orderData.value!!.forEach {
+            orders.forEach {
                 if(it.orderStatus == "DELIVERED"){
                     orderComplete.add(it)
                 }
@@ -45,7 +46,11 @@ class OrderViewModel @Inject constructor(
             }
             _orderCommmonData.postValue(orderCommon)
             _orderCompleteData.postValue(orderComplete)
+            Log.d("common", orderCommon.toString())
+            Log.d("complete", orderComplete.toString())
+            _orderData.postValue(orders)
         }
+        registerJobFinish()
     }
 
 
