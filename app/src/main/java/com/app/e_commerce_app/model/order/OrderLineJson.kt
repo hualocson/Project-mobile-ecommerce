@@ -9,6 +9,8 @@ data class OrderLineJson(
     val productItemId: Int,
     val orderId: Int,
     val qty: Int,
+    val img: String,
+    val name: String,
     val price: Long
 ) : Parcelable {
     constructor(productItemId: Int, qty: Int, price: Long) : this(
@@ -16,6 +18,8 @@ data class OrderLineJson(
         productItemId = productItemId,
         orderId = 0,
         qty = qty,
-        price = price
+        price = price,
+        name = "",
+        img = ""
     )
 }

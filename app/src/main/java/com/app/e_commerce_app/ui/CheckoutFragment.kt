@@ -1,12 +1,22 @@
 package com.app.e_commerce_app.ui
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewStub
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.navArgs
@@ -152,6 +162,7 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
         observerEvent()
         cartAdapter.isInCheckout = true
 
+        createNotificationChannel()
         if (args.cartItemList != null)
             viewModel.updateProductsData(args.cartItemList!!.toList())
 
@@ -184,6 +195,7 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
                     this
                 )
                 viewModel.deleteAllCart()
+                sendNotification()
             }
         })
     }
@@ -197,4 +209,58 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
         Toast.makeText(requireContext(), "View Order", Toast.LENGTH_SHORT).show()
         navigateToPage(R.id.action_checkoutFragment_to_homeFragment)
     }
+
+    // Notifications
+    private val CHANNEL_ID = "channel_id_example_01"
+    private val notificationId = 101
+    private val REQUEST_CODE_IMG = 101
+
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = "Notification Title"
+            val desc = "Notification Description"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID,name, importance).apply {
+                description = desc
+            }
+            val notificationManager: NotificationManager = requireActivity().getSystemService(
+                Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+    private fun sendNotification(){
+        val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_logo)
+            .setContentTitle("From Us With Love")
+            .setContentText("Thank For Shopping")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        with(NotificationManagerCompat.from(requireContext())) {
+            val permission = ContextCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.POST_NOTIFICATIONS)
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                makeNotifyRequest()
+            }
+            notify(notificationId, builder.build())
+        }
+    }
+    private fun makeNotifyRequest() {
+        ActivityCompat.requestPermissions(requireActivity(),
+            arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+            REQUEST_CODE_IMG)
+    }
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_CODE_IMG -> {
+
+                if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+
+                    Log.i("TAG", "Permission has been denied by user")
+                } else {
+                    Log.i("TAG", "Permission has been granted by user")
+                }
+            }
+        }
+    }
+    //End Notifications
 }
