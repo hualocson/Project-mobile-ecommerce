@@ -8,7 +8,7 @@
         <variable
             name="cartViewModel"
             type="com.app.e_commerce_app.viewmodel.CartViewModel" />
-
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,35 +44,77 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:text="List Items"
+                android:visibility="@{cartViewModel.totalPrice == 0 ? View.GONE : View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.core.widget.NestedScrollView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_listitems">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <ViewFlipper
+                    android:id="@+id/flipper"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    >
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ViewFlipper
-                        android:id="@+id/flipper"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <RelativeLayout
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="vertical">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/empty_cart" />
-                        </RelativeLayout>
+                                android:id="@+id/img"
+                                android:layout_width="200dp"
+                                android:layout_height="200dp"
+                                android:layout_marginBottom="100dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_cart_outline"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="@color/error" />
+
+                            <TextView
+                                android:id="@+id/tvTitle"
+                                style="@style/myTextViewHeading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/padding_medium"
+                                android:text="Your cart is empty"
+                                android:textColor="@color/error"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/img" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/padding_small"
+                                android:text="Add something to make me happy! :)"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_product_cart"
@@ -85,40 +127,38 @@
                             tools:layout_editor_absoluteY="0dp"
                             tools:listitem="@layout/item_cart" />
 
+                    </androidx.core.widget.NestedScrollView>
+
+                </ViewFlipper>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                    </ViewFlipper>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </androidx.core.widget.NestedScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@drawable/background_rounded_top"
-            android:padding="@dimen/padding_small"
             android:id="@+id/layoutBtnCheckout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/default_elevation"
             android:layout_marginHorizontal="@dimen/padding_small"
+            android:background="@drawable/background_rounded_top"
+            android:elevation="@dimen/default_elevation"
+            android:padding="@dimen/padding_small"
+            android:visibility="@{cartViewModel.totalPrice == 0 ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            >
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
-                app:layout_constraintHorizontal_weight="4"
                 android:id="@+id/linearLayout2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_checkout"
+                app:layout_constraintHorizontal_weight="4"
                 app:layout_constraintStart_toStartOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -129,28 +169,28 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    style="@style/myTextViewHeading"
                     android:id="@+id/tv_totalprice"
-                    android:layout_marginTop="@dimen/padding_small"
+                    style="@style/myTextViewHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:numberValue="@{cartViewModel.totalPrice}"/>
+                    android:layout_marginTop="@dimen/padding_small"
+                    app:numberValue="@{cartViewModel.totalPrice}" />
             </LinearLayout>
 
             <Button
-                app:layout_constraintHorizontal_weight="6"
                 android:id="@+id/btn_checkout"
                 android:layout_width="0dp"
-                android:layout_marginStart="@dimen/padding_small"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_small"
                 android:background="@drawable/background_button"
-                android:text="Checkout"
                 android:enabled="false"
+                android:text="Checkout"
                 android:textAllCaps="false"
-                app:layout_constraintStart_toEndOf="@id/linearLayout2"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="6"
+                app:layout_constraintStart_toEndOf="@id/linearLayout2"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
