@@ -1,7 +1,5 @@
 package com.app.e_commerce_app.di
 
-import androidx.room.Index
-import com.app.e_commerce_app.common.AppSharePreference
 import com.app.e_commerce_app.common.AuthInterceptor
 import com.app.e_commerce_app.data.api.*
 import com.app.e_commerce_app.data.repository.TokenRepository
@@ -13,8 +11,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
-import java.util.PrimitiveIterator
 import javax.inject.Singleton
 
 @Module
@@ -81,7 +77,7 @@ class NetworkModule {
         return retrofit.create(OrderApi::class.java)
     }
     @Provides
-    fun provideNewAPI(retrofit: Retrofit) : NewApi {
-        return retrofit.create(NewApi::class.java)
+    fun provideNewAPI(retrofit: Retrofit) : SaleApi {
+        return retrofit.create(SaleApi::class.java)
     }
 }

@@ -9,7 +9,7 @@
 
         <variable
             name="newData"
-            type="com.app.e_commerce_app.model.NewJson" />
+            type="com.app.e_commerce_app.model.SaleJson" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

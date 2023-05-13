@@ -27,7 +27,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userViewModel.fetchUser()
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,6 +38,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
         registerAllExceptionEvent(userViewModel, viewLifecycleOwner)
         registerObserverLoadingEvent(userViewModel, viewLifecycleOwner)
         registerObserverNavigateEvent(userViewModel, viewLifecycleOwner)
+
+        userViewModel.fetchUser()
 
         binding.btnLogout.setOnClickListener {
             userViewModel.logout()

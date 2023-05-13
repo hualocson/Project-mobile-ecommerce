@@ -26,7 +26,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.loader.content.CursorLoader
+import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
+import com.app.e_commerce_app.common.EventObserver
 import com.app.e_commerce_app.databinding.FragmentProfileBinding
 import com.app.e_commerce_app.databinding.FragmentUploadImgBinding
 import com.app.e_commerce_app.viewmodel.UserViewModel
@@ -39,6 +41,9 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
+import java.security.Permission
+import java.security.Permissions
+import java.util.jar.Manifest
 
 @AndroidEntryPoint
 class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
@@ -82,17 +87,25 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
         val permission = ContextCompat.checkSelfPermission(requireContext(),
             android.Manifest.permission.READ_EXTERNAL_STORAGE)
 
-        if (permission != PackageManager.PERMISSION_GRANTED) {
+        val permission_write = ContextCompat.checkSelfPermission(requireContext(),
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        if (permission != PackageManager.PERMISSION_GRANTED || permission_write != PackageManager.PERMISSION_GRANTED) {
             makeRequest()
         }
         else{
             openImageChooser()
         }
+        userViewModel.uploadSuccess.observe(viewLifecycleOwner, EventObserver { isSuccess ->
+            if (isSuccess) {
+                navigateToPage(R.id.profileFragment)
+            }
+        })
     }
 
     private fun makeRequest() {
         ActivityCompat.requestPermissions(requireActivity(),
-            arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
+            arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
             REQUEST_CODE_IMG)
     }
     override fun onRequestPermissionsResult(requestCode: Int,
