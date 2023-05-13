@@ -29,6 +29,7 @@ import com.app.e_commerce_app.databinding.FragmentFinalCheckoutBinding
 import com.app.e_commerce_app.model.CartItemModel
 import com.app.e_commerce_app.model.toCartItemModel
 import com.app.e_commerce_app.ui.adapter.CartAdapter
+import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.CheckoutViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -56,15 +57,6 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
         registerAllExceptionEvent(viewModel, viewLifecycleOwner)
         registerObserverLoadingEvent(viewModel, viewLifecycleOwner)
         registerObserverNavigateEvent(viewModel, viewLifecycleOwner)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (args.cartItemList != null)
-            viewModel.updateProductsData(args.cartItemList!!.toList())
-
-        if (args.totalPrice != 0L)
-            viewModel.updateTotalPrice(args.totalPrice)
     }
 
     private fun listenClickEvent() {
@@ -103,11 +95,24 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
                 items = entity.map { it.toCartItemModel() }
             }
             viewModel.addressData.observe(viewLifecycleOwner) {
-                shippingAddressId = it.id
+                if (it != null)
+                    shippingAddressId = it.id
             }
-            viewModel.createOrder(
-                total, shippingMethodId, shippingAddressId, items
-            )
+            if (shippingAddressId == 0) {
+                binding.tvShippingAddress.requestFocus()
+                showNotify("Notification", "Please input your address!", status = Status.WARNING)
+            } else if (shippingMethodId == 0) {
+                binding.tvShippingAddress.requestFocus()
+                showNotify(
+                    "Notification",
+                    "Please choose shipping method!",
+                    status = Status.WARNING
+                )
+            } else {
+                viewModel.createOrder(
+                    total, shippingMethodId, shippingAddressId, items
+                )
+            }
         }
     }
 
@@ -158,13 +163,11 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
         cartAdapter.isInCheckout = true
 
         createNotificationChannel()
+        if (args.cartItemList != null)
+            viewModel.updateProductsData(args.cartItemList!!.toList())
 
-        viewModel.totalPrice.observe(viewLifecycleOwner) {
-            viewModel.calculateTotal(0)
-        }
-        viewModel.shippingMethod.observe(viewLifecycleOwner) {
-            viewModel.calculateTotal(it.price)
-        }
+        if (args.totalPrice != 0L)
+            viewModel.updateTotalPrice(args.totalPrice)
 
         if (args.addressSelected == null && args.shippingMethodSelected == null) {
             listenChooseShippingClick()
@@ -184,7 +187,13 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
 
         viewModel.orderSuccess.observe(viewLifecycleOwner, EventObserver { isSuccess ->
             if (isSuccess) {
-                showConfirm("Order Successful!", "You have successfully made order", "View Order", "Back Home", this)
+                showConfirm(
+                    "Order Successful!",
+                    "You have successfully made order",
+                    "View Order",
+                    "Back Home",
+                    this
+                )
                 viewModel.deleteAllCart()
                 sendNotification()
             }
@@ -193,12 +202,12 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
 
     override fun negativeAction() {
         Toast.makeText(requireContext(), "Back Home", Toast.LENGTH_SHORT).show()
-        navigateToPage(R.id.homeFragment)
+        navigateToPage(R.id.action_checkoutFragment_to_homeFragment)
     }
 
     override fun positiveAction() {
         Toast.makeText(requireContext(), "View Order", Toast.LENGTH_SHORT).show()
-        navigateToPage(R.id.action_checkoutFragment_to_cartFragment)
+        navigateToPage(R.id.action_checkoutFragment_to_homeFragment)
     }
 
     // Notifications

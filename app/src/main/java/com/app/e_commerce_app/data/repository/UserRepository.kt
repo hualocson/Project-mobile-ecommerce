@@ -84,7 +84,10 @@ class UserRepository @Inject constructor(private val userRemoteService: UserRemo
     suspend fun getDefaultAddress() = withContext(Dispatchers.IO) {
         when (val result = userRemoteService.getUserAddresses("default")) {
             is NetWorkResult.Success -> {
-                result.data.data!!.first()
+                if(result.data.data.isNullOrEmpty())
+                    null
+                else
+                    result.data.data.first()
             }
 
             is NetWorkResult.Error -> {

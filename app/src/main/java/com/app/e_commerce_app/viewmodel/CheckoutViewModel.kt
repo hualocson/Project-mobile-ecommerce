@@ -1,6 +1,5 @@
 package com.app.e_commerce_app.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.app.e_commerce_app.base.BaseViewModel
@@ -25,15 +24,13 @@ class CheckoutViewModel @Inject constructor(
     private val orderRepository: OrderRepository,
     private val cartRepository: CartRepository
 ) : BaseViewModel() {
-    private val supervisorJob = SupervisorJob()
-    private val viewModelScope = CoroutineScope(Dispatchers.IO + supervisorJob)
-
+    private val viewModelScope = CoroutineScope(Dispatchers.IO + NonCancellable)
 
     private var _orderSuccess = MutableLiveData<Event<Boolean>>()
     val orderSuccess: LiveData<Event<Boolean>> = _orderSuccess
 
-    private val _addressData = MutableLiveData<AddressJson>()
-    val addressData: LiveData<AddressJson> = _addressData
+    private val _addressData = MutableLiveData<AddressJson?>()
+    val addressData: LiveData<AddressJson?> = _addressData
 
     private val _shippingMethod = MutableLiveData<ShippingJson>()
     val shippingMethod: LiveData<ShippingJson> = _shippingMethod
@@ -41,7 +38,7 @@ class CheckoutViewModel @Inject constructor(
     private val _cartEntity = MutableLiveData<List<CartEntity>>()
     val cartEntity: LiveData<List<CartEntity>> = _cartEntity
 
-    private val _totalPrice = MutableLiveData<Long>()
+    private val _totalPrice = MutableLiveData<Long>(0)
     val totalPrice: LiveData<Long> = _totalPrice
 
     private val _addresses = MutableLiveData<List<AddressJson>>()
@@ -53,6 +50,20 @@ class CheckoutViewModel @Inject constructor(
     private val _sumTotal = MutableLiveData<Long>()
     val sumTotal: LiveData<Long> = _sumTotal
 
+    init {
+        _shippingMethod.observeForever { shipping ->
+            _totalPrice.value?.let {
+                _sumTotal.postValue(calculateTotal(it, shipping.price))
+            }
+        }
+
+        _totalPrice.observeForever { amount ->
+            _shippingMethod.value?.let {
+                _sumTotal.postValue(calculateTotal(amount, it.price))
+            }
+        }
+    }
+
     fun createOrder(
         totalPrice: Long,
         shippingMethodId: Int,
@@ -61,7 +72,6 @@ class CheckoutViewModel @Inject constructor(
     ) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
-            parentJob!!.ensureActive()
             val orderLines = productItems.map { item ->
                 item.toOrderLineJson()
             }
@@ -69,50 +79,30 @@ class CheckoutViewModel @Inject constructor(
             val orderRequest =
                 OrderRequest(totalPrice, shippingMethodId, shippingAddressId, orderLines)
 
-            val response = orderRepository.createOrder(orderRequest)
+            orderRepository.createOrder(orderRequest)
             _orderSuccess.postValue(Event(true))
+
         }
 
-        registerJobFinish()
-    }
-
-    fun fetchDefaultAddress() {
-        showLoading(true)
-        parentJob = viewModelScope.launch(handler) {
-            val defaultAddress = userRepository.getDefaultAddress()
-            _addressData.postValue(defaultAddress)
-        }
-        registerJobFinish()
-    }
-
-    fun fetchAddresses() {
-        showLoading(true)
-        parentJob = viewModelScope.launch(handler) {
-            val addresses = userRepository.getAllUserAddresses()!!
-            _addresses.postValue(addresses)
-        }
-        registerJobFinish()
-    }
-
-    fun fetchShippingMethods() {
-        showLoading(true)
-        parentJob = viewModelScope.launch(handler) {
-            val data = shippingRepository.getAllShippingMethod()!!
-            _shippingMethods.postValue(data)
-        }
         registerJobFinish()
     }
 
     fun fetchData() {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
-            val defAddressDeferred = async { userRepository.getDefaultAddress() }
+            val defAdd = userRepository.getDefaultAddress()
+            _addressData.postValue(defAdd)
+
             val addressesDeferred = async { userRepository.getAllUserAddresses() }
             val shippingMethodsDeferred = async { shippingRepository.getAllShippingMethod() }
+            val listJob =
+                listOf(addressesDeferred, shippingMethodsDeferred).awaitAll()
 
-            _addressData.postValue(defAddressDeferred.await())
-            _addresses.postValue(addressesDeferred.await())
-            _shippingMethods.postValue(shippingMethodsDeferred.await())
+            val data1 = listJob[0] as List<*>
+            val data2 = listJob[1] as List<*>
+
+            _addresses.postValue(data1.map { it as AddressJson })
+            _shippingMethods.postValue(data2.map { it as ShippingJson })
         }
         registerJobFinish()
     }
@@ -138,14 +128,11 @@ class CheckoutViewModel @Inject constructor(
     }
 
     fun updateTotalPrice(total: Long) {
-        parentJob = viewModelScope.launch(handler) {
-            _totalPrice.postValue(total)
-        }
-        registerJobFinish()
+        _totalPrice.postValue(total)
+        _sumTotal.postValue(calculateTotal(total, 0))
     }
 
-    fun calculateTotal(shippingPrice: Long) {
-        val price = totalPrice.value!! + shippingPrice
-        _sumTotal.postValue(price)
+    private fun calculateTotal(amount: Long, shippingPrice: Long): Long {
+        return amount + shippingPrice
     }
 }

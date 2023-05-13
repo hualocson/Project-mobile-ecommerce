@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavAction
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -120,11 +122,8 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
     }
 
     private val onProductItemClick: OnProductItemClick = {
-        val controller = findNavController()
-        val bundle = bundleOf(
-            "id" to it.id
-        )
-        controller.navigate(R.id.productDetailFragment, bundle)
+        val action : NavDirections = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(it.id)
+        navigateAction(action)
     }
 
     private val onCategoryIconClick: (CategoryModel) -> Unit = {

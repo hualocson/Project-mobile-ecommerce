@@ -31,7 +31,10 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(true) {
     private val userViewModel: UserViewModel by viewModels()
     private fun listenClickEvent() {
         binding.signupHeader.btnLeft.setOnClickListener {
-            navigateToPage(R.id.profileFragment)
+            navigateBack()
+        }
+        binding.tvLogin.setOnClickListener {
+            navigateToPage(R.id.action_signupFragment_to_loginFragment)
         }
     }
 

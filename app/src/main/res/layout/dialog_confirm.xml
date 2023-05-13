@@ -3,94 +3,93 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/text_size_small"
-   >
+    android:background="@color/transparent"
+    android:padding="@dimen/padding_medium">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"
-    android:background="@drawable/background_confirm"
-    android:padding="@dimen/padding_medium"
-    >
-
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/icon"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_cart_fill"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvTitle"
-        style="@style/myTextViewHeading"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_large"
-        android:gravity="center_horizontal"
-        android:minLines="1"
-        android:textAlignment="center"
-        android:textColor="@color/text_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/icon" />
-
-    <TextView
-        android:id="@+id/tvContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_medium"
-        android:gravity="center_horizontal"
-        android:textAlignment="center"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/text_size_normal"
-        android:minLines="2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_large"
-        android:orientation="vertical"
+        android:background="@drawable/background_confirm"
+        android:padding="@dimen/padding_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvContent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnPositive"
-            style="@style/cpri_button_style"
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/icon"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_cart_fill"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/myTextViewHeading"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="@dimen/padding_small"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
+            android:gravity="center_horizontal"
+            android:minLines="1"
             android:textAlignment="center"
-            android:textSize="@dimen/text_size_normal"
+            android:textColor="@color/text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon" />
 
-            />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnNegative"
-            style="@style/csec_button_style"
+        <TextView
+            android:id="@+id/tvContent"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_medium"
-            android:layout_weight="1"
-            android:padding="@dimen/padding_small"
+            android:gravity="center_horizontal"
+            android:minLines="2"
             android:textAlignment="center"
+            android:textColor="@color/text_color"
             android:textSize="@dimen/text_size_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-            />
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvContent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnPositive"
+                style="@style/cpri_button_style"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="@dimen/padding_small"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_normal"
+
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNegative"
+                style="@style/csec_button_style"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_weight="1"
+                android:padding="@dimen/padding_small"
+                android:textAlignment="center"
+                android:textSize="@dimen/text_size_normal"
+
+                />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
