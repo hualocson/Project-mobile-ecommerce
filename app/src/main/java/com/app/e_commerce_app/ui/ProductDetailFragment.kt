@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
@@ -28,6 +29,8 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
         return FragmentProductDetailBinding.inflate(inflater, container, false)
     }
 
+    private val args by navArgs<ProductDetailFragmentArgs>()
+
     private val variationAdapter: VariationAdapter by lazy {
         VariationAdapter(requireContext(), onVariationClick, onVariationOptionClick)
     }
@@ -39,9 +42,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val bundle = arguments
-        val id = bundle!!.getInt("id")
-        productDetailViewModel.fetchProductDetail(id)
+        productDetailViewModel.fetchProductDetail(args.productItemId)
     }
 
     private fun observerEvent() {

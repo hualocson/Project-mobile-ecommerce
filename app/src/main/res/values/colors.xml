@@ -18,6 +18,8 @@
     <color name="gray">#9BA4B5</color>
     <color name="light_text_color">#FFFFFFFF</color>
     <color name="error">#FD8A8A</color>
+    <color name="warning">#FDF7C3</color>
+    <color name="success">#C7E9B0</color>
     <color name="colorPrimary">#4CAF50</color>
     <color name="colorPrimaryDark">#388E3C</color>
     <color name="colorAccent">#FF4081</color>

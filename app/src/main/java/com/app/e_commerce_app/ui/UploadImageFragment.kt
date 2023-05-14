@@ -2,6 +2,8 @@ package com.app.e_commerce_app.ui
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
@@ -22,7 +24,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.loader.content.CursorLoader
@@ -64,7 +69,46 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         userViewModel.fetchUser()
+        createNotificationChannel()
     }
+
+    // Notifications
+    private val CHANNEL_ID = "channel_id_example_01"
+    private val notificationId = 101
+
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = "Notification Title"
+            val desc = "Notification Description"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID,name, importance).apply {
+                description = desc
+            }
+            val notificationManager: NotificationManager = requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+    private fun sendNotification(){
+        val builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_logo)
+            .setContentTitle("From Us With Love")
+            .setContentText("Upload Success")
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        with(NotificationManagerCompat.from(requireContext())) {
+            val permission = ContextCompat.checkSelfPermission(requireContext(),
+                android.Manifest.permission.POST_NOTIFICATIONS)
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                makeNotifyRequest()
+            }
+            notify(notificationId, builder.build())
+        }
+    }
+    private fun makeNotifyRequest() {
+        ActivityCompat.requestPermissions(requireActivity(),
+            arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+            REQUEST_CODE_IMG)
+    }
+    //End Notifications
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,6 +123,9 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
         binding.btnUploadapi.setOnClickListener {
             uploadUserImage()
         }
+        binding.headerView.btnLeft.setOnClickListener {
+            navigateBack()
+        }
     }
     private fun setupPermissions() {
         val permission = ContextCompat.checkSelfPermission(requireContext(),
@@ -87,15 +134,17 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
         val permission_write = ContextCompat.checkSelfPermission(requireContext(),
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
+
         if (permission != PackageManager.PERMISSION_GRANTED || permission_write != PackageManager.PERMISSION_GRANTED) {
             makeRequest()
         }
         else{
-            opqenImageChooser()
+            openImageChooser()
         }
         userViewModel.uploadSuccess.observe(viewLifecycleOwner, EventObserver { isSuccess ->
             if (isSuccess) {
                 navigateToPage(R.id.profileFragment)
+                sendNotification()
             }
         })
     }
@@ -119,7 +168,7 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
             }
         }
     }
-    private fun opqenImageChooser() {
+    private fun openImageChooser() {
         Intent(Intent.ACTION_PICK).also {
             it.type = "image/*"
             val minTypes = arrayOf("image/jpg")

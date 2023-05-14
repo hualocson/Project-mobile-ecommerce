@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.app.e_commerce_app.base.dialogs.ConfirmDialog
 import com.app.e_commerce_app.base.dialogs.ErrorDialog
 import com.app.e_commerce_app.base.dialogs.NotifyDialog
+import com.app.e_commerce_app.utils.Status
 
 open class BaseActivity: AppCompatActivity() {
     open fun showLoading(isShow: Boolean) {
@@ -35,8 +36,8 @@ open class BaseActivity: AppCompatActivity() {
         showNotifyDialog(message, title, textButton)
     }
 
-    open fun showNotifyDialog(title: String, message: String, textButton: String? = null) {
-        val notifyDialog = NotifyDialog(this, title, message, textButton)
+    open fun showNotifyDialog(title: String, message: String, textButton: String? = null, status: Status = Status.ERROR) {
+        val notifyDialog = NotifyDialog(this, title, message, textButton, status)
         notifyDialog.show()
         notifyDialog.window?.setGravity(Gravity.CENTER)
         notifyDialog.window?.setLayout(

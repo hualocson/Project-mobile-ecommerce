@@ -14,9 +14,10 @@ import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.dialogs.ConfirmDialog
 import com.app.e_commerce_app.base.network.BaseNetworkException
 import com.app.e_commerce_app.common.EventObserver
+import com.app.e_commerce_app.utils.Status
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigationView: Boolean) :
+abstract class BaseFragment<VB : ViewBinding>(val isHideBottomNavigationView: Boolean) :
     Fragment() {
     private var _binding: VB? = null
     protected val binding: VB
@@ -66,10 +67,10 @@ abstract class BaseFragment<VB : ViewBinding>(private val isHideBottomNavigation
         }
     }
 
-    protected fun showNotify(title: String?, message: String) {
+    protected fun showNotify(title: String?, message: String, status: Status = Status.ERROR) {
         val activity = requireActivity()
         if (activity is BaseActivity) {
-            activity.showNotifyDialog(title ?: getDefaultNotifyTitle(), message, "OK")
+            activity.showNotifyDialog(title ?: getDefaultNotifyTitle(), message, "OK", status)
         }
     }
 

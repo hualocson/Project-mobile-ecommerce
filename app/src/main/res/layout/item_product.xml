@@ -30,7 +30,7 @@
                 android:layout_height="@dimen/product_item_width"
                 android:background="@drawable/background_product_item"
                 android:padding="20dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 app:imageUrl="@{productData.productImage}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

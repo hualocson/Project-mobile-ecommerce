@@ -12,11 +12,15 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
-            app:destination="@id/signupFragment" />
+            app:destination="@id/signupFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_in" />
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/fade_in"
             app:launchSingleTop="true"
+            app:popEnterAnim="@android:anim/fade_out"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -34,7 +38,8 @@
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment" />
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -42,8 +47,12 @@
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment"
             app:destination="@+id/productDetailFragment"
-            app:launchSingleTop="false"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 
     <fragment
@@ -53,10 +62,15 @@
         tools:layout="@layout/fragment_signup">
         <action
             android:id="@+id/action_signupFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_signupFragment_to_fillProfileFragment"
-            app:destination="@id/fillProfileFragment" />
+            app:destination="@id/fillProfileFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/fillProfileFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -66,7 +80,9 @@
         tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_profileFragment_to_addressFragment"
             app:destination="@id/addressFragment" />
@@ -122,7 +138,12 @@
         tools:layout="@layout/fragment_store">
         <action
             android:id="@+id/action_storeFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_storeFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
@@ -131,7 +152,14 @@
         tools:layout="@layout/fragment_product_detail">
         <action
             android:id="@+id/action_productDetailFragment_to_cartFragment"
-            app:destination="@id/cartFragment" />
+            app:destination="@id/cartFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_out"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="productItemId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/addressFragment"
@@ -188,12 +216,6 @@
             android:defaultValue="@null"
             app:argType="com.app.e_commerce_app.model.ShippingJson"
             app:nullable="true" />
-        <action
-            android:id="@+id/action_checkoutFragment_to_cartFragment"
-            app:destination="@id/cartFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/cartFragment"
-            app:popUpToInclusive="true" />
         <argument
             android:name="cartItemList"
             app:argType="com.app.e_commerce_app.model.CartItemModel[]"
@@ -203,6 +225,13 @@
             android:name="totalPrice"
             app:argType="long"
             android:defaultValue="0L" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@android:anim/fade_out"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseFragment"

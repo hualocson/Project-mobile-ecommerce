@@ -4,4 +4,13 @@
     <string name="default_notify_title">Error</string>
     <string name="add">Add</string>
     <string name="update">Update</string>
+    <string name="username">User Name or Email</string>
+    <string name="email_warning">Your email is not valid</string>
+    
+    <string-array name="gender_values">
+        <item>MALE</item>
+        <item>FEMALE</item>
+        <item>OTHER</item>
+        <item>UNKNOWN</item>
+    </string-array>
 </resources>
