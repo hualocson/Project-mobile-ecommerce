@@ -3,6 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="homeViewModel"
+            type="com.app.e_commerce_app.viewmodel.HomeViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/motionLayout"
         android:layout_width="match_parent"

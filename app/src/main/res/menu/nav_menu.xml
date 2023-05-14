@@ -17,10 +17,10 @@
         android:icon="@drawable/order_ic_selector"
         android:title="Orders" />
     <item
-        android:id="@+id/walletFragment"
+        android:id="@+id/saleFragment"
         app:showAsAction="always"
-        android:icon="@drawable/wallet_ic_selector"
-        android:title="Wallet" />
+        android:icon="@drawable/sale_ic_selector"
+        android:title="Sale" />
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/profile_ic_selector"

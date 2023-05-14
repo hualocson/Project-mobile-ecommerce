@@ -22,6 +22,9 @@ class SaleDetailsFragment : BaseFragment<FragmentNewsFullBinding>(true) {
         if(args.saleModel != null){
             binding.newModel = args.saleModel
         }
+        binding.headerView.btnLeft.setOnClickListener {
+            navigateBack()
+        }
     }
     override fun inflateBinding(
         inflater: LayoutInflater,
