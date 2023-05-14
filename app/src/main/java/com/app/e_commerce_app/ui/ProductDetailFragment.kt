@@ -120,10 +120,10 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
             val cartItem = CartEntity(productId, itemName, itemImg, itemPrice.toLong(), itemQuantity.toInt(),itemDesc)
             if(productDetailViewModel.activeItemData.value!!.id != 0){
                 cartViewModel.insertOrUpdate(cartItem)
-                StyleableToast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG, R.style.SuccessToast).show();
+                StyleableToast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG, R.style.SuccessToast).show()
             }
             else{
-                StyleableToast.makeText(requireContext(), "Please choose option for product", Toast.LENGTH_LONG, R.style.ErrorToast).show();
+                StyleableToast.makeText(requireContext(), "Please choose option for product", Toast.LENGTH_LONG, R.style.InfoToast).show()
             }
         }
     }

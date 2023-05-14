@@ -32,6 +32,7 @@ import com.app.e_commerce_app.ui.adapter.CartAdapter
 import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.CheckoutViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.muddz.styleabletoast.StyleableToast
 
 @AndroidEntryPoint
 class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
@@ -201,12 +202,12 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
     }
 
     override fun negativeAction() {
-        Toast.makeText(requireContext(), "Back Home", Toast.LENGTH_SHORT).show()
+        StyleableToast.makeText(requireContext(), "Back Home", R.style.InfoToast).show()
         navigateToPage(R.id.action_checkoutFragment_to_homeFragment)
     }
 
     override fun positiveAction() {
-        Toast.makeText(requireContext(), "View Order", Toast.LENGTH_SHORT).show()
+        StyleableToast.makeText(requireContext(), "View Order", R.style.InfoToast).show()
         navigateToPage(R.id.action_checkoutFragment_to_homeFragment)
     }
 
