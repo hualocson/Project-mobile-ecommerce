@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavAction
 import androidx.navigation.NavDirections
@@ -32,7 +33,7 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
 
     private var imageList: ArrayList<SlideModel>? = null
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -69,13 +70,6 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
         observerEvent()
         setupRecycleViewLayout()
 
-        if (!homeViewModel.checkIsLogin())
-            navigateToPage(R.id.action_homeFragment_to_loginFragment)
-        else {
-            homeViewModel.fetchUser()
-            homeViewModel.fetchData()
-        }
-
         val controller = findNavController()
 
 
@@ -88,9 +82,6 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
                 "category_id" to 0
             )
             controller.navigate(R.id.storeFragment, bundle)
-        }
-        binding.tvSeeAllSpecial.setOnClickListener {
-            navigateToPage(R.id.saleFragment)
         }
     }
 

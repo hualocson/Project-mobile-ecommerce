@@ -15,6 +15,7 @@ import com.app.e_commerce_app.model.UserJson
 import com.app.e_commerce_app.model.product.ProductModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -41,6 +42,8 @@ class HomeViewModel @Inject constructor(
     val userLiveData: LiveData<UserJson> = _userLiveData
 
     var isProductsLoading = MutableLiveData<Event<Boolean>>()
+
+    var isFetchDataSuccess = MutableLiveData<Event<Boolean>>()
 
     fun fetchAllProducts() {
         showLoading(true)
@@ -71,7 +74,9 @@ class HomeViewModel @Inject constructor(
 
     fun fetchData() {
         showLoading(true)
+        isFetchDataSuccess.postValue(Event(false))
         parentJob = viewModelScope.launch(handler) {
+            delay(1000)
             val categoriesDeferred = async { categoryRepository.getAllCategories() }
             val productsDeferred = async { productRepository.getAllProducts() }
 
@@ -79,8 +84,10 @@ class HomeViewModel @Inject constructor(
             _categoryRadioData.postValue(toListCategoryRadioButton(categoriesDeferred.await()!!.categories))
 
             _productsData.postValue(productsDeferred.await())
+            isFetchDataSuccess.postValue(Event(true))
         }
         registerJobFinish()
+
     }
 
     fun checkIsLogin(): Boolean {

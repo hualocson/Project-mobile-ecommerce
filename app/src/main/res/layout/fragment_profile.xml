@@ -139,7 +139,7 @@
                 style="@style/ProfileButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_wallet_outline_24"
+                android:drawableStart="@drawable/ic_change_pass"
                 android:drawableEnd="@drawable/ic_next"
                 android:fontFamily="@font/lato_bold"
                 android:text="Change Password"

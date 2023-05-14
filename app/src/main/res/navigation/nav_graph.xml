@@ -108,11 +108,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/walletFragment"
-        android:name="com.app.e_commerce_app.ui.WalletFragment"
-        android:label="Wallet"
-        tools:layout="@layout/fragment_wallet" />
-    <fragment
         android:id="@+id/fillProfileFragment"
         android:name="com.app.e_commerce_app.ui.FillProfileFragment"
         android:label="fragment_fill_profile"
@@ -307,7 +302,8 @@
             android:name="orderId"
             app:argType="integer"
             android:defaultValue="0" />
-        tools:layout="@layout/fragment_order" />
+    </fragment>
+
     <fragment
         android:id="@+id/welcomeFragment"
         android:name="com.app.e_commerce_app.ui.WelcomeFragment"
