@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="addressData"
+            type="com.app.e_commerce_app.model.AddressJson" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_small"
+            android:padding="@dimen/padding_small"
+            android:background="@drawable/custom_layout_item_popular"
+            android:elevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/roundedImageView2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_outline_location_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_oval="true" />
+
+            <TextView
+                android:id="@+id/tvAddressName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/lato_bold"
+                android:maxLines="1"
+                android:minLines="1"
+                android:text="@{addressData.name}"
+                android:textSize="@dimen/text_size_heading"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/roundedImageView2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_default_tag"
+                android:padding="8dp"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                android:layout_marginStart="@dimen/padding_medium"
+                android:text="Default"
+                android:textColor="@color/text_color"
+                android:visibility="@{addressData.def ? View.VISIBLE: View.GONE}"
+                app:layout_constraintStart_toEndOf="@id/tvAddressName"
+                app:layout_constraintTop_toTopOf="@+id/tvAddressName"
+                app:layout_constraintBottom_toBottomOf="@id/tvAddressName"/>
+
+            <TextView
+                android:id="@+id/tvAddressDetails"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:maxLines="1"
+                android:minLines="1"
+                android:text="@{addressData.fullAddress}"
+                android:textSize="@dimen/text_size_normal"
+                app:layout_constraintStart_toEndOf="@+id/roundedImageView2"
+                app:layout_constraintTop_toBottomOf="@+id/tvAddressName" />
+
+            <ImageButton
+                android:id="@+id/btnUpdate"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_edit_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

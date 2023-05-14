@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="variation"
+            type="com.app.e_commerce_app.model.variation.VariationModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutVariation"
+        android:layout_marginTop="@dimen/padding_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvProductItemVariationName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="5dp"
+            android:textSize="@dimen/text_size_normal"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_marginBottom="@dimen/padding_small"
+            android:text="@{variation.name}"
+            app:layout_constraintBottom_toTopOf="@id/rvOptions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvProductItemVariationName"
+            tools:listitem="@layout/item_product_item_variation_value" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -8,4 +8,20 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="text_color">#FF000000</color>
+    <color name="product_background">#EEEEEE</color>
+    <color name="secondary_color">#EEEEEE</color>
+    <color name="on_secondary_color">#C3BABA</color>
+    <color name="cart_bottom_background">#CAC4C4</color>
+    <color name="transparent">#00000000</color>
+    <color name="on_switch_button">#0E0E0E</color>
+    <color name="off_switch_button">#F6F1F1</color>
+    <color name="gray">#9BA4B5</color>
+    <color name="light_text_color">#FFFFFFFF</color>
+    <color name="error">#FD8A8A</color>
+    <color name="warning">#FDF7C3</color>
+    <color name="success">#C7E9B0</color>
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimaryDark">#388E3C</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="info">#11A4E6</color>
 </resources>

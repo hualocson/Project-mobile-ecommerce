@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.app.e_commerce_app.viewmodel.CheckoutViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.app.e_commerce_app.ui.customview.HeaderView
+            android:id="@+id/headerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:is_show_ic_left="true"
+            app:is_show_ic_right="false"
+            app:is_show_title="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Checkout" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_checkout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/headerView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_shipping_address"
+                    style="@style/myTextViewHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_small"
+                    android:text="Shipping Address"
+                    android:textSize="@dimen/text_size_subtitle"
+                    android:textStyle="bold" />
+
+                <include
+                    layout="@layout/item_address"
+                    app:address="@{viewModel.addressData}"
+                    android:id="@+id/layoutShippingAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_order_list"
+                    style="@style/myTextViewHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_small"
+                    android:layout_marginTop="20dp"
+                    android:text="Order List"
+                    android:textSize="@dimen/text_size_subtitle" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_order_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_small"
+                    android:scrollbars="none"
+                    app:items="@{viewModel.cartEntity}"
+                    tools:itemCount="1" />
+
+                <TextView
+                    android:id="@+id/tv_shipping_method"
+                    style="@style/myTextViewHeading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_small"
+                    android:layout_marginTop="20dp"
+                    android:text="Shipping Method"
+                    android:textSize="@dimen/text_size_subtitle" />
+
+                <ViewStub
+                    android:id="@+id/layoutChooseShipping"
+                    android:layout="@layout/item_shipping_method_choose"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <ViewStub
+                    android:id="@+id/layoutShipping"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout="@layout/item_shipping_method"
+                    app:shippingMethod="@{viewModel.shippingMethod}"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_small"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_promo_code"
+                        style="@style/myTextViewHeading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:text="Promo Code"
+                        android:textSize="@dimen/text_size_subtitle" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_Promo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_default"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/et_promo_code"
+                            style="@style/myEditText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/padding_small"
+                            android:hint="Input Promo Code"
+                            android:singleLine="true"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/btn_apply_code"
+                            app:layout_constraintHorizontal_weight="8"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageButton
+                            android:id="@+id/btn_apply_code"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_add_fill"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="2"
+                            app:layout_constraintStart_toEndOf="@id/et_promo_code"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_default"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="@dimen/padding_medium"
+                            android:text="Amount"
+                            android:textSize="@dimen/text_size_normal"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvAmountPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="@dimen/padding_medium"
+                            android:text="50000"
+                            app:numberValue="@{viewModel.totalPrice}"
+                            android:textSize="@dimen/text_size_normal"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_shipping"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_default"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvShipping"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="@dimen/padding_medium"
+                            android:text="Shipping"
+                            android:textSize="@dimen/text_size_normal"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvShippingFee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="@dimen/padding_medium"
+                            android:text="50000"
+                            app:numberValue="@{viewModel.shippingMethod.price}"
+                            android:textSize="@dimen/text_size_normal"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_total_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_default"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="@dimen/padding_medium"
+                            android:text="Total"
+                            android:textSize="@dimen/text_size_normal"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvTotalPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:paddingVertical="@dimen/padding_medium"
+                            android:text="0"
+                            app:numberValue="@{viewModel.sumTotal}"
+                            android:textSize="@dimen/text_size_normal"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <Button
+            android:id="@+id/btn_checkout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginBottom="@dimen/padding_small"
+            android:background="@drawable/background_button"
+            android:text="Confirm Checkout"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nestedScrollView"
+            app:layout_constraintVertical_bias="0.431" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

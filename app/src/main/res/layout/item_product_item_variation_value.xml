@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.app.e_commerce_app.model.variation.VariationOptionModel" />
+
+        <variable
+            name="variationOption"
+            type="com.app.e_commerce_app.model.variation.VariationOptionModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:paddingHorizontal="@dimen/padding_small"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/btnVariationOption"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:button="@color/transparent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/text_size_small"
+            android:gravity="center"
+            android:checked="@{variationOption.checked}"
+            android:text="@{variationOption.value}"
+            android:textColor="@drawable/custom_radio_text_color"
+            android:background="@drawable/background_variation_radio_button" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

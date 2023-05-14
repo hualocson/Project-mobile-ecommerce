@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLeft"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@color/transparent"
+            app:iconPadding="@dimen/padding_large"
+            app:icon="@drawable/ic_back"
+            app:iconSize="40dp"
+            app:iconTint="@color/black"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTittle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/default_title"
+            android:textSize="@dimen/text_size_fragment_heading"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnRight"
+            app:layout_constraintStart_toEndOf="@+id/btnLeft"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:minWidth="80dp"
+            android:minHeight="80dp"
+            app:icon="@drawable/ic_search_24"
+            app:iconSize="30dp"
+            app:iconTint="@color/black"
+            app:iconGravity="textEnd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

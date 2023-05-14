@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="category_ic_size">50dp</dimen>
+
+    <dimen name="margin_default">10dp</dimen>
+    <dimen name="margin_default_home_horizontal">20dp</dimen>
+    <dimen name="margin_default_half">5dp</dimen>
+    <dimen name="padding_default">10dp</dimen>
+    <dimen name="padding_large">30dp</dimen>
+    <dimen name="padding_medium">20dp</dimen>
+    <dimen name="padding_small">10dp</dimen>
+
+    <dimen name="nav_bottom_height">60dp</dimen>
+
+    <dimen name="category_width">80dp</dimen>
+    <dimen name="product_item_width">160dp</dimen>
+
+    <!--    text size-->
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_heading">20sp</dimen>
+    <dimen name="text_size_subtitle">25sp</dimen>
+    <dimen name="text_size_fragment_heading">28sp</dimen>
+
+    <dimen name="default_elevation">8dp</dimen>
+
+    <dimen name="confirm_max_width">100dp</dimen>
+</resources>
