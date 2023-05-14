@@ -23,6 +23,9 @@
             app:popEnterAnim="@android:anim/fade_out"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
     </fragment>
 
     <fragment
@@ -306,9 +309,9 @@
 
     <fragment
         android:id="@+id/welcomeFragment"
+        tools:layout="@layout/fragment_welcome"
         android:name="com.app.e_commerce_app.ui.WelcomeFragment"
-        android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" />
+        android:label="WelcomeFragment" />
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.app.e_commerce_app.ui.SplashFragment"

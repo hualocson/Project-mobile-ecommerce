@@ -6,6 +6,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -18,7 +19,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
+        buildConfigField "String", "WEB_CLIENT_ID", '"384325159996-40jdj9k0qo0p0bvquv3mvvmkjrqeentm.apps.googleusercontent.com"'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -47,6 +48,8 @@ android {
 dependencies {
     // hilt
     implementation "com.google.dagger:hilt-android:2.44"
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.3'
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
     kapt "com.google.dagger:hilt-compiler:2.44"
 
     implementation 'androidx.core:core-ktx:1.10.0'
