@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.navArgs
@@ -45,7 +46,7 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
     }
 
     private lateinit var viewStub: ViewStub
-    private val viewModel: CheckoutViewModel by viewModels()
+    private val viewModel: CheckoutViewModel by activityViewModels()
 
     private val args by navArgs<CheckoutFragmentArgs>()
 
@@ -202,13 +203,11 @@ class CheckoutFragment : BaseFragment<FragmentFinalCheckoutBinding>(true),
     }
 
     override fun negativeAction() {
-        StyleableToast.makeText(requireContext(), "Back Home", R.style.InfoToast).show()
         navigateToPage(R.id.action_checkoutFragment_to_homeFragment)
     }
 
     override fun positiveAction() {
-        StyleableToast.makeText(requireContext(), "View Order", R.style.InfoToast).show()
-        navigateToPage(R.id.action_checkoutFragment_to_homeFragment)
+        navigateToPage(R.id.action_checkoutFragment_to_orderFragment)
     }
 
     // Notifications

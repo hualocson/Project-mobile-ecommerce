@@ -1,6 +1,7 @@
 package com.app.e_commerce_app.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -65,8 +66,10 @@ class MainActivity : BaseActivity() {
 
     override fun onStop() {
         super.onStop()
+        Log.d("CHECKMAIN", "BEFORE")
         val tokenRepository = TokenRepository(AppSharePreference(applicationContext))
         if (tokenRepository.getRemember() == false)
             tokenRepository.removeToken()
+        Log.d("CHECKMAIN", "AFTER")
     }
 }

@@ -9,51 +9,39 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
-import android.provider.MediaStore.Images
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
-import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.loader.content.CursorLoader
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.common.EventObserver
-import com.app.e_commerce_app.databinding.FragmentProfileBinding
 import com.app.e_commerce_app.databinding.FragmentUploadImgBinding
 import com.app.e_commerce_app.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
-import java.io.FileOutputStream
-import java.security.Permission
-import java.security.Permissions
-import java.util.jar.Manifest
 
 @AndroidEntryPoint
 class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
 
     private val userViewModel: UserViewModel by viewModels()
+    private var oldRemember : Boolean? = null
     private val REQUEST_CODE_IMG = 101
     private var selectImgUri: Uri? = null
     private var mUri: Uri? = null
@@ -131,16 +119,18 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
         val permission = ContextCompat.checkSelfPermission(requireContext(),
             android.Manifest.permission.READ_EXTERNAL_STORAGE)
 
-        val permission_write = ContextCompat.checkSelfPermission(requireContext(),
+        val permissionWrite = ContextCompat.checkSelfPermission(requireContext(),
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
 
-        if (permission != PackageManager.PERMISSION_GRANTED || permission_write != PackageManager.PERMISSION_GRANTED) {
+        if (permission != PackageManager.PERMISSION_GRANTED || permissionWrite != PackageManager.PERMISSION_GRANTED) {
             makeRequest()
         }
         else{
             openImageChooser()
         }
+
+        Log.d("CHECKMAIN", "AFTERAFTER CHOOSE")
         userViewModel.uploadSuccess.observe(viewLifecycleOwner, EventObserver { isSuccess ->
             if (isSuccess) {
                 navigateToPage(R.id.profileFragment)
@@ -169,12 +159,15 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
         }
     }
     private fun openImageChooser() {
+        oldRemember = userViewModel.getRemember()
+        userViewModel.setRemember(true)
         Intent(Intent.ACTION_PICK).also {
             it.type = "image/*"
             val minTypes = arrayOf("image/jpg")
             it.putExtra(Intent.EXTRA_MIME_TYPES, minTypes)
             startActivityForResult(it, REQUEST_CODE_IMG)
         }
+//        userViewModel.setRemember(remember!!)
     }
 
     private fun uploadUserImage(){
@@ -208,6 +201,7 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        oldRemember?.let { userViewModel.setRemember(it) }
         if(resultCode == Activity.RESULT_OK){
             when(requestCode){
                 REQUEST_CODE_IMG -> {

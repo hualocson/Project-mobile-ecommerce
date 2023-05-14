@@ -9,12 +9,14 @@ import com.app.e_commerce_app.data.repository.CategoryRepository
 import com.app.e_commerce_app.data.repository.ProductRepository
 import com.app.e_commerce_app.data.repository.TokenRepository
 import com.app.e_commerce_app.data.repository.UserRepository
+import com.app.e_commerce_app.model.CategoryData
 import com.app.e_commerce_app.model.CategoryModel
 import com.app.e_commerce_app.model.CategoryRadioButton
 import com.app.e_commerce_app.model.UserJson
 import com.app.e_commerce_app.model.product.ProductModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -77,30 +79,25 @@ class HomeViewModel @Inject constructor(
         isFetchDataSuccess.postValue(Event(false))
         parentJob = viewModelScope.launch(handler) {
             delay(1000)
+
             val categoriesDeferred = async { categoryRepository.getAllCategories() }
             val productsDeferred = async { productRepository.getAllProducts() }
+            val userDeferred = async { userRepository.getUserProfile() }
 
-            _categoriesData.postValue(categoriesDeferred.await()!!.categories)
-            _categoryRadioData.postValue(toListCategoryRadioButton(categoriesDeferred.await()!!.categories))
+            _userLiveData.postValue(userDeferred.await())
 
+            val fetchedCategories = categoriesDeferred.await()!!.categories
+
+            _categoriesData.postValue(fetchedCategories)
+            _categoryRadioData.postValue(toListCategoryRadioButton(fetchedCategories))
             _productsData.postValue(productsDeferred.await())
             isFetchDataSuccess.postValue(Event(true))
         }
         registerJobFinish()
-
     }
 
     fun checkIsLogin(): Boolean {
         return tokenRepository.checkIsLogin()
-    }
-
-    fun fetchUser() {
-        showLoading(true)
-        parentJob = viewModelScope.launch(handler) {
-            val user = userRepository.getUserProfile()
-            _userLiveData.postValue(user)
-        }
-        registerJobFinish()
     }
 
     fun fetchProductsByCategoryId(id: Int) {
@@ -113,7 +110,6 @@ class HomeViewModel @Inject constructor(
 
             isProductsLoading.postValue(Event(false))
         }
-
         registerJobFinish()
     }
 }
