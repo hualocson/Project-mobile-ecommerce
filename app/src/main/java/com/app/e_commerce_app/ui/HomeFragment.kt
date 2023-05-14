@@ -70,6 +70,10 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
         observerEvent()
         setupRecycleViewLayout()
 
+        if(homeViewModel.userLiveData.value == null) {
+            homeViewModel.fetchData()
+        }
+
         val controller = findNavController()
 
 

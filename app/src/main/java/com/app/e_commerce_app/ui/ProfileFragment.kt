@@ -50,7 +50,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
             navigateToPage(R.id.action_profileFragment_to_addressFragment)
         }
         binding.btnUpload.setOnClickListener {
-            navigateToPage(R.id.uploadFragment)
+            navigateToPage(R.id.action_profileFragment_to_uploadFragment)
         }
         binding.btnEditProfile.setOnClickListener {
             val action: NavDirections = ProfileFragmentDirections.actionProfileFragmentToFillProfileFragment(
@@ -62,37 +62,5 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
             val action: NavDirections = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment()
             navigateAction(action)
         }
-    }
-
-    private fun loadProfile() {
-//        if(userViewModel.userLiveData.value == null) {
-//            userViewModel.loadUserProfile().observe(viewLifecycleOwner) {
-//                it?.let { resource ->
-//                    when (resource.status) {
-//                        Status.SUCCESS -> {
-//                            resource.data?.let { user ->
-//                                Picasso.get().load(user.avatar).into(binding.profileImage)
-//                                binding.tvUserName.text = user.name
-//                                binding.tvPhone.text = user.phone
-//                            }
-//                        }
-//                        Status.ERROR -> {
-//                            Toast.makeText(requireContext(), resource.message, Toast.LENGTH_LONG)
-//                                .show()
-//                        }
-//                        Status.LOADING -> {
-//                            Toast.makeText(requireContext(), "LOADING in profile", Toast.LENGTH_SHORT)
-//                                .show()
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        else {
-//            val user = userViewModel.userLiveData.value!!
-//            Picasso.get().load(user.avatar).into(binding.profileImage)
-//            binding.tvUserName.text = user.name
-//            binding.tvPhone.text = user.phone
-//        }
     }
 }

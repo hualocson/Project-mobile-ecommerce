@@ -1,6 +1,5 @@
 package com.app.e_commerce_app.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -13,7 +12,6 @@ import com.app.e_commerce_app.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
-import okhttp3.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -64,15 +62,15 @@ class UserViewModel @Inject constructor(
             val token = userRepository.login(loginRequest)
             if (token.accessToken.isNotEmpty() or token.refreshToken.isNotEmpty()) {
                 tokenRepository.saveToken(token)
-                navigateToPage(R.id.action_loginFragment_to_homeFragment)
+                navigateToPage(R.id.action_loginFragment_to_splashFragment)
             }
         }
         registerJobFinish()
     }
 
-    fun uploadImage(avatar: MultipartBody.Part){
+    fun uploadImage(avatar: MultipartBody.Part) {
         showLoading(true)
-        parentJob = viewModelScope.launch(handler){
+        parentJob = viewModelScope.launch(handler) {
             val user = userRepository.uploadImage(avatar)
             _uploadSuccess.postValue(Event(true))
         }
@@ -82,6 +80,7 @@ class UserViewModel @Inject constructor(
     fun logout() {
         tokenRepository.removeToken()
     }
+
     fun fetchUser() {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
@@ -90,8 +89,13 @@ class UserViewModel @Inject constructor(
         }
         registerJobFinish()
     }
+
     fun setRemember(remember: Boolean) {
         tokenRepository.setRemember(remember)
+    }
+
+    fun getRemember(): Boolean? {
+        return tokenRepository.getRemember()
     }
 
     fun updateProfile(userJson: UserJson) {
