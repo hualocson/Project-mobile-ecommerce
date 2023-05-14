@@ -335,7 +335,7 @@
                         android:id="@+id/tvTotalprice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:numberValue="@{productDetailViewModel.activeItemData.price}"
+                        app:numberValue="@{productDetailViewModel.totalPrice}"
                         android:textSize="@dimen/text_size_normal"
                         android:textStyle="bold" />
 

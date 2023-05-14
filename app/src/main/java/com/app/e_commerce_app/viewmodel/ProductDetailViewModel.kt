@@ -24,9 +24,21 @@ class ProductDetailViewModel @Inject constructor(
     private val _activeItem = MutableLiveData<ProductItemJson>()
     val activeItemData: LiveData<ProductItemJson> = _activeItem
 
+    private val _totalPrice = MutableLiveData<Long>(0)
+    val totalPrice: LiveData<Long> = _totalPrice
+
     fun getProductItemId(variationOption: VariationOptionModel) {
         val data = _productDetailData.value!!.productItems!!.find { it.id == variationOption.id }
-        _activeItem.postValue(data!!)
+        data?.let {
+            _activeItem.postValue(it)
+            _totalPrice.postValue(it.price)
+        }
+    }
+
+    fun updatePrice(qty: Int) {
+        _activeItem.value?.let {
+            _totalPrice.postValue(qty * it.price)
+        }
     }
 
     fun fetchProductDetail(id: Int) {
@@ -41,6 +53,7 @@ class ProductDetailViewModel @Inject constructor(
                     productConfigurations = ArrayList()
                 )
             )
+            _totalPrice.postValue(product.minPrice)
         }
         registerJobFinish()
     }
