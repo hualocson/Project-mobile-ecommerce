@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -32,6 +34,7 @@
                 app:layout_constraintBottom_toTopOf="@id/tvLoginHeader"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
             <TextView
                 android:id="@+id/tvLoginHeader"
                 android:layout_width="match_parent"
@@ -57,6 +60,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvLoginHeader" />
+
             <Button
                 android:id="@+id/btn_google"
                 android:layout_width="match_parent"
@@ -69,6 +73,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_facebook" />
+
             <Button
                 android:id="@+id/btn_apple"
                 android:layout_width="match_parent"
@@ -80,6 +85,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btn_google" />
+
             <TextView
                 android:id="@+id/text_fgot"
                 android:layout_width="match_parent"
@@ -95,6 +101,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:layout_editor_absoluteX="20dp" />
+
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
@@ -141,3 +148,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
