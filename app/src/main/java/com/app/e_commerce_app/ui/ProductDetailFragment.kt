@@ -82,6 +82,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
         binding.btnPlusQuantity.setOnClickListener{
             itemQty = itemQty + 1
             binding.tvQuantity.text = itemQty.toString()
+            productDetailViewModel.updatePrice(itemQty)
         }
 
         binding.btnMinusQuantity.setOnClickListener{
@@ -89,6 +90,7 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
                 itemQty = itemQty - 1
             }
             binding.tvQuantity.text = itemQty.toString()
+            productDetailViewModel.updatePrice(itemQty)
         }
         binding.imageSlider.stopSliding()
         binding.headerView.bringToFront()

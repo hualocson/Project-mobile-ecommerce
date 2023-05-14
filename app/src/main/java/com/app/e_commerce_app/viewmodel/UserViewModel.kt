@@ -60,10 +60,9 @@ class UserViewModel @Inject constructor(
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val token = userRepository.login(loginRequest)
-            if (token.accessToken.isNotEmpty() or token.refreshToken.isNotEmpty()) {
-                tokenRepository.saveToken(token)
-                navigateToPage(R.id.action_loginFragment_to_splashFragment)
-            }
+            tokenRepository.removeToken()
+            tokenRepository.saveToken(token)
+            navigateToPage(R.id.action_loginFragment_to_splashFragment)
         }
         registerJobFinish()
     }
