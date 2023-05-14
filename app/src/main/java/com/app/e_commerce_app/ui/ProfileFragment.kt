@@ -58,6 +58,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
             )
             navigateAction(action)
         }
+        binding.btnChangePassword.setOnClickListener {
+            val action: NavDirections = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment()
+            navigateAction(action)
+        }
     }
 
     private fun loadProfile() {
