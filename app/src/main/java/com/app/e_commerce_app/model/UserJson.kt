@@ -12,7 +12,7 @@ data class UserJson(
     val lastName: String,
     val phone: String,
     val avatar: String,
-    val gender: String,
+    val gender: Gender
 ) : Parcelable {
     val name
         get(): String {
@@ -23,4 +23,12 @@ data class UserJson(
         get() : String {
             return avatar
         }
+
+    fun isValidateFirstName(): Boolean {
+        return firstName.isNotEmpty()
+    }
+
+    fun isValidateLastName(): Boolean {
+        return lastName.isNotEmpty()
+    }
 }

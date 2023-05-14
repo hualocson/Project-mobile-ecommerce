@@ -39,7 +39,7 @@ fun loadImageResource(view: ImageView, id: Int? = null) {
 @BindingAdapter("imageSlideList")
 fun setImageList(view: ImageSlider, list: ArrayList<SlideModel>?) {
     if (!list.isNullOrEmpty())
-        view.setImageList(list, ScaleTypes.FIT)
+        view.setImageList(list, ScaleTypes.CENTER_INSIDE)
 }
 
 @BindingAdapter("items")

@@ -5,6 +5,7 @@ import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.services.OrderRemoteService
 import com.app.e_commerce_app.model.order.OrderRequest
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -20,7 +21,7 @@ class OrderRepository @Inject constructor(private val orderRemoteService: OrderR
         }
     }
 
-    suspend fun createOrder(orderRequest: OrderRequest) = withContext(Dispatchers.IO) {
+    suspend fun createOrder(orderRequest: OrderRequest) = withContext(Dispatchers.IO + SupervisorJob()) {
         when(val response = orderRemoteService.createOrder(orderRequest)) {
             is NetWorkResult.Success -> {
                 Log.d("INORDER REPOS", response.data.toString())

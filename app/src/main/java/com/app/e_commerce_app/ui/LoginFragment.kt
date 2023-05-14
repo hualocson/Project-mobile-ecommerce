@@ -9,6 +9,7 @@ import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentLoginBinding
 import com.app.e_commerce_app.model.LoginRequest
+import com.app.e_commerce_app.viewmodel.ValidateViewModel
 import com.app.e_commerce_app.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(true) {
 
     private val userViewModel: UserViewModel by viewModels()
+    private val validateViewModel : ValidateViewModel by viewModels()
 
     override fun inflateBinding(
         inflater: LayoutInflater,
@@ -28,12 +30,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(true) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.loginViewModel = validateViewModel
         registerAllExceptionEvent(userViewModel, viewLifecycleOwner)
         registerObserverLoadingEvent(userViewModel, viewLifecycleOwner)
         registerObserverNavigateEvent(userViewModel, viewLifecycleOwner)
 
         binding.tvSignup.setOnClickListener {
-            navigateToPage(R.id.signupFragment)
+            navigateToPage(R.id.action_loginFragment_to_signupFragment)
         }
 
         binding.btnLogin.setOnClickListener {

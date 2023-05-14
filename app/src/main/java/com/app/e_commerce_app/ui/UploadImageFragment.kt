@@ -123,6 +123,9 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
         binding.btnUploadapi.setOnClickListener {
             uploadUserImage()
         }
+        binding.headerView.btnLeft.setOnClickListener {
+            navigateBack()
+        }
     }
     private fun setupPermissions() {
         val permission = ContextCompat.checkSelfPermission(requireContext(),
@@ -136,7 +139,7 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
             makeRequest()
         }
         else{
-            opqenImageChooser()
+            openImageChooser()
         }
         userViewModel.uploadSuccess.observe(viewLifecycleOwner, EventObserver { isSuccess ->
             if (isSuccess) {
@@ -165,7 +168,7 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
             }
         }
     }
-    private fun opqenImageChooser() {
+    private fun openImageChooser() {
         Intent(Intent.ACTION_PICK).also {
             it.type = "image/*"
             val minTypes = arrayOf("image/jpg")
