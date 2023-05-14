@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class OrderCompleteFragment : BaseFragment<FragmentOrderCompleteBinding>(false) {
 
-    private val orderViewModel by viewModels<OrderViewModel>()
+    private val orderViewModel by activityViewModels<OrderViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -38,7 +39,7 @@ class OrderCompleteFragment : BaseFragment<FragmentOrderCompleteBinding>(false) 
         binding.orderViewModel = orderViewModel
         observerEvent()
         setUpRecycleView()
-        orderViewModel.fetchAllUserOrders()
+//        orderViewModel.fetchAllUserOrders()
     }
 
     private fun observerEvent() {
