@@ -38,6 +38,17 @@ class UserViewModel @Inject constructor(
         registerJobFinish()
     }
 
+    fun checkPassword(password: ChangePasswordRequest) {
+        showLoading(true)
+        parentJob = viewModelScope.launch(handler) {
+            val res = userRepository.checkPassword(password)
+            if (res.statusCode == 200) {
+                _checkSuccess.postValue(true)
+            }
+        }
+        registerJobFinish()
+    }
+
     fun register(registerRequest: RegisterRequest) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {

@@ -69,6 +69,18 @@ class UserRepository @Inject constructor(private val userRemoteService: UserRemo
         }
     }
 
+    suspend fun checkPassword(password: ChangePasswordRequest) = withContext(Dispatchers.IO) {
+        when (val result = userRemoteService.checkPassword(password)) {
+            is NetWorkResult.Success -> {
+                result.data
+            }
+
+            is NetWorkResult.Error -> {
+                throw result.exception
+            }
+        }
+    }
+
     suspend fun getAllUserAddresses() = withContext(Dispatchers.IO) {
         when (val result = userRemoteService.getAllUserAddresses()) {
             is NetWorkResult.Success -> {

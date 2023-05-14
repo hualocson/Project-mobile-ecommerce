@@ -136,14 +136,14 @@
                 app:layout_constraintTop_toBottomOf="@id/btnAddress" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnPayment"
+                android:id="@+id/btnChangePassword"
                 style="@style/ProfileButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_wallet_outline_24"
                 android:drawableEnd="@drawable/ic_next"
                 android:fontFamily="@font/lato_bold"
-                android:text="Payment"
+                android:text="Change Password"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/btnNotification" />
@@ -160,7 +160,7 @@
                 android:textColor="@color/error"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnPayment" />
+                app:layout_constraintTop_toBottomOf="@id/btnChangePassword" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
