@@ -49,6 +49,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(true) {
                 Login()
             }
         }
+
+        binding.btnGoogle.setOnClickListener()
+        {
+            navigateToPage(R.id.action_loginFragment_to_welcomeFragment)
+        }
     }
 
     private fun Login() {

@@ -172,6 +172,7 @@
                     android:src="@drawable/ic_facebook" />
 
                 <ImageButton
+                    android:id="@+id/btn_google"
                     android:layout_width="90dp"
                     android:layout_height="70dp"
                     android:layout_marginLeft="@dimen/padding_medium"

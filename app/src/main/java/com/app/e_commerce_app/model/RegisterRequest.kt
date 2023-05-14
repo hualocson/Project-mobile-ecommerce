@@ -12,5 +12,5 @@ data class RegisterRequest(
     val firstName: String,
     val lastName: String,
     val phone: String,
-    val gender: String
+    val gender: String = Gender.UNKNOWN.value,
 ): Parcelable

@@ -4,12 +4,14 @@ import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentWelcomeBinding
+import com.app.e_commerce_app.model.RegisterRequest
 import com.app.e_commerce_app.viewmodel.GoogleAuthenViewModel
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
@@ -24,17 +26,25 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(true) {
     }
     private val googleViewModel by viewModels<GoogleAuthenViewModel>()
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
+        observerEvent()
+        binding.btnGoogle.setOnClickListener {
+            Log.d("btn click", "clickedddddddddddd")
+            displaySignIn()
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         googleViewModel.initSignInClient(requireActivity())
-
-        binding.btnGoogle.setOnClickListener {
-            displaySignIn()
-        }
-
     }
-
+    private fun observerEvent() {
+        registerAllExceptionEvent(googleViewModel, viewLifecycleOwner)
+        registerObserverLoadingEvent(googleViewModel, viewLifecycleOwner)
+        registerObserverNavigateEvent(googleViewModel, viewLifecycleOwner)
+    }
     private fun displaySignIn(){
         googleViewModel.client?.beginSignIn(googleViewModel.beginSignIn())
             ?.addOnSuccessListener(requireActivity()) { result ->
@@ -48,7 +58,7 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(true) {
             ?.addOnFailureListener(requireActivity()) { e ->
                 // No Google Accounts found. Just continue presenting the signed-out UI.
 //                displaySignUp()
-                Log.d("btn click", e.localizedMessage!!)
+                Log.d("btn click failed", e.localizedMessage!!)
             }
     }
 
@@ -57,12 +67,18 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(true) {
         try {
             val credential = googleViewModel.client?.getSignInCredentialFromIntent(result.data)
             val idToken = credential?.googleIdToken
+            val email = credential?.id
+            val profilePictureUri = credential?.profilePictureUri
+            val givenName = credential?.givenName
+            val familyName = credential?.familyName
             when {
                 idToken != null -> {
                     // Got an ID token from Google. Use it to authenticate
                     // with your backend.
                     val msg = "idToken: $idToken"
-                     Log.d("one tap", msg)
+                    googleViewModel.register(RegisterRequest(email.toString(), email.toString(),profilePictureUri.toString(),
+                        givenName.toString(),
+                        familyName.toString(), "000000"))
                 }
                 else -> {
                     // Shouldn't happen.
