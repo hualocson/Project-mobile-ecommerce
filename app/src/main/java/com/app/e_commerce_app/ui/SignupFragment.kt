@@ -18,6 +18,7 @@ import com.app.e_commerce_app.model.PreSignupRequest
 import com.app.e_commerce_app.utils.Status
 import com.app.e_commerce_app.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.muddz.styleabletoast.StyleableToast
 
 @AndroidEntryPoint
 class SignupFragment : BaseFragment<FragmentSignupBinding>(true) {
@@ -55,13 +56,12 @@ class SignupFragment : BaseFragment<FragmentSignupBinding>(true) {
             if (binding.etUsername.text.toString().isEmpty() || binding.etPassword.text.toString()
                     .isEmpty() || binding.etPasswordcf.text.toString().isEmpty()
             ) {
-                Toast.makeText(requireContext(), "Please enter all information", Toast.LENGTH_LONG)
-                    .show()
+                StyleableToast.makeText(requireContext(), "Please enter all information", R.style.ErrorToast).show()
             }
             else {
                 //Check password and confirm password
                 if (binding.etPassword.text.toString() != binding.etPasswordcf.text.toString()) {
-                    Toast.makeText(requireContext(), "Password not match", Toast.LENGTH_LONG).show()
+                    StyleableToast.makeText(requireContext(), "Password not match", R.style.ErrorToast).show()
                 } else {
                     checkEmail()
                 }

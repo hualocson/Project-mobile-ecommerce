@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.GridLayoutManager
+import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentChangePasswordBinding
 import com.app.e_commerce_app.databinding.FragmentNewsBinding
@@ -18,6 +19,7 @@ import com.app.e_commerce_app.ui.adapter.SaleAdapter
 import com.app.e_commerce_app.viewmodel.SaleViewModel
 import com.app.e_commerce_app.viewmodel.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.muddz.styleabletoast.StyleableToast
 
 @AndroidEntryPoint
 class ChangePasswordFragment : BaseFragment<FragmentChangePasswordBinding>(true) {
@@ -35,13 +37,12 @@ class ChangePasswordFragment : BaseFragment<FragmentChangePasswordBinding>(true)
             if (binding.fillOldpwd.text.toString().isEmpty() || binding.fillNewpwd.text.toString()
                     .isEmpty() || binding.fillCfm.text.toString().isEmpty()
             ) {
-                Toast.makeText(requireContext(), "Please enter all information", Toast.LENGTH_LONG)
-                    .show()
+                StyleableToast.makeText(requireContext(), "Please enter all information", R.style.ErrorToast).show()
             }
             else {
                 //Check password and confirm password
                 if (binding.fillNewpwd.text.toString() != binding.fillCfm.text.toString()) {
-                    Toast.makeText(requireContext(), "Password news not match", Toast.LENGTH_LONG).show()
+                    StyleableToast.makeText(requireContext(), "Password news not match", R.style.ErrorToast).show()
                 } else {
                     checkPassword()
                 }

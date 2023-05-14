@@ -105,6 +105,9 @@ dependencies {
     // Custom progress bar
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
+    //Custom Toast
+    implementation 'io.github.muddz:styleabletoast:2.4.0'
+
     // view models
     implementation 'androidx.fragment:fragment-ktx:1.3.6'
 

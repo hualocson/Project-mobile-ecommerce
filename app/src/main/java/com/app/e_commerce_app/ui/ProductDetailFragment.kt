@@ -19,6 +19,7 @@ import com.app.e_commerce_app.ui.adapter.VariationAdapter
 import com.app.e_commerce_app.viewmodel.CartViewModel
 import com.app.e_commerce_app.viewmodel.ProductDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.muddz.styleabletoast.StyleableToast
 
 @AndroidEntryPoint
 class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
@@ -119,10 +120,10 @@ class ProductDetailFragment : BaseFragment<FragmentProductDetailBinding>(true) {
             val cartItem = CartEntity(productId, itemName, itemImg, itemPrice.toLong(), itemQuantity.toInt(),itemDesc)
             if(productDetailViewModel.activeItemData.value!!.id != 0){
                 cartViewModel.insertOrUpdate(cartItem)
-                Toast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG).show()
+                StyleableToast.makeText(requireContext(), "Add success !", Toast.LENGTH_LONG, R.style.SuccessToast).show()
             }
             else{
-                Toast.makeText(requireContext(), "Please choose option for product", Toast.LENGTH_LONG).show()
+                StyleableToast.makeText(requireContext(), "Please choose option for product", Toast.LENGTH_LONG, R.style.InfoToast).show()
             }
         }
     }
