@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/welcomeFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -278,9 +278,9 @@
         tools:layout="@layout/fragment_order" />
     <fragment
         android:id="@+id/welcomeFragment"
+        tools:layout="@layout/fragment_welcome"
         android:name="com.app.e_commerce_app.ui.WelcomeFragment"
-        android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" />
+        android:label="WelcomeFragment" />
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.app.e_commerce_app.ui.SplashFragment"
@@ -293,4 +293,6 @@
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
+
 </navigation>
