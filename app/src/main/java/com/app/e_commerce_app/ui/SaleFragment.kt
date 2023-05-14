@@ -15,7 +15,7 @@ import com.app.e_commerce_app.viewmodel.SaleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SaleFragment : BaseFragment<FragmentNewsBinding>(true) {
+class SaleFragment : BaseFragment<FragmentNewsBinding>(false) {
 
     private val saleViewModel by viewModels<SaleViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {

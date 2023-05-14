@@ -5,11 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.e_commerce_app.base.BaseViewModel
+import com.app.e_commerce_app.common.Event
 import com.app.e_commerce_app.data.repository.OrderRepository
 import com.app.e_commerce_app.data.repository.ProductRepository
 import com.app.e_commerce_app.model.order.OrderJson
+import com.app.e_commerce_app.model.product.ProductItemJson
 import com.app.e_commerce_app.model.product.ProductModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,12 +31,14 @@ class OrderViewModel @Inject constructor(
     private val _orderCompleteData = MutableLiveData<List<OrderJson>>()
     val orderCompleteData: LiveData<List<OrderJson>> = _orderCompleteData
 
+    private val _activeItem = MutableLiveData<OrderJson>()
+    val activeItemData: LiveData<OrderJson> = _activeItem
+
 
     fun fetchAllUserOrders(){
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val orders = orderRepository.getAllUserOrder()
-            Log.d("order", orders.toString())
             val orderComplete: ArrayList<OrderJson> = ArrayList()
             val orderCommon: ArrayList<OrderJson> = ArrayList()
             orders.forEach {
@@ -46,12 +51,19 @@ class OrderViewModel @Inject constructor(
             }
             _orderCommmonData.postValue(orderCommon)
             _orderCompleteData.postValue(orderComplete)
-            Log.d("common", orderCommon.toString())
-            Log.d("complete", orderComplete.toString())
             _orderData.postValue(orders)
         }
         registerJobFinish()
     }
 
-
+    fun getOrderById(id: Int) {
+        showLoading(true)
+        parentJob = viewModelScope.launch(handler) {
+            parentJob = viewModelScope.launch(handler) {
+                val order = orderRepository.getOrderById(id)
+                _activeItem.postValue(order!!)
+            }
+            registerJobFinish()
+        }
+    }
 }

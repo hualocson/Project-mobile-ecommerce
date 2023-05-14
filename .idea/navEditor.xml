@@ -71,6 +71,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="changePasswordFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-90" />
+                            <option name="y" value="1478" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="checkoutFragment">
                     <value>
                       <LayoutPositions>
@@ -216,14 +228,59 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="orderCommonFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-371" />
+                            <option name="y" value="77" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="orderCompleteFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-370" />
+                            <option name="y" value="-232" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="orderDetailsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-186" />
+                            <option name="y" value="35" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="orderFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-198" />
-                            <option name="y" value="-115" />
+                            <option name="x" value="-375" />
+                            <option name="y" value="-537" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_orderFragment_to_orderDetailsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -261,6 +318,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_profileFragment_to_addressFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_profileFragment_to_changePasswordFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

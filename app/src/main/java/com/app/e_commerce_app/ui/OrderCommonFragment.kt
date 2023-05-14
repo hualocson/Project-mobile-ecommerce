@@ -14,6 +14,7 @@ import com.app.e_commerce_app.databinding.FragmentNewsBinding
 import com.app.e_commerce_app.databinding.FragmentOrderBinding
 import com.app.e_commerce_app.databinding.FragmentOrderCommonBinding
 import com.app.e_commerce_app.model.SaleJson
+import com.app.e_commerce_app.model.order.OrderJson
 import com.app.e_commerce_app.ui.adapter.OrderAdapter
 import com.app.e_commerce_app.ui.adapter.SaleAdapter
 import com.app.e_commerce_app.viewmodel.OrderViewModel
@@ -30,7 +31,7 @@ class OrderCommonFragment : BaseFragment<FragmentOrderCommonBinding>(false) {
 
 
     private val orderAdapter: OrderAdapter by lazy{
-        OrderAdapter(requireContext())
+        OrderAdapter(requireContext(), onClick)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,5 +62,11 @@ class OrderCommonFragment : BaseFragment<FragmentOrderCommonBinding>(false) {
         return FragmentOrderCommonBinding.inflate(inflater, container, false)
     }
 
+    private val onClick: (OrderJson) -> Unit = {
+//        val action: NavDirections = OrderCommonFragmentDirections.actionOrderCommonFragmentToOrderDetailsFragment(it.id)
+//        navigateAction(action)
+        val action: NavDirections = OrderFragmentDirections.actionOrderFragmentToOrderDetailsFragment(it.id)
+        navigateAction(action)
+    }
 
 }

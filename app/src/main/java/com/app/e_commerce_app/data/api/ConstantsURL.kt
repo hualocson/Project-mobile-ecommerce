@@ -7,6 +7,7 @@ object ConstantsURL {
 //    const val BASE_URL = "https://server-rests-api-mobile-dev.onrender.com/api/v1/" //dev
     const val LOGIN_URL = "users/signin"
     const val USER_ADDRESS = "users/addresses"
+    const val CHANGE_PASSWORD = "users/password"
     const val USER_ADDRESS_UPDATE = "users/addresses/{addressId}"
     const val USER_PROFILE = "users/profile"
     const val REGISTER_URL = "users/signup"
@@ -22,4 +23,5 @@ object ConstantsURL {
     const val SHIPPING_URL = "shippings"
     const val ORDER_URL = "orders"
     const val NEW_URL = "news"
+    const val ORDER_BY_ID = "orders/{id}"
 }

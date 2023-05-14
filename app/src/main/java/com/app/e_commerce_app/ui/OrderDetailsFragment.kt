@@ -1,46 +1,54 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.room.Index
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentNewsBinding
-import com.app.e_commerce_app.databinding.FragmentOrderBinding
-import com.app.e_commerce_app.databinding.FragmentOrderCompleteBinding
+import com.app.e_commerce_app.databinding.FragmentOrderDetailsBinding
 import com.app.e_commerce_app.model.SaleJson
 import com.app.e_commerce_app.model.order.OrderJson
+import com.app.e_commerce_app.model.order.OrderLineJson
 import com.app.e_commerce_app.ui.adapter.OrderAdapter
+import com.app.e_commerce_app.ui.adapter.OrderDetailsAdapter
 import com.app.e_commerce_app.ui.adapter.SaleAdapter
 import com.app.e_commerce_app.viewmodel.OrderViewModel
 import com.app.e_commerce_app.viewmodel.SaleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderCompleteFragment : BaseFragment<FragmentOrderCompleteBinding>(false) {
+class OrderDetailsFragment : BaseFragment<FragmentOrderDetailsBinding>(true) {
 
-    private val orderViewModel by activityViewModels<OrderViewModel>()
+    private val orderViewModel by viewModels<OrderViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    private val orderAdapter: OrderAdapter by lazy{
-        OrderAdapter(requireContext(), onClick)
+    private val orderDetailsAdapter: OrderDetailsAdapter by lazy{
+        OrderDetailsAdapter(requireContext(), onClick)
     }
+
+    private val args by navArgs<OrderDetailsFragmentArgs>()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.orderViewModel = orderViewModel
+        val id = args.orderId
+        if(id > 0){
+            binding.orderViewModel = orderViewModel
+        }
         observerEvent()
         setUpRecycleView()
-//        orderViewModel.fetchAllUserOrders()
+        Log.d("orderId", id.toString())
+        orderViewModel.getOrderById(id)
     }
 
     private fun observerEvent() {
@@ -50,21 +58,18 @@ class OrderCompleteFragment : BaseFragment<FragmentOrderCompleteBinding>(false) 
     }
 
     private fun setUpRecycleView() {
-        binding.rvordercomplete.adapter = orderAdapter
-        binding.rvordercomplete.layoutManager = GridLayoutManager(context, 1)
+        binding.rvOrderitems.adapter = orderDetailsAdapter
+        binding.rvOrderitems.layoutManager = GridLayoutManager(context, 1)
     }
 
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentOrderCompleteBinding {
-        return FragmentOrderCompleteBinding.inflate(inflater, container, false)
+    ): FragmentOrderDetailsBinding {
+        return FragmentOrderDetailsBinding.inflate(inflater, container, false)
+    }
+    private val onClick: (OrderLineJson) -> Unit = {
+
     }
 
-    private val onClick: (OrderJson) -> Unit = {
-//        val action: NavDirections = OrderCommonFragmentDirections.actionOrderCommonFragmentToOrderDetailsFragment(it.id)
-//        navigateAction(action)
-        val action: NavDirections = OrderFragmentDirections.actionOrderFragmentToOrderDetailsFragment(it.id)
-        navigateAction(action)
-    }
 }

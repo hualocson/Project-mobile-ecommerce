@@ -27,7 +27,10 @@ interface UserApi {
     suspend fun updateUserProfile(@Body userJson: UserJson): Response<CustomResponse<UserJson>>
 
     @POST(ConstantsURL.CHECK_EMAIL)
-    suspend fun checkEmail(@Body email: PreSignupRequest): Response<CustomResponse<CheckEmailResponse>>
+    suspend fun checkEmail(@Body email: PreSignupRequest): Response<CustomResponse<ResponseWithMessage>>
+
+    @PATCH(ConstantsURL.CHANGE_PASSWORD)
+    suspend fun checkPassword(@Body password: ChangePasswordRequest): Response<CustomResponse<ResponseWithMessage>>
 
     @GET(ConstantsURL.USER_ADDRESS)
     suspend fun getUserAddresses(@Query("flag") flag: String = ""): Response<CustomResponse<List<AddressJson>>>

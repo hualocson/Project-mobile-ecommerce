@@ -19,7 +19,7 @@
             android:id="@+id/headerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:ic_left="@drawable/ic_logo"
+            app:ic_left="@drawable/ic_back"
             app:is_show_ic_left="true"
             app:is_show_ic_right="false"
             app:is_show_title="true"

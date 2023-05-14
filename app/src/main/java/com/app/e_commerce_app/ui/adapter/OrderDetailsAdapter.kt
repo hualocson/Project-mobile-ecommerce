@@ -6,23 +6,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.common.BindableAdapter
 import com.app.e_commerce_app.databinding.ItemNewsBinding
+import com.app.e_commerce_app.databinding.ItemOrderDetailsBinding
 import com.app.e_commerce_app.databinding.ItemOrdersBinding
 import com.app.e_commerce_app.model.CartEntity
 import com.app.e_commerce_app.model.SaleJson
 import com.app.e_commerce_app.model.order.OrderJson
+import com.app.e_commerce_app.model.order.OrderLineJson
 
-class OrderAdapter(
+class OrderDetailsAdapter(
     private val context: Context,
-    private val onClick: (OrderJson) -> Unit,
-) : RecyclerView.Adapter<OrderAdapter.NewViewHolder>(), BindableAdapter<OrderJson> {
-    private var items: ArrayList<OrderJson> = ArrayList()
+    private val onClick: (OrderLineJson) -> Unit,
+) : RecyclerView.Adapter<OrderDetailsAdapter.NewViewHolder>(), BindableAdapter<OrderLineJson> {
+    private var items: ArrayList<OrderLineJson> = ArrayList()
 
-    inner class NewViewHolder(private val binding: ItemOrdersBinding) :
+    inner class NewViewHolder(private val binding: ItemOrderDetailsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(orderJson: OrderJson) {
-            binding.orderitem = orderJson
+        fun bindData(orderLineJson: OrderLineJson) {
+            binding.orderlineitem = orderLineJson
             binding.executePendingBindings()
-            binding.textViewName.setOnClickListener { onClick(orderJson) }
+            binding.textView.setOnClickListener { onClick(orderLineJson) }
         }
     }
 
@@ -31,7 +33,7 @@ class OrderAdapter(
         viewType: Int
     ): NewViewHolder {
         val binding =
-            ItemOrdersBinding.inflate(LayoutInflater.from(context), parent, false)
+            ItemOrderDetailsBinding.inflate(LayoutInflater.from(context), parent, false)
         return NewViewHolder(binding)
     }
 
@@ -41,8 +43,8 @@ class OrderAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    override fun setItems(items: List<OrderJson>) {
-        this.items = items as ArrayList<OrderJson>
+    override fun setItems(items: List<OrderLineJson>) {
+        this.items = items as ArrayList<OrderLineJson>
         notifyDataSetChanged()
     }
 }

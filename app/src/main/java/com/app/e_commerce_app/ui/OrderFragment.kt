@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.GridLayoutManager
+import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentNewsBinding
 import com.app.e_commerce_app.databinding.FragmentOrderBinding
