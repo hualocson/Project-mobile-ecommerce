@@ -397,6 +397,15 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.app.e_commerce_app.ui.admin.DashboardFragment"
+        android:label="DashboardFragment" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_updateOrderFragment"
+            app:destination="@id/updateOrderFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/updateOrderFragment"
+        android:name="com.app.e_commerce_app.ui.admin.OrderFragment"
         android:label="DashboardFragment" />
 
 </navigation>
