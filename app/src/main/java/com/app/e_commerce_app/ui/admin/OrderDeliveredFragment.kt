@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.GridLayoutManager
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentAdminOrderCompleteBinding
@@ -54,9 +55,7 @@ class OrderDeliveredFragment : BaseFragment<FragmentAdminOrderCompleteBinding>(f
     }
 
     private val onClick: (OrderJson) -> Unit = {
-////        val action: NavDirections = OrderCommonFragmentDirections.actionOrderCommonFragmentToOrderDetailsFragment(it.id)
-////        navigateAction(action)
-//        val action: NavDirections = OrderFragmentDirections.actionOrderFragmentToOrderDetailsFragment(it.id)
-//        navigateAction(action)
+        val action: NavDirections = OrderFragmentDirections.actionUpdateOrderFragmentToOrderAdminDetailsFragment(it.id)
+        navigateAction(action)
     }
 }

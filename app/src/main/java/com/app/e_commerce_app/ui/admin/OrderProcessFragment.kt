@@ -63,9 +63,7 @@ class OrderProcessFragment : BaseFragment<FragmentAdminOrderProcessBinding>(fals
     }
 
     private val onClick: (OrderJson) -> Unit = {
-////        val action: NavDirections = OrderCommonFragmentDirections.actionOrderCommonFragmentToOrderDetailsFragment(it.id)
-////        navigateAction(action)
-//        val action: NavDirections = OrderFragmentDirections.actionOrderFragmentToOrderDetailsFragment(it.id)
-//        navigateAction(action)
+        val action: NavDirections = OrderFragmentDirections.actionUpdateOrderFragmentToOrderAdminDetailsFragment(it.id)
+        navigateAction(action)
     }
 }
