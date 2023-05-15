@@ -1,30 +1,24 @@
 package com.app.e_commerce_app.ui
 
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
-import androidx.core.os.bundleOf
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentSearchBinding
-import com.app.e_commerce_app.databinding.FragmentStoreBinding
 import com.app.e_commerce_app.model.product.ProductModel
-import com.app.e_commerce_app.ui.adapter.CartAdapter
-import com.app.e_commerce_app.ui.adapter.CategoryButtonAdapter
 import com.app.e_commerce_app.ui.adapter.ProductAdapter
-import com.app.e_commerce_app.utils.OnCategoryItemButtonClick
 import com.app.e_commerce_app.utils.OnProductItemClick
-import com.app.e_commerce_app.utils.Resource
+import com.app.e_commerce_app.utils.Utils
 import com.app.e_commerce_app.viewmodel.SearchViewModel
-import com.app.e_commerce_app.viewmodel.StoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(true) {
@@ -35,7 +29,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(true) {
         super.onCreate(savedInstanceState)
     }
 
-    private val productAdapter: ProductAdapter by lazy{
+    private val productAdapter: ProductAdapter by lazy {
         ProductAdapter(requireContext(), onProductItemClick)
     }
 
@@ -53,8 +47,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(true) {
 
                 return false
             }
+
             override fun onQueryTextChange(newText: String): Boolean {
-                filterList(newText.toLowerCase())
+                filterList(newText.lowercase(Locale.ROOT))
+                if (newText.isEmpty())
+                    binding.layoutSearchText.visibility = View.GONE
+                else binding.layoutSearchText.visibility = View.VISIBLE
                 binding.tvSearch.text = newText
                 return false
             }
@@ -81,28 +79,25 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(true) {
 
 
     private val onProductItemClick: OnProductItemClick = {
-        val controller = findNavController()
-        val bundle = bundleOf(
-            "id" to it.id
-        )
-        controller.navigate(R.id.productDetailFragment, bundle)
+        val action: NavDirections =
+            SearchFragmentDirections.actionSearchFragmentToProductDetailFragment(it.id)
+        navigateAction(action)
     }
 
-    private fun filterList(newText: String){
+    private fun filterList(newText: String) {
         val newproductList: ArrayList<ProductModel> = ArrayList()
-        searchViewModel.productsData.value!!.forEach {
-            item -> if(item.name.toLowerCase().contains(newText)){
+        searchViewModel.productsData.value!!.forEach { item ->
+            if (item.name.lowercase(Locale.ROOT).contains(newText)) {
                 newproductList.add(item)
+            }
         }
-        }
-        if(newproductList.isEmpty()){
-            if(!isOnPageEmpty){
+        if (newproductList.isEmpty()) {
+            if (!isOnPageEmpty) {
                 binding.searchFlipper.showNext()
             }
             isOnPageEmpty = true
-        }
-        else{
-            if(isOnPageEmpty){
+        } else {
+            if (isOnPageEmpty) {
                 binding.searchFlipper.showPrevious()
             }
             isOnPageEmpty = false

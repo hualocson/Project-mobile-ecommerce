@@ -124,11 +124,11 @@
 
                         <EditText
                             android:id="@+id/et_promo_code"
-                            style="@style/myEditText"
+                            style="@style/myRoundEditText"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/padding_small"
-                            android:hint="Input Promo Code"
+                            android:hint="Enter Promo Code"
                             android:singleLine="true"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/btn_apply_code"

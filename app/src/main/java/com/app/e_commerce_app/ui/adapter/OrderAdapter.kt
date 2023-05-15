@@ -22,7 +22,7 @@ class OrderAdapter(
         fun bindData(orderJson: OrderJson) {
             binding.orderitem = orderJson
             binding.executePendingBindings()
-            binding.textViewName.setOnClickListener { onClick(orderJson) }
+            binding.btnEvent.setOnClickListener { onClick(orderJson) }
         }
     }
 

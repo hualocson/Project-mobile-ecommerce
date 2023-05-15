@@ -32,7 +32,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(true) {
         observerEvent()
 
         if (!homeViewModel.checkIsLogin())
-            navigateToPage(R.id.action_splashFragment_to_loginFragment)
+            navigateToPage(R.id.action_splashFragment_to_welcomeFragment)
         else {
             homeViewModel.fetchData()
         }

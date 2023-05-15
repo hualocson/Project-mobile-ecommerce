@@ -2,6 +2,7 @@ package com.app.e_commerce_app.model
 
 import android.os.Parcelable
 import com.app.e_commerce_app.utils.Gender
+import com.app.e_commerce_app.utils.Role
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -12,7 +13,8 @@ data class UserJson(
     val lastName: String,
     val phone: String,
     val avatar: String,
-    val gender: Gender
+    val gender: Gender,
+    val role: Role = Role.USER,
 ) : Parcelable {
     val name
         get(): String {

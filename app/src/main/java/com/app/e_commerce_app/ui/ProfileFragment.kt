@@ -43,7 +43,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
 
         binding.btnLogout.setOnClickListener {
             userViewModel.logout()
-            navigateToPage(R.id.action_profileFragment_to_loginFragment)
+            navigateToPage(R.id.action_profileFragment_to_welcomeFragment)
         }
 
         binding.btnAddress.setOnClickListener {
@@ -61,6 +61,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
         binding.btnChangePassword.setOnClickListener {
             val action: NavDirections = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment()
             navigateAction(action)
+        }
+        binding.btnManager.setOnClickListener {
+            navigateToPage(R.id.action_profileFragment_to_dashboardFragment)
         }
     }
 }

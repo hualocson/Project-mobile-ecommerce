@@ -1,9 +1,11 @@
 package com.app.e_commerce_app.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
@@ -38,6 +40,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(true) {
         binding.tvSignup.setOnClickListener {
             navigateToPage(R.id.action_loginFragment_to_signupFragment)
         }
+        binding.loginHeader.btnLeft.setOnClickListener {
+            navigateBack()
+        }
 
         binding.btnLogin.setOnClickListener {
             //Nếu email hoặc password rỗng thì thông báo
@@ -49,11 +54,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(true) {
                 Login()
             }
         }
-
-        binding.btnGoogle.setOnClickListener()
-        {
-            navigateToPage(R.id.action_loginFragment_to_welcomeFragment)
-        }
     }
 
     private fun Login() {
@@ -63,8 +63,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(true) {
 
         val isChecked = binding.ckbLogin.isChecked
 
-
-        userViewModel.login(loginRequest)
-        userViewModel.setRemember(isChecked)
+        userViewModel.login(loginRequest, isChecked)
     }
 }

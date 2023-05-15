@@ -203,6 +203,7 @@
                     android:layout_marginTop="0dp"
                     android:gravity="center"
                     android:text="Log in"
+                    android:fontFamily="@font/lato_bold"
                     android:textColor="@color/text_color"
                     android:textStyle="bold" />
 

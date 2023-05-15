@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/searchView">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvordercomplete"
+                android:id="@+id/rvOrderComplete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="fill"
