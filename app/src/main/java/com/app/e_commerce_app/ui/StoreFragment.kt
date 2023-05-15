@@ -9,6 +9,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
@@ -25,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class StoreFragment : BaseFragment<FragmentStoreBinding>(true) {
 
     private var categoryId: Int = 0
-
+    private val args by navArgs<StoreFragmentArgs>()
     private val storeViewModel by viewModels<StoreViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,15 +37,12 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(true) {
         observerEvent()
         setUpRecycleView()
 
-
-        val bundle = arguments
-        categoryId = bundle!!.getInt("category_id")
+        categoryId = args.categoryId
 
         if (categoryId == 0) {
             binding.storeHeader.setTitle("Most Popular")
         }
-//        binding.layoutProductList.loadProductByCategoryId(categoryId)
-//        binding.layoutCategoryList.loadCategory(categoryId)
+
         storeViewModel.getProductsByCategory(categoryId)
 
         binding.storeHeader.btnLeft.setOnClickListener {
@@ -52,7 +50,7 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(true) {
         }
 
         binding.storeHeader.btnRight.setOnClickListener {
-            navigateToPage(R.id.searchFragment)
+            navigateToPage(R.id.action_storeFragment_to_searchFragment)
         }
 
     }

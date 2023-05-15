@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentWelcomeBinding
 import com.app.e_commerce_app.model.RegisterRequest
@@ -34,6 +35,13 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(true) {
             Log.d("btn click", "clickedddddddddddd")
             displaySignIn()
         }
+
+        binding.btnLogin.setOnClickListener {
+            navigateToPage(R.id.action_welcomeFragment_to_loginFragment)
+        }
+        binding.tvSignup.setOnClickListener {
+            navigateToPage(R.id.action_welcomeFragment_to_signupFragment)
+        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +54,8 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(true) {
         registerObserverNavigateEvent(googleViewModel, viewLifecycleOwner)
     }
     private fun displaySignIn(){
-        googleViewModel.client?.beginSignIn(googleViewModel.beginSignIn())
-            ?.addOnSuccessListener(requireActivity()) { result ->
+        googleViewModel.client.beginSignIn(googleViewModel.beginSignIn())
+            .addOnSuccessListener(requireActivity()) { result ->
                 try {
                     val ib = IntentSenderRequest.Builder(result.pendingIntent.intentSender).build()
                     oneTapResult.launch(ib)
@@ -65,12 +73,12 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(true) {
 
     private val oneTapResult = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()){ result ->
         try {
-            val credential = googleViewModel.client?.getSignInCredentialFromIntent(result.data)
-            val idToken = credential?.googleIdToken
-            val email = credential?.id
-            val profilePictureUri = credential?.profilePictureUri
-            val givenName = credential?.givenName
-            val familyName = credential?.familyName
+            val credential = googleViewModel.client.getSignInCredentialFromIntent(result.data)
+            val idToken = credential.googleIdToken
+            val email = credential.id
+            val profilePictureUri = credential.profilePictureUri
+            val givenName = credential.givenName
+            val familyName = credential.familyName
             when {
                 idToken != null -> {
                     // Got an ID token from Google. Use it to authenticate

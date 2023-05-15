@@ -48,6 +48,9 @@ class ChangePasswordFragment : BaseFragment<FragmentChangePasswordBinding>(true)
                 }
             }
         }
+        binding.headerView.btnLeft.setOnClickListener {
+            navigateBack()
+        }
     }
 
     private fun observerEvent() {

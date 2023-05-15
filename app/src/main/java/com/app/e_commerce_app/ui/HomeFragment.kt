@@ -82,10 +82,7 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
         }
 
         binding.tvSeeAllPopular.setOnClickListener {
-            val bundle = bundleOf(
-                "category_id" to 0
-            )
-            controller.navigate(R.id.storeFragment, bundle)
+            navigateToPage(R.id.action_homeFragment_to_storeFragment)
         }
     }
 

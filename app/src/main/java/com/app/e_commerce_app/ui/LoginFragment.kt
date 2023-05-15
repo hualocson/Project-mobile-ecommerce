@@ -40,6 +40,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(true) {
         binding.tvSignup.setOnClickListener {
             navigateToPage(R.id.action_loginFragment_to_signupFragment)
         }
+        binding.loginHeader.btnLeft.setOnClickListener {
+            navigateBack()
+        }
 
         binding.btnLogin.setOnClickListener {
             //Nếu email hoặc password rỗng thì thông báo
@@ -50,11 +53,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(true) {
             } else {
                 Login()
             }
-        }
-
-        binding.btnGoogle.setOnClickListener()
-        {
-            navigateToPage(R.id.action_loginFragment_to_welcomeFragment)
         }
     }
 
