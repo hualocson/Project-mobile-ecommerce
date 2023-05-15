@@ -175,4 +175,41 @@
         <item name="stGravity">top</item>
         <item name="stRadius">5dp</item>
     </style>
+
+    <style name="myDropdown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.ExposedDropdownMenu</item>
+        <item name="hintTextColor">@color/text_color</item>
+        <item name="endIconTint">@color/text_color</item>
+    </style>
+
+    <style name="ThemeOverlay.App.ExposedDropdownMenu" parent="">
+        <item name="colorPrimary">@color/text_color</item>
+        <item name="colorOnSurface">@color/on_secondary_color</item>
+        <item name="colorError">@color/error</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Subtitle1</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>
+        <item name="autoCompleteTextViewStyle">@style/myPopupMenu</item>
+    </style>
+
+    <style name="TextAppearance.App.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:fontFamily">@font/lato</item>
+    </style>
+    <style name="myPopupMenu" parent="Widget.MaterialComponents.PopupMenu.Overflow">
+        <item name="android:popupBackground">@drawable/custom_popup_background</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Subtitle1</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:minWidth">88dip</item>
+        <item name="android:padding">@dimen/padding_medium</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="layout_anchor">@dimen/padding_medium</item>
+        <item name="android:dropDownVerticalOffset">20dp</item>
+    </style>
 </resources>

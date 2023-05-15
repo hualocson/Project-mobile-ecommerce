@@ -144,6 +144,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="dashboardFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="214" />
+                            <option name="y" value="1981" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="fillProfileFragment">
                     <value>
                       <LayoutPositions>
@@ -418,6 +430,15 @@
                             <option name="y" value="1369" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_searchFragment_to_productDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -490,6 +511,11 @@
                               </value>
                             </entry>
                             <entry key="action_storeFragment_to_productDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_storeFragment_to_searchFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

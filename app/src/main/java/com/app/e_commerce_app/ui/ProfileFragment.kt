@@ -62,5 +62,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(false) {
             val action: NavDirections = ProfileFragmentDirections.actionProfileFragmentToChangePasswordFragment()
             navigateAction(action)
         }
+        binding.btnManager.setOnClickListener {
+            navigateToPage(R.id.action_profileFragment_to_dashboardFragment)
+        }
     }
 }

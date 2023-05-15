@@ -115,6 +115,12 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in" />
     </fragment>
 
     <fragment
@@ -388,5 +394,9 @@
             android:id="@+id/action_changePasswordFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.app.e_commerce_app.ui.admin.DashboardFragment"
+        android:label="DashboardFragment" />
 
 </navigation>

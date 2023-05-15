@@ -111,7 +111,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/genderMenu"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -123,8 +122,8 @@
             app:layout_constraintTop_toBottomOf="@+id/fill_phone">
 
             <AutoCompleteTextView
+                android:background="@drawable/background_edittext"
                 android:id="@+id/drop_items"
-                style="@style/myEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none" />

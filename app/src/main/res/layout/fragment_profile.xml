@@ -15,8 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.ProfileFragment"
-        >
+        tools:context=".ui.ProfileFragment">
 
 
         <com.app.e_commerce_app.ui.customview.HeaderView
@@ -32,135 +31,158 @@
             app:layout_constraintTop_toTopOf="parent"
             app:title="Profile" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/padding_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/headerView">
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/profile_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="@dimen/padding_medium"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_img"
-                app:imageUrl="@{userViewModel.userLiveData.imageUrl}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:riv_border_color="@color/secondary_color"
-                app:riv_border_width="2dp"
-                app:riv_oval="true" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_upload"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="85dp"
-                android:gravity="center"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/background_edit_button"
-                android:drawableStart="@drawable/ic_edit_16"
-                android:drawableTint="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/profile_image"
-                app:layout_constraintEnd_toEndOf="@id/profile_image"
-                app:layout_constraintTop_toTopOf="@+id/profile_image" />
-
-            <TextView
-                android:id="@+id/tvUserName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@{userViewModel.userLiveData.name}"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_image" />
-
-            <TextView
-                android:id="@+id/tvPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:maxLines="1"
-                android:text="@{userViewModel.userLiveData.phone}"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.472"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnEditProfile"
-                style="@style/ProfileButton"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_medium"
-                android:drawableStart="@drawable/ic_baseline_person_outline"
-                android:drawableEnd="@drawable/ic_next"
-                android:fontFamily="@font/lato_bold"
-                android:text="Edit Profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPhone" />
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/padding_small">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnAddress"
-                style="@style/ProfileButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_outline_location_24"
-                android:drawableEnd="@drawable/ic_next"
-                android:fontFamily="@font/lato_bold"
-                android:text="Address"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnEditProfile" />
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="@dimen/padding_medium"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_img"
+                    app:imageUrl="@{userViewModel.userLiveData.imageUrl}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:riv_border_color="@color/secondary_color"
+                    app:riv_border_width="2dp"
+                    app:riv_oval="true" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnNotification"
-                style="@style/ProfileButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_notification_outline_24"
-                android:drawableEnd="@drawable/ic_next"
-                android:text="Notification"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnAddress" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_upload"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="85dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/background_edit_button"
+                    android:drawableStart="@drawable/ic_edit_16"
+                    android:drawableTint="@color/white"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="@id/profile_image"
+                    app:layout_constraintEnd_toEndOf="@id/profile_image"
+                    app:layout_constraintTop_toTopOf="@+id/profile_image" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnChangePassword"
-                style="@style/ProfileButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_change_pass"
-                android:drawableEnd="@drawable/ic_next"
-                android:fontFamily="@font/lato_bold"
-                android:text="Change Password"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnNotification" />
+                <TextView
+                    android:id="@+id/tvUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@{userViewModel.userLiveData.name}"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnLogout"
-                style="@style/ProfileButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_logout"
-                android:drawableTint="@color/error"
-                android:fontFamily="@font/lato_bold"
-                android:text="Logout"
-                android:textColor="@color/error"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnChangePassword" />
+                <TextView
+                    android:id="@+id/tvPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:maxLines="1"
+                    android:text="@{userViewModel.userLiveData.phone}"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.472"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnEditProfile"
+                    style="@style/ProfileButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_medium"
+                    android:drawableStart="@drawable/ic_baseline_person_outline"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Edit Profile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPhone" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnAddress"
+                    style="@style/ProfileButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_outline_location_24"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Address"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnEditProfile" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnNotification"
+                    style="@style/ProfileButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_notification_outline_24"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:text="Notification"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnAddress" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnChangePassword"
+                    style="@style/ProfileButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_change_pass"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Change Password"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnNotification" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnManager"
+                    style="@style/ProfileButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_admin"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Manager"
+                    android:visibility="@{userViewModel.isAdmin ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnChangePassword" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnLogout"
+                    style="@style/ProfileButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_logout"
+                    android:drawableTint="@color/error"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Logout"
+                    android:textColor="@color/error"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnManager" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
