@@ -130,7 +130,6 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
             openImageChooser()
         }
 
-        Log.d("CHECKMAIN", "AFTERAFTER CHOOSE")
         userViewModel.uploadSuccess.observe(viewLifecycleOwner, EventObserver { isSuccess ->
             if (isSuccess) {
                 navigateToPage(R.id.profileFragment)
@@ -167,7 +166,6 @@ class UploadImageFragment : BaseFragment<FragmentUploadImgBinding>(true) {
             it.putExtra(Intent.EXTRA_MIME_TYPES, minTypes)
             startActivityForResult(it, REQUEST_CODE_IMG)
         }
-//        userViewModel.setRemember(remember!!)
     }
 
     private fun uploadUserImage(){

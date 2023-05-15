@@ -56,12 +56,13 @@ class UserViewModel @Inject constructor(
         registerJobFinish()
     }
 
-    fun login(loginRequest: LoginRequest) {
+    fun login(loginRequest: LoginRequest, remember: Boolean) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val token = userRepository.login(loginRequest)
             tokenRepository.removeToken()
             tokenRepository.saveToken(token)
+            tokenRepository.setRemember(remember)
             navigateToPage(R.id.action_loginFragment_to_splashFragment)
         }
         registerJobFinish()
