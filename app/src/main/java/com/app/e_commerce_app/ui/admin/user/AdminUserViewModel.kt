@@ -4,12 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.e_commerce_app.base.BaseViewModel
-import com.app.e_commerce_app.data.repository.CategoryRepository
-import com.app.e_commerce_app.data.repository.ProductRepository
 import com.app.e_commerce_app.data.repository.UserRepository
-import com.app.e_commerce_app.model.ChooseItem
 import com.app.e_commerce_app.model.UserJson
-import com.app.e_commerce_app.viewmodel.UserViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,8 +29,8 @@ class AdminUserViewModel @Inject constructor(
         registerJobFinish()
     }
 
-    private val _user = MutableLiveData<UserJson>()
-    val userbyId: LiveData<UserJson> = _user
+//    private val _user = MutableLiveData<UserJson>()
+//    val userbyId: LiveData<UserJson> = _user
 //    fun getUserProfileById(id: Int) {
 //        showLoading(true)
 //        parentJob = viewModelScope.launch(handler) {
