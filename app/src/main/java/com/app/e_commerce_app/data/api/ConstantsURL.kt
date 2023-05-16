@@ -24,6 +24,6 @@ object ConstantsURL {
     const val ORDER_URL = "orders"
     const val NEW_URL = "news"
     const val ORDER_BY_ID = "orders/{id}"
-
-    
+    const val ORDER_UPDATE = "orders/{id}/status"
+    const val PRODUCT_ITEMS = "categories/products/items/{productItemId}"
 }
