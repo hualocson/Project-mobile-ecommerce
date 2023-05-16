@@ -38,5 +38,8 @@ class DashboardFragment : BaseFragment<FragmentAdminDashboardBinding>(true) {
                 DashboardFragmentDirections.actionDashboardFragmentToUpdateOrderFragment()
             navigateAction(action)
         }
+        binding.btnUser.setOnClickListener{
+            navigateToPage(R.id.action_dashboardFragment_to_adminUserFragment)
+        }
     }
 }

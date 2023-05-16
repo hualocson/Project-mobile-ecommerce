@@ -403,6 +403,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_updateOrderFragment"
             app:destination="@id/updateOrderFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_adminUserFragment"
+            app:destination="@id/adminUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminProductFragment"
@@ -441,5 +444,10 @@
             android:defaultValue="0"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/adminUserFragment"
+        android:name="com.app.e_commerce_app.ui.admin.user.AdminUserFragment"
+        android:label="Admin User Fragment"
+        tools:layout="@layout/fragment_admin_user"/>
 
 </navigation>

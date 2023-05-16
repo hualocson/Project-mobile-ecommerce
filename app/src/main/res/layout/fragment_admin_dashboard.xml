@@ -74,5 +74,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnUpdateNews" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnUser"
+            style="@style/ProfileButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_star_rate_24"
+            android:drawableEnd="@drawable/ic_next"
+            android:fontFamily="@font/lato_bold"
+            android:text="Users"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnProduct" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
