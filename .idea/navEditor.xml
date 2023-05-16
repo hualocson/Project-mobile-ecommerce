@@ -153,6 +153,15 @@
                             <option name="y" value="1981" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_dashboardFragment_to_updateOrderFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -259,6 +268,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="orderAdminDetailsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="674" />
+                            <option name="y" value="1852" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="orderCommonFragment">
                     <value>
                       <LayoutPositions>
@@ -354,6 +375,11 @@
                               </value>
                             </entry>
                             <entry key="action_profileFragment_to_changePasswordFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_profileFragment_to_dashboardFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -521,6 +547,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="updateOrderFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="444" />
+                            <option name="y" value="1856" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
