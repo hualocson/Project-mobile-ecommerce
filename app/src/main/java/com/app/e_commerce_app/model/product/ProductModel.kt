@@ -2,6 +2,7 @@ package com.app.e_commerce_app.model.product
 
 import android.os.Parcelable
 import android.util.Log
+import com.app.e_commerce_app.model.ChooseItem
 import com.app.e_commerce_app.model.variation.VariationModel
 import com.app.e_commerce_app.model.variation.VariationOptionModel
 import com.app.e_commerce_app.utils.Utils
@@ -24,6 +25,16 @@ data class ProductModel(
 ) : Parcelable {
     override fun toString(): String {
         return "${id.toString()}  ${name.toString()}"
+    }
+
+    fun toAdminItem() : ChooseItem {
+        return ChooseItem(
+            id = id,
+            title = name,
+            desc = description,
+            icon = productImage,
+            price = minPrice
+        )
     }
 
     val productImageList

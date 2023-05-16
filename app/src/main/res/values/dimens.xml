@@ -23,6 +23,7 @@
     <dimen name="text_size_fragment_heading">28sp</dimen>
 
     <dimen name="default_elevation">8dp</dimen>
+    <dimen name="small_elevation">5dp</dimen>
 
     <dimen name="confirm_max_width">100dp</dimen>
 </resources>

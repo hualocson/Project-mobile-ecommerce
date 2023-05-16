@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="@color/transparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Layout"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_small"
             android:background="@drawable/custom_layout_item_popular"
-            android:elevation="8dp"
+            android:elevation="@dimen/small_elevation"
             android:padding="@dimen/padding_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
