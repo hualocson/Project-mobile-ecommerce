@@ -8,6 +8,7 @@ import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.common.Event
 import com.app.e_commerce_app.data.repository.OrderRepository
 import com.app.e_commerce_app.data.repository.ProductRepository
+import com.app.e_commerce_app.model.UpdateOrderRequest
 import com.app.e_commerce_app.model.order.OrderJson
 import com.app.e_commerce_app.model.product.ProductItemJson
 import com.app.e_commerce_app.model.product.ProductModel
@@ -44,6 +45,8 @@ class OrderViewModel @Inject constructor(
     private val _activeItem = MutableLiveData<OrderJson>()
     val activeItemData: LiveData<OrderJson> = _activeItem
 
+    private var _updateSuccess = MutableLiveData<Event<Boolean>>()
+    val updateSuccess: LiveData<Event<Boolean>> = _updateSuccess
 
     fun fetchAllUserOrders(){
         showLoading(true)
@@ -105,6 +108,16 @@ class OrderViewModel @Inject constructor(
             parentJob = viewModelScope.launch(handler) {
                 val order = orderRepository.getOrderById(id)
                 _activeItem.postValue(order!!)
+            }
+            registerJobFinish()
+        }
+    }
+    fun updateOrder(id: Int, updateOrderRequest: UpdateOrderRequest) {
+        showLoading(true)
+        parentJob = viewModelScope.launch(handler) {
+            parentJob = viewModelScope.launch(handler) {
+                val order = orderRepository.upDateOrder(id, updateOrderRequest)
+                _updateSuccess.postValue(Event(true))
             }
             registerJobFinish()
         }

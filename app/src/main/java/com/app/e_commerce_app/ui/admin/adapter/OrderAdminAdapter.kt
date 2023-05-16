@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.common.BindableAdapter
 import com.app.e_commerce_app.databinding.AdminItemOrdersBinding
 import com.app.e_commerce_app.model.order.OrderJson
+import com.app.e_commerce_app.model.product.ProductModel
 
 class OrderAdminAdapter(
     private val context: Context,
@@ -39,6 +40,11 @@ class OrderAdminAdapter(
     override fun getItemCount(): Int = items.size
 
     override fun setItems(items: List<OrderJson>) {
+        this.items = items as ArrayList<OrderJson>
+        notifyDataSetChanged()
+    }
+
+    fun setFilterList(items: List<OrderJson>){
         this.items = items as ArrayList<OrderJson>
         notifyDataSetChanged()
     }

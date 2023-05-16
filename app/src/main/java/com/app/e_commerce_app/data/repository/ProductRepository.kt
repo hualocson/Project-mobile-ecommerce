@@ -1,5 +1,6 @@
 package com.app.e_commerce_app.data.repository
 
+import android.util.Log
 import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.services.ProductRemoteService
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,17 @@ class ProductRepository @Inject constructor(private val productRemoteService: Pr
 
     suspend fun getProductsById(id: Int) = withContext(Dispatchers.IO) {
         when (val response = productRemoteService.getProductsById(id)) {
+            is NetWorkResult.Success -> {
+                response.data.data!!
+            }
+            is NetWorkResult.Error -> {
+                throw response.exception
+            }
+        }
+    }
+
+    suspend fun getProductsItems(id: Int) = withContext(Dispatchers.IO) {
+        when (val response = productRemoteService.getProductsItems(id)) {
             is NetWorkResult.Success -> {
                 response.data.data!!
             }
