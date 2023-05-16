@@ -1,4 +1,4 @@
-package com.app.e_commerce_app.ui.adapter.admin
+package com.app.e_commerce_app.ui.admin.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.common.BindableAdapter
 import com.app.e_commerce_app.databinding.AdminItemOrdersBinding
-import com.app.e_commerce_app.databinding.ItemOrdersBinding
 import com.app.e_commerce_app.model.order.OrderJson
 
 class OrderAdminAdapter(

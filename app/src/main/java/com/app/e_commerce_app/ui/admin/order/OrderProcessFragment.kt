@@ -1,4 +1,4 @@
-package com.app.e_commerce_app.ui.admin
+package com.app.e_commerce_app.ui.admin.order
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Index
 import com.app.e_commerce_app.base.BaseFragment
-import com.app.e_commerce_app.databinding.FragmentAdminOrderPendingBinding
+import com.app.e_commerce_app.databinding.FragmentAdminOrderProcessBinding
 import com.app.e_commerce_app.databinding.FragmentNewsBinding
 import com.app.e_commerce_app.databinding.FragmentOrderBinding
 import com.app.e_commerce_app.databinding.FragmentOrderCompleteBinding
@@ -23,7 +23,7 @@ import com.app.e_commerce_app.viewmodel.SaleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderPendingFragment : BaseFragment<FragmentAdminOrderPendingBinding>(false) {
+class OrderProcessFragment : BaseFragment<FragmentAdminOrderProcessBinding>(false) {
 
     private val orderViewModel by activityViewModels<OrderViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,15 +51,15 @@ class OrderPendingFragment : BaseFragment<FragmentAdminOrderPendingBinding>(fals
     }
 
     private fun setUpRecycleView() {
-        binding.rvcorderpending.adapter = orderAdapter
-        binding.rvcorderpending.layoutManager = GridLayoutManager(context, 1)
+        binding.rvcorderprocess.adapter = orderAdapter
+        binding.rvcorderprocess.layoutManager = GridLayoutManager(context, 1)
     }
 
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentAdminOrderPendingBinding {
-        return FragmentAdminOrderPendingBinding.inflate(inflater, container, false)
+    ): FragmentAdminOrderProcessBinding {
+        return FragmentAdminOrderProcessBinding.inflate(inflater, container, false)
     }
 
     private val onClick: (OrderJson) -> Unit = {

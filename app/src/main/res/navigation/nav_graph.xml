@@ -170,8 +170,8 @@
             app:destination="@id/productDetailFragment" />
         <argument
             android:name="categoryId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <action
             android:id="@+id/action_storeFragment_to_searchFragment"
             app:destination="@id/searchFragment"
@@ -256,13 +256,13 @@
             app:nullable="true" />
         <argument
             android:name="cartItemList"
+            android:defaultValue="@null"
             app:argType="com.app.e_commerce_app.model.CartItemModel[]"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <argument
             android:name="totalPrice"
-            app:argType="long"
-            android:defaultValue="0L" />
+            android:defaultValue="0L"
+            app:argType="long" />
         <action
             android:id="@+id/action_checkoutFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -318,7 +318,7 @@
         android:id="@+id/orderFragment"
         android:name="com.app.e_commerce_app.ui.OrderFragment"
         android:label="Order"
-        tools:layout="@layout/fragment_order" >
+        tools:layout="@layout/fragment_order">
         <action
             android:id="@+id/action_orderFragment_to_orderDetailsFragment"
             app:destination="@id/orderDetailsFragment" />
@@ -328,32 +328,30 @@
         android:id="@+id/orderCommonFragment"
         android:name="com.app.e_commerce_app.ui.OrderCommonFragment"
         android:label="Order Common"
-        tools:layout="@layout/fragment_order_common" >
-    </fragment>
+        tools:layout="@layout/fragment_order_common"></fragment>
 
     <fragment
         android:id="@+id/orderCompleteFragment"
         android:name="com.app.e_commerce_app.ui.OrderCompleteFragment"
         android:label="Order Complete"
-        tools:layout="@layout/fragment_order_complete" >
-    </fragment>
+        tools:layout="@layout/fragment_order_complete"></fragment>
 
     <fragment
         android:id="@+id/orderDetailsFragment"
         android:name="com.app.e_commerce_app.ui.OrderDetailsFragment"
         android:label="Order Details"
-        tools:layout="@layout/fragment_order_details" >
+        tools:layout="@layout/fragment_order_details">
         <argument
             android:name="orderId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/welcomeFragment"
-        tools:layout="@layout/fragment_welcome"
         android:name="com.app.e_commerce_app.ui.WelcomeFragment"
-        android:label="WelcomeFragment" >
+        android:label="WelcomeFragment"
+        tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_welcomeFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -371,8 +369,7 @@
         android:id="@+id/splashFragment"
         android:name="com.app.e_commerce_app.ui.SplashFragment"
         android:label="SplashFragment"
-        tools:layout="@layout/fragment_splash"
-        >
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -389,27 +386,29 @@
         android:id="@+id/changePasswordFragment"
         android:name="com.app.e_commerce_app.ui.ChangePasswordFragment"
         android:label="Change Password"
-        tools:layout="@layout/fragment_change_password" >
+        tools:layout="@layout/fragment_change_password">
         <action
             android:id="@+id/action_changePasswordFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.app.e_commerce_app.ui.admin.DashboardFragment"
+        android:name="com.app.e_commerce_app.ui.admin.order.DashboardFragment"
         android:label="DashboardFragment"
 
-        tools:layout="@layout/fragment_admin_dashboard"
-        >
+        tools:layout="@layout/fragment_admin_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_adminProductFragment"
             app:destination="@id/adminProductFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_updateOrderFragment"
+            app:destination="@id/updateOrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminProductFragment"
         android:name="com.app.e_commerce_app.ui.admin.products.AdminProductFragment"
         android:label="fragment_admin_product"
-        tools:layout="@layout/fragment_admin_product" >
+        tools:layout="@layout/fragment_admin_product">
         <action
             android:id="@+id/action_adminProductFragment_to_adminEditProductFragment"
             app:destination="@id/adminEditProductFragment" />
@@ -419,16 +418,14 @@
         android:name="com.app.e_commerce_app.ui.admin.products.AdminEditProductFragment"
         android:label="fragment_admin_edit_product"
         tools:layout="@layout/fragment_admin_edit_product" />
-        android:label="DashboardFragment" >
-        <action
-            android:id="@+id/action_dashboardFragment_to_updateOrderFragment"
-            app:destination="@id/updateOrderFragment" />
-    </fragment>
+
 
     <fragment
         android:id="@+id/updateOrderFragment"
-        android:name="com.app.e_commerce_app.ui.admin.OrderFragment"
-        android:label="Admin Order" >
+        android:name="com.app.e_commerce_app.ui.admin.order.OrderFragment"
+        android:label="Admin Order"
+        tools:layout="@layout/fragment_admin_view_order"
+        >
         <action
             android:id="@+id/action_updateOrderFragment_to_orderAdminDetailsFragment"
             app:destination="@id/orderAdminDetailsFragment" />
@@ -436,13 +433,13 @@
 
     <fragment
         android:id="@+id/orderAdminDetailsFragment"
-        android:name="com.app.e_commerce_app.ui.admin.OrderDetailsFragment"
+        android:name="com.app.e_commerce_app.ui.admin.order.OrderDetailsFragment"
         android:label="Order Details Admin"
-        tools:layout="@layout/fragment_admin_order_details" >
+        tools:layout="@layout/fragment_admin_order_details">
         <argument
             android:name="orderId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 
 </navigation>
