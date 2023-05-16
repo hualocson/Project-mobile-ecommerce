@@ -6,12 +6,9 @@
     <data>
         <variable
             name="useritem"
-            type="com.app.e_commerce_app.model.ChooseItem" />
+            type="com.app.e_commerce_app.model.UserJson" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/transparent">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Layout"
@@ -33,8 +30,8 @@
                 android:background="@drawable/background_product_item"
                 android:padding="@dimen/padding_small"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{useritem.icon}"
                 android:src="@drawable/ic_profile_fill"
+                app:imageUrl="@{useritem.imageUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,12 +39,12 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutLineOne"
                 android:layout_width="0dp"
-                android:layout_marginStart="@dimen/padding_small"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="@dimen/padding_small"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/shapeableImageView"
-                >
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/textViewName"
@@ -57,36 +54,47 @@
                     android:layout_marginEnd="10dp"
                     android:maxLines="1"
                     android:minLines="1"
-                    android:text="@{useritem.title}"
-                    app:layout_constraintEnd_toStartOf="@+id/btnUpdate"
+                    android:text="@{useritem.name}"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageButton
-                    android:id="@+id/btnUpdate"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@color/transparent"
-                    android:src="@drawable/ic_edit_24"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                <TextView
+                    android:id="@+id/textViewEmail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/padding_small"
+                    android:maxLines="2"
+                    android:text="@{useritem.email}"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewName" />
+
+                <TextView
+                    android:id="@+id/textViewPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/padding_small"
+                    android:maxLines="1"
+                    android:minWidth="170dp"
+                    android:text="@{useritem.phone}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textViewEmail" />
+
+                <TextView
+                    android:id="@+id/textViewGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="@dimen/padding_small"
+                    android:maxLines="1"
+                    android:minWidth="80dp"
+                    android:text="@{useritem.gender.toString()}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textViewPhone"
+                    app:layout_constraintTop_toBottomOf="@id/textViewEmail" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/textViewEmail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_small"
-                android:layout_marginTop="15dp"
-                android:maxLines="1"
-                android:text="@{useritem.desc}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/shapeableImageView"
-                app:layout_constraintTop_toBottomOf="@id/layoutLineOne" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

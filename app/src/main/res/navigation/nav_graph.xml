@@ -448,6 +448,19 @@
         android:id="@+id/adminUserFragment"
         android:name="com.app.e_commerce_app.ui.admin.user.AdminUserFragment"
         android:label="Admin User Fragment"
-        tools:layout="@layout/fragment_admin_user"/>
+        tools:layout="@layout/fragment_admin_user">
+        <action
+            android:id="@+id/action_adminUserFragment_to_adminViewUserProfileFragment"
+            app:destination="@id/adminViewUserProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminViewUserProfileFragment"
+        android:name="com.app.e_commerce_app.ui.admin.user.AdminViewUserProfileFragment"
+        android:label="AdminViewUserProfileFragment" >
+        <argument android:name="userById"
+            app:argType="com.app.e_commerce_app.model.UserJson"
+            app:nullable="true"
+            />
+    </fragment>
 
 </navigation>

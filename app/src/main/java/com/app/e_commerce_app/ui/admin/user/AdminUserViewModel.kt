@@ -19,17 +19,28 @@ class AdminUserViewModel @Inject constructor(
     private val userRepository: UserRepository,
 ) : BaseViewModel() {
 
-    private val _items = MutableLiveData<List<ChooseItem>>()
-    val items: LiveData<List<ChooseItem>> = _items
+    private val _items = MutableLiveData<List<UserJson>>()
+    val items: LiveData<List<UserJson>> = _items
 
     fun fetchAllUsers() {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val users = userRepository.getAllUsers().map {
-                it.toAdminItem()
+                it
             }
             _items.postValue(users)
         }
         registerJobFinish()
     }
+
+    private val _user = MutableLiveData<UserJson>()
+    val userbyId: LiveData<UserJson> = _user
+//    fun getUserProfileById(id: Int) {
+//        showLoading(true)
+//        parentJob = viewModelScope.launch(handler) {
+//            val user = userRepository.getUserProfileById(id)
+//            _user.postValue(user)
+//        }
+//        registerJobFinish()
+//    }
 }
