@@ -13,6 +13,7 @@ object ConstantsURL {
     const val REGISTER_URL = "users/signup"
     const val CHECK_EMAIL = "users/email"
     const val CATEGORY_URL = "categories"
+    const val CATEGORY_URL_ID = "categories/{id}"
     const val VARIATION_IN_CATEGORY_URL = "categories/{id}/variations"
     const val PRODUCT_URL = "categories/products"
     const val PRODUCT_BY_CATEGORY_URL = "categories/{id}/products"

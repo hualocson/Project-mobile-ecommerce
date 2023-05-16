@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.app.e_commerce_app.ui.admin.products.viewmodel.AdminProductViewModel" />
+            type="com.app.e_commerce_app.ui.admin.products.viewmodel.AdminProductItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
             app:is_show_title="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Product" />
+            app:title="Product Item" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrview"
@@ -34,7 +34,7 @@
             app:layout_constraintTop_toBottomOf="@id/headerView">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvProduct"
+                android:id="@+id/rvProductItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
@@ -54,7 +54,7 @@
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/background_button"
-            android:text="Add Product"
+            android:text="Add Product Item"
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

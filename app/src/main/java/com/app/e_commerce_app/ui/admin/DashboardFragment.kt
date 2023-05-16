@@ -1,4 +1,4 @@
-package com.app.e_commerce_app.ui.admin.order
+package com.app.e_commerce_app.ui.admin
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,6 +1,7 @@
 package com.app.e_commerce_app.model
 
 import android.os.Parcelable
+import com.app.e_commerce_app.model.product.ProductModel
 import com.app.e_commerce_app.utils.Utils
 import kotlinx.parcelize.Parcelize
 import java.text.NumberFormat
