@@ -179,7 +179,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_dashboardFragment_to_adminProductFragment">
+                            <entry key="action_dashboardFragment_to_updateOrderFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -288,6 +288,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="orderAdminDetailsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="674" />
+                            <option name="y" value="1852" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -559,6 +571,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="updateOrderFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="444" />
+                            <option name="y" value="1856" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

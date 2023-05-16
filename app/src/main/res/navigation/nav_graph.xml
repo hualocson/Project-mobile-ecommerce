@@ -419,5 +419,30 @@
         android:name="com.app.e_commerce_app.ui.admin.products.AdminEditProductFragment"
         android:label="fragment_admin_edit_product"
         tools:layout="@layout/fragment_admin_edit_product" />
+        android:label="DashboardFragment" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_updateOrderFragment"
+            app:destination="@id/updateOrderFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/updateOrderFragment"
+        android:name="com.app.e_commerce_app.ui.admin.OrderFragment"
+        android:label="Admin Order" >
+        <action
+            android:id="@+id/action_updateOrderFragment_to_orderAdminDetailsFragment"
+            app:destination="@id/orderAdminDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/orderAdminDetailsFragment"
+        android:name="com.app.e_commerce_app.ui.admin.OrderDetailsFragment"
+        android:label="Order Details Admin"
+        tools:layout="@layout/fragment_admin_order_details" >
+        <argument
+            android:name="orderId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 
 </navigation>
