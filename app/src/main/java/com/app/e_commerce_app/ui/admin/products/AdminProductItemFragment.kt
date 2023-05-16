@@ -5,27 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
-import com.app.e_commerce_app.databinding.FragmentAdminProductBinding
+import com.app.e_commerce_app.databinding.FragmentAdminProductItemBinding
 import com.app.e_commerce_app.model.ChooseItem
 import com.app.e_commerce_app.ui.admin.adapter.ItemAdminAdapter
-import com.app.e_commerce_app.ui.admin.products.viewmodel.AdminProductViewModel
+import com.app.e_commerce_app.ui.admin.products.viewmodel.AdminProductItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>(true) {
+class AdminProductItemFragment : BaseFragment<FragmentAdminProductItemBinding>(true) {
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentAdminProductBinding {
-        return FragmentAdminProductBinding.inflate(inflater, container, false)
+    ): FragmentAdminProductItemBinding {
+        return FragmentAdminProductItemBinding.inflate(inflater, container, false)
     }
 
-    private val viewModel by viewModels<AdminProductViewModel>()
+    private val viewModel by viewModels<AdminProductItemViewModel>()
 
+    private val args by navArgs<AdminProductItemFragmentArgs>()
     private val adapter: ItemAdminAdapter by lazy {
         ItemAdminAdapter(requireContext(), onItemClick)
     }
@@ -34,22 +34,18 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>(true) {
         binding.headerView.btnLeft.setOnClickListener {
             navigateBack()
         }
-
-        binding.btnAdd.setOnClickListener {
-            navigateToPage(R.id.action_adminProductFragment_to_adminEditProductFragment)
-        }
     }
+
     private fun observerEvent() {
         registerAllExceptionEvent(viewModel, viewLifecycleOwner)
         registerObserverLoadingEvent(viewModel, viewLifecycleOwner)
         registerObserverNavigateEvent(viewModel, viewLifecycleOwner)
     }
 
-
     private fun setUpLayout() {
-        binding.rvProduct.layoutManager =
+        binding.rvProductItem.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvProduct.adapter = adapter
+        binding.rvProductItem.adapter = adapter
     }
 
 
@@ -60,13 +56,13 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>(true) {
         setUpLayout()
         observerEvent()
 
-        viewModel.fetchAllProducts()
+        if (args.productId != 0)
+            viewModel.getListProductItemInProduct(args.productId)
 
         listenClickEvent()
     }
 
     private val onItemClick: (ChooseItem) -> Unit = {
-        val action : NavDirections = AdminProductFragmentDirections.actionAdminProductFragmentToAdminEditProductFragment(it.id)
-        navigateAction(action)
+
     }
 }

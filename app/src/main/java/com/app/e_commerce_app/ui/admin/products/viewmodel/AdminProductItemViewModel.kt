@@ -1,4 +1,4 @@
-package com.app.e_commerce_app.ui.admin.products
+package com.app.e_commerce_app.ui.admin.products.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,22 +12,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AdminProductViewModel @Inject constructor(
+class AdminProductItemViewModel @Inject constructor(
     private val productRepository: ProductRepository,
-    private val categoryRepository: CategoryRepository,
 ) : BaseViewModel() {
 
     private val _items = MutableLiveData<List<ChooseItem>>()
     val items: LiveData<List<ChooseItem>> = _items
 
-
-    fun fetchAllProducts() {
+    fun getListProductItemInProduct(id: Int) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
-            val products = productRepository.getAllProducts().map {
-                it.toAdminItem()
+            val product = productRepository.getProductsById(id)
+            val data = product.productItems!!.map {
+                it.toAdminItem(product.name)
             }
-            _items.postValue(products)
+            _items.postValue(data)
         }
         registerJobFinish()
     }

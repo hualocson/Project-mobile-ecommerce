@@ -2,6 +2,7 @@ package com.app.e_commerce_app.common
 
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -96,5 +97,13 @@ fun setNumberValue(textView: TextView, value: Int?) {
     number.let {
 //        val formattedValue = Utils.formatNumber(number)
         textView.text = number.toString()
+    }
+}
+
+
+@BindingAdapter("editTextValue")
+fun setEditTextValue(editText: EditText, value: String?) {
+    value?.let {
+        editText.setText(it)
     }
 }
