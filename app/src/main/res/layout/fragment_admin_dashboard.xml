@@ -25,9 +25,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_order_outline_24"
             android:drawableEnd="@drawable/ic_next"
             android:fontFamily="@font/lato_bold"
-            android:text="Update Order"
+            android:text="Orders"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/headerView" />
@@ -38,9 +39,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_baseline_person_outline"
             android:drawableEnd="@drawable/ic_next"
             android:fontFamily="@font/lato_bold"
-            android:text="Update Shipping"
+            android:text="Shipping Methods"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnUpdateOrder" />
@@ -51,11 +53,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_sale"
             android:drawableEnd="@drawable/ic_next"
             android:fontFamily="@font/lato_bold"
-            android:text="Update News"
+            android:text="News"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnUpdateShipping" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnProduct"
+            style="@style/ProfileButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_star_rate_24"
+            android:drawableEnd="@drawable/ic_next"
+            android:fontFamily="@font/lato_bold"
+            android:text="Products"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnUpdateNews" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
