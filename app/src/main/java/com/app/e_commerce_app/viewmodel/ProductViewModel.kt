@@ -7,12 +7,35 @@ import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.repository.ProductRepository
 import com.app.e_commerce_app.data.services.ProductRemoteService
+import com.app.e_commerce_app.model.product.ProductItemJson
 import com.app.e_commerce_app.model.product.ProductModel
 import com.app.e_commerce_app.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProductViewModel(application: Application) : BaseViewModel() {
+
+@HiltViewModel
+class ProductViewModel @Inject constructor(
+    private val productRepository: ProductRepository
+) : BaseViewModel() {
+
+//    private val _productsItemData = MutableLiveData<ProductItemJson>()
+//    val productsItemData: LiveData<ProductItemJson> = _productsItemData
+//
+//    fun getProductsItems(id: Int): ProductItemJson{
+//        showLoading(true)
+//        parentJob = viewModelScope.launch(handler) {
+//            val products = productRepository.getProductsItems(id)
+//            _productsItemData.postValue(products)
+//        }
+//        registerJobFinish()
+//        return _productsItemData.value!!
+//    }
+//}
+
+//class ProductViewModel(application: Application) : BaseViewModel() {
 //    private val productRemoteService = ProductRemoteService()
 //    private val productRepository: ProductRepository = ProductRepository(productRemoteService)
 //

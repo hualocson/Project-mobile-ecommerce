@@ -328,13 +328,13 @@
         android:id="@+id/orderCommonFragment"
         android:name="com.app.e_commerce_app.ui.OrderCommonFragment"
         android:label="Order Common"
-        tools:layout="@layout/fragment_order_common"></fragment>
+        tools:layout="@layout/fragment_order_common"/>
 
     <fragment
         android:id="@+id/orderCompleteFragment"
         android:name="com.app.e_commerce_app.ui.OrderCompleteFragment"
         android:label="Order Complete"
-        tools:layout="@layout/fragment_order_complete"></fragment>
+        tools:layout="@layout/fragment_order_complete"/>
 
     <fragment
         android:id="@+id/orderDetailsFragment"
@@ -393,7 +393,7 @@
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.app.e_commerce_app.ui.admin.order.DashboardFragment"
+        android:name="com.app.e_commerce_app.ui.admin.DashboardFragment"
         android:label="DashboardFragment"
 
         tools:layout="@layout/fragment_admin_dashboard">
@@ -417,7 +417,15 @@
         android:id="@+id/adminEditProductFragment"
         android:name="com.app.e_commerce_app.ui.admin.products.AdminEditProductFragment"
         android:label="fragment_admin_edit_product"
-        tools:layout="@layout/fragment_admin_edit_product" />
+        tools:layout="@layout/fragment_admin_edit_product" >
+        <argument
+            android:name="productId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_adminEditProductFragment_to_adminProductItem"
+            app:destination="@id/adminProductItem" />
+    </fragment>
 
 
     <fragment
@@ -441,5 +449,23 @@
             android:defaultValue="0"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/adminProductItem"
+        android:name="com.app.e_commerce_app.ui.admin.products.AdminProductItemFragment"
+        android:label="fragment_admin_product_item"
+        tools:layout="@layout/fragment_admin_product_item" >
+        <action
+            android:id="@+id/action_adminProductItem_to_adminEditProductItemFragment"
+            app:destination="@id/adminEditProductItemFragment" />
+        <argument
+            android:name="productId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminEditProductItemFragment"
+        android:name="com.app.e_commerce_app.ui.admin.products.AdminEditProductItemFragment"
+        android:label="fragment_admin_edit_product_item"
+        tools:layout="@layout/fragment_admin_edit_product_item" />
 
 </navigation>

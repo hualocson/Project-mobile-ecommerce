@@ -13,7 +13,6 @@ data class CategoryModel(
 
     @SerializedName("icUrl")
     val categoryIc: String,
-    val variations: ArrayList<VariationModel>
 ) : Parcelable {
     fun toCategoryRadio(): CategoryRadioButton {
         return CategoryRadioButton(id = id, categoryName = categoryName, isChecked = false)

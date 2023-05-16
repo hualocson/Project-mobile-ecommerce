@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class OrderFragment : BaseFragment<FragmentAdminViewOrderBinding>(false) {
+class OrderFragment : BaseFragment<FragmentAdminViewOrderBinding>(true) {
 
     private val orderViewModel by activityViewModels<OrderViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -3,6 +3,7 @@ package com.app.e_commerce_app.data.repository
 import android.util.Log
 import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.services.OrderRemoteService
+import com.app.e_commerce_app.model.UpdateOrderRequest
 import com.app.e_commerce_app.model.order.OrderRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -36,6 +37,17 @@ class OrderRepository @Inject constructor(private val orderRemoteService: OrderR
 
     suspend fun getOrderById(id: Int) = withContext(Dispatchers.IO) {
         when(val response = orderRemoteService.getOrderById(id)) {
+            is NetWorkResult.Success -> {
+                response.data.data!!
+            }
+            is NetWorkResult.Error -> {
+                throw response.exception
+            }
+        }
+    }
+
+    suspend fun upDateOrder(id: Int, updateOrderRequest: UpdateOrderRequest) = withContext(Dispatchers.IO){
+        when(val response = orderRemoteService.upDateOrder(id, updateOrderRequest)) {
             is NetWorkResult.Success -> {
                 response.data.data!!
             }
