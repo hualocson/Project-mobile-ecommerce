@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,8 +12,10 @@ import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentAdminOrderCompleteBinding
 import com.app.e_commerce_app.model.order.OrderJson
 import com.app.e_commerce_app.ui.adapter.OrderAdapter
+import com.app.e_commerce_app.ui.admin.adapter.OrderAdminAdapter
 import com.app.e_commerce_app.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class OrderDeliveredFragment : BaseFragment<FragmentAdminOrderCompleteBinding>(false) {
@@ -22,8 +25,8 @@ class OrderDeliveredFragment : BaseFragment<FragmentAdminOrderCompleteBinding>(f
         super.onCreate(savedInstanceState)
     }
 
-    private val orderAdapter: OrderAdapter by lazy{
-        OrderAdapter(requireContext(), onClick)
+    private val orderAdminAdapter: OrderAdminAdapter by lazy{
+        OrderAdminAdapter(requireContext(), onClick)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,6 +37,17 @@ class OrderDeliveredFragment : BaseFragment<FragmentAdminOrderCompleteBinding>(f
         observerEvent()
         setUpRecycleView()
 //        orderViewModel.fetchAllUserOrders()
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                filterList(newText.lowercase(Locale.ROOT))
+                return false
+            }
+        })
     }
 
     private fun observerEvent() {
@@ -43,7 +57,7 @@ class OrderDeliveredFragment : BaseFragment<FragmentAdminOrderCompleteBinding>(f
     }
 
     private fun setUpRecycleView() {
-        binding.rvOrderComplete.adapter = orderAdapter
+        binding.rvOrderComplete.adapter = orderAdminAdapter
         binding.rvOrderComplete.layoutManager = GridLayoutManager(context, 1)
     }
 
@@ -57,5 +71,15 @@ class OrderDeliveredFragment : BaseFragment<FragmentAdminOrderCompleteBinding>(f
     private val onClick: (OrderJson) -> Unit = {
         val action: NavDirections = OrderFragmentDirections.actionUpdateOrderFragmentToOrderAdminDetailsFragment(it.id)
         navigateAction(action)
+    }
+
+    private fun filterList(newText: String) {
+        val orderList: ArrayList<OrderJson> = ArrayList()
+        orderViewModel.orderCompleteData.value!!.forEach { item ->
+            if (item.orderLines.get(0).name.lowercase(Locale.ROOT).contains(newText)) {
+                orderList.add(item)
+            }
+        }
+        orderAdminAdapter.setFilterList(orderList)
     }
 }
