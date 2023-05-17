@@ -33,4 +33,13 @@ data class UserJson(
     fun isValidateLastName(): Boolean {
         return lastName.isNotEmpty()
     }
+
+    fun toAdminItem() : ChooseItem {
+        return ChooseItem(
+            id = id,
+            title = name,
+            desc = "$email $phone $gender",
+            icon = avatar,
+        )
+    }
 }

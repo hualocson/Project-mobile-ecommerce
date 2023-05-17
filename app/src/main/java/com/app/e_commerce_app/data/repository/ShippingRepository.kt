@@ -10,7 +10,7 @@ class ShippingRepository @Inject constructor(private val shippingRemoteService: 
     suspend fun getAllShippingMethod()  = withContext(Dispatchers.IO) {
         when(val response = shippingRemoteService.getAllShippingMethod()) {
             is NetWorkResult.Success -> {
-                response.data.data
+                response.data.data!!
             }
             is NetWorkResult.Error -> {
                 throw response.exception
