@@ -84,7 +84,7 @@ fun setNumberValue(textView: TextView, value: Long?) {
         number = 0
     number.let {
 //        val formattedValue = Utils.formatNumber(number)
-        textView.text = number.toString()
+        textView.text = Utils.formatNumber(number)
     }
 }
 

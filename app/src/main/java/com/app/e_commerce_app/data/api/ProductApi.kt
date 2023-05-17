@@ -2,6 +2,7 @@ package com.app.e_commerce_app.data.api
 
 import com.app.e_commerce_app.model.*
 import com.app.e_commerce_app.model.product.ProductItemJson
+import com.app.e_commerce_app.model.product.ProductItemRequest
 import com.app.e_commerce_app.model.product.ProductModel
 import com.app.e_commerce_app.model.product.ProductRequest
 import retrofit2.Response
@@ -25,6 +26,13 @@ interface ProductApi {
 
     @POST(ConstantsURL.PRODUCT_URL)
     suspend fun addProduct(@Body productRequest: ProductRequest): Response<CustomResponse<ResponseWithMessage>>
+
     @GET(ConstantsURL.PRODUCT_ITEMS)
     suspend fun getProductsItems(@Path("productItemId") id: Int): Response<CustomResponse<ProductItemJson>>
+
+    @POST(ConstantsURL.CREATE_PRODUCT_ITEM)
+    suspend fun addProductItem(
+        @Path("productId") productId: Int,
+        @Body createProductItemRequest: ProductItemRequest
+    ): Response<CustomResponse<ProductItemJson>>
 }
