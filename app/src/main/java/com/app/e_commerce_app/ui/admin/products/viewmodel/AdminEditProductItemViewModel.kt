@@ -1,12 +1,12 @@
 package com.app.e_commerce_app.ui.admin.products.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.data.repository.ProductRepository
 import com.app.e_commerce_app.data.repository.VariationRepository
+import com.app.e_commerce_app.model.product.ProductItemJson
 import com.app.e_commerce_app.model.product.ProductItemRequest
 import com.app.e_commerce_app.model.variation.VariationModel
 import com.app.e_commerce_app.model.variation.VariationOptionModel
@@ -29,6 +29,22 @@ class AdminEditProductItemViewModel @Inject constructor(
     private val _productConfigurationsData = MutableLiveData<List<VariationOptionModel>>()
     val productConfigurationsData: LiveData<List<VariationOptionModel>> = _productConfigurationsData
 
+
+    private val _itemsData = MutableLiveData<List<Pair<Int, String>>>()
+    val itemsData: LiveData<List<Pair<Int, String>>> = _itemsData
+
+    private val _itemData = MutableLiveData<ProductItemJson>()
+    val itemData: LiveData<ProductItemJson> = _itemData
+
+    init {
+        _productConfigurationsData.observeForever { listOptions ->
+            _variationsData.value?.let {
+                if (it.isNotEmpty() && listOptions.size == it.size)
+                    _isEnableCreate.postValue(true)
+            }
+        }
+    }
+
     fun fetchAllVariationInCategory(id: Int) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
@@ -40,11 +56,34 @@ class AdminEditProductItemViewModel @Inject constructor(
         registerJobFinish()
     }
 
+    fun fetchProductItem(productId: Int, productItemId: Int) {
+        showLoading(true)
+        parentJob = viewModelScope.launch(handler) {
+            val product = productRepository.getProductsById(productId)
+            val item = product.productItems?.find {
+                it.id == productItemId
+            }
+            item?.let {
+                _itemData.postValue(it)
+                val list = it.productConfigurations.map { variation ->
+                    variation.toVariationOptionModel()
+                }
+                val sorted = list.sortedBy { option ->
+                    option.id
+                }
+                _productConfigurationsData.postValue(sorted)
+                _itemsData.postValue(sorted.map { optionValue ->
+                    Pair(optionValue.id, optionValue.value)
+                })
+            }
+        }
+        registerJobFinish()
+    }
+
     fun addProductItem(productId: Int, productItemRequest: ProductItemRequest) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             productRepository.addProductItem(productId, productItemRequest)
-            fetchAllVariationInCategory(_variationsData.value!!.first().categoryId)
         }
         registerJobFinish()
     }

@@ -1,6 +1,7 @@
 package com.app.e_commerce_app.ui.admin.products
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,7 @@ class AdminEditProductItemFragment : BaseFragment<FragmentAdminEditProductItemBi
     private val viewModel by viewModels<AdminEditProductItemViewModel>()
     private val args by navArgs<AdminEditProductItemFragmentArgs>()
     private val adapter: VariationAdminAdapter by lazy {
-        VariationAdminAdapter(requireContext(), onItemClick)
+        VariationAdminAdapter(requireContext())
     }
 
     private fun listenClickEvent() {
@@ -39,17 +40,23 @@ class AdminEditProductItemFragment : BaseFragment<FragmentAdminEditProductItemBi
         }
 
         binding.btnAdd.setOnClickListener {
-            val quantity = binding.etQuantity.editText?.text.toString().toInt()
-            val price = binding.etPrice.editText?.text.toString().toLong()
-            val img = binding.etImg.editText?.text.toString().trim()
-            val data = ProductItemRequest(
-                qtyInStock = quantity,
-                price = price,
-                imageUrl = img,
-                viewModel.productConfigurationsData.value!!
-            )
-            if (args.productId != 0)
-                viewModel.addProductItem(args.productId, data)
+            if(args.productItemId != 0) {
+                viewModel.productConfigurationsData.value?.let {
+                    Log.d("productConfigura", it.toString())
+                }
+            }else {
+                val quantity = binding.etQuantity.editText?.text.toString().toInt()
+                val price = binding.etPrice.editText?.text.toString().toLong()
+                val img = binding.etImg.editText?.text.toString().trim()
+                val data = ProductItemRequest(
+                    qtyInStock = quantity,
+                    price = price,
+                    imageUrl = img,
+                    viewModel.productConfigurationsData.value!!
+                )
+                if (args.productId != 0)
+                    viewModel.addProductItem(args.productId, data)
+            }
         }
     }
 
@@ -63,25 +70,32 @@ class AdminEditProductItemFragment : BaseFragment<FragmentAdminEditProductItemBi
         binding.rvVariation.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapter.dropdownItemSelectedListener = this
+        observerData()
         binding.rvVariation.adapter = adapter
+    }
+
+    private fun observerData() {
+        viewModel.itemsData.observe(viewLifecycleOwner) {
+            if(!it.isNullOrEmpty())
+                adapter.setActiveItem(it)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        setUpLayout()
         observerEvent()
 
         if (args.categoryId != 0)
             viewModel.fetchAllVariationInCategory(args.categoryId)
+        if (args.productId != 0 && args.productItemId != 0) {
+            viewModel.fetchProductItem(args.productId, args.productItemId)
+        }
+
+        setUpLayout()
 
         listenClickEvent()
-    }
-
-
-    private val onItemClick: (VariationModel) -> Unit = {
-
     }
 
     override fun onItemSelected(selectedItem: VariationOptionModel) {

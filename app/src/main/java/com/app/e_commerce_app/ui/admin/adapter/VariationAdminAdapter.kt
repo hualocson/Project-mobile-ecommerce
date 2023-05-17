@@ -14,29 +14,29 @@ import com.app.e_commerce_app.ui.admin.adapter.adapterInterface.DropDownItemSele
 
 class VariationAdminAdapter(
     private val context: Context,
-    private val onClick: (VariationModel) -> Unit,
 ) : RecyclerView.Adapter<VariationAdminAdapter.VariationAdminViewHolder>(),
     BindableAdapter<VariationModel> {
 
-    private var items: ArrayList<VariationModel> = ArrayList()
+    private var items: List<VariationModel> = listOf()
     var dropdownItemSelectedListener: DropDownItemSelectedListener? = null
+    private var activeItems: List<Pair<Int, String>> = listOf()
 
     inner class VariationAdminViewHolder(
         private val binding: ItemAdminVariationBinding,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private val autoCompleteTextView = binding.dropdownMenu.editText as AutoCompleteTextView
-
         private val adapter =
             CustomDropdownAdapter(binding.root.context, R.layout.item_custom_dropdown)
 
         fun bindData(variation: VariationModel) {
             binding.variation = variation
+            binding.executePendingBindings()
             val data = variation.variationOptions.map {
                 Pair(it.id, it.value)
             }
             adapter.setItems(data)
-
+            autoCompleteTextView.setAdapter(adapter)
             autoCompleteTextView.setOnItemClickListener { parent, _, position, _ ->
                 val selectedPair = parent.getItemAtPosition(position) as? Pair<*, *>
                 selectedPair?.let {
@@ -51,14 +51,26 @@ class VariationAdminAdapter(
                     autoCompleteTextView.setText(selectedString, false)
                 }
             }
-            autoCompleteTextView.setAdapter(adapter)
-            binding.executePendingBindings()
         }
+
+        fun changeActive(item: Pair<Int, String>) {
+            if (item.first != 0) {
+                val pos = adapter.getPosition(item)
+                if (pos != -1)
+                    autoCompleteTextView.setText(item.second, false)
+            }
+        }
+    }
+
+    fun setActiveItem(items: List<Pair<Int, String>>) {
+        activeItems = items
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VariationAdminViewHolder {
         val binding =
             ItemAdminVariationBinding.inflate(LayoutInflater.from(context), parent, false)
+
         return VariationAdminViewHolder(binding)
     }
 
@@ -66,10 +78,13 @@ class VariationAdminAdapter(
 
     override fun onBindViewHolder(holder: VariationAdminViewHolder, position: Int) {
         holder.bindData(items[position])
+        if (activeItems.isNotEmpty())
+            holder.changeActive(activeItems[position])
     }
 
     override fun setItems(items: List<VariationModel>) {
-        this.items = items as ArrayList<VariationModel>
+        val sorted = items.sortedBy { it.id }
+        this.items = sorted
         notifyDataSetChanged()
     }
 }

@@ -37,7 +37,11 @@ class AdminProductItemFragment : BaseFragment<FragmentAdminProductItemBinding>(t
         }
         binding.btnAdd.setOnClickListener {
             viewModel.categoryIdData.value?.let {
-                val action : NavDirections = AdminProductItemFragmentDirections.actionAdminProductItemToAdminEditProductItemFragment(it, args.productId)
+                val action: NavDirections =
+                    AdminProductItemFragmentDirections.actionAdminProductItemToAdminEditProductItemFragment(
+                        it,
+                        args.productId
+                    )
                 navigateAction(action)
             }
         }
@@ -69,7 +73,15 @@ class AdminProductItemFragment : BaseFragment<FragmentAdminProductItemBinding>(t
         listenClickEvent()
     }
 
-    private val onItemClick: (ChooseItem) -> Unit = {
-
+    private val onItemClick: (ChooseItem) -> Unit = { item ->
+        viewModel.categoryIdData.value?.let {
+            val action: NavDirections =
+                AdminProductItemFragmentDirections.actionAdminProductItemToAdminEditProductItemFragment(
+                    it,
+                    args.productId,
+                    item.id
+                )
+            navigateAction(action)
+        }
     }
 }
