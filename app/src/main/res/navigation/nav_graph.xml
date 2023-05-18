@@ -498,6 +498,9 @@
         <action
             android:id="@+id/action_adminShippingFragment_to_adminShippingUpdateFragment"
             app:destination="@id/adminShippingUpdateFragment" />
+        <action
+            android:id="@+id/action_adminShippingFragment_to_adminShippingAddFragment"
+            app:destination="@id/adminShippingAddFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminShippingUpdateFragment"
@@ -509,4 +512,9 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+
+    <fragment
+        android:id="@+id/adminShippingAddFragment"
+        android:name="com.app.e_commerce_app.ui.admin.shipping.AdminShippingAddFragment"
+        android:label="AdminShippingAddFragment" />
 </navigation>

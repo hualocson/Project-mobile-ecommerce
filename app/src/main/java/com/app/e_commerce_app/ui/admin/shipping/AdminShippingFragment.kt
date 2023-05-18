@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentAdminShippingBinding
 import com.app.e_commerce_app.model.ShippingJson
@@ -32,6 +33,10 @@ class AdminShippingFragment : BaseFragment<FragmentAdminShippingBinding>(true) {
         binding.headerView.btnLeft.setOnClickListener {
             navigateBack()
         }
+
+        binding.btnAdd.setOnClickListener {
+            navigateToPage(R.id.action_adminShippingFragment_to_adminShippingAddFragment)
+        }
     }
     private fun observerEvent() {
         registerAllExceptionEvent(viewModel, viewLifecycleOwner)
@@ -51,8 +56,8 @@ class AdminShippingFragment : BaseFragment<FragmentAdminShippingBinding>(true) {
         binding.items = viewModel
         observerEvent()
         setUpLayout()
-        viewModel.getAllShippingMethods()
 
+        viewModel.getAllShippingMethods()
         listenClickEvent()
     }
 
