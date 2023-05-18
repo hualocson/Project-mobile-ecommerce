@@ -1,20 +1,15 @@
 package com.app.e_commerce_app.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.common.Event
 import com.app.e_commerce_app.data.repository.OrderRepository
-import com.app.e_commerce_app.data.repository.ProductRepository
 import com.app.e_commerce_app.model.UpdateOrderRequest
 import com.app.e_commerce_app.model.order.OrderJson
-import com.app.e_commerce_app.model.product.ProductItemJson
-import com.app.e_commerce_app.model.product.ProductModel
 import com.app.e_commerce_app.utils.OrderStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,41 +19,40 @@ class OrderViewModel @Inject constructor(
 ) : BaseViewModel() {
 
 
-    private val _orderData = MutableLiveData<List<OrderJson>>()
+    private var _orderData = MutableLiveData<List<OrderJson>>()
     val orderData: LiveData<List<OrderJson>> = _orderData
 
-    private val _orderCommmonData = MutableLiveData<List<OrderJson>>()
+    private var _orderCommmonData = MutableLiveData<List<OrderJson>>()
     val orderCommonData: LiveData<List<OrderJson>> = _orderCommmonData
 
-    private val _orderCompleteData = MutableLiveData<List<OrderJson>>()
+    private var _orderCompleteData = MutableLiveData<List<OrderJson>>()
     val orderCompleteData: LiveData<List<OrderJson>> = _orderCompleteData
 
-    private val _orderPendingData = MutableLiveData<List<OrderJson>>()
+    private var _orderPendingData = MutableLiveData<List<OrderJson>>()
     val orderPendingData: LiveData<List<OrderJson>> = _orderPendingData
 
-    private val _orderProcessData = MutableLiveData<List<OrderJson>>()
+    private var _orderProcessData = MutableLiveData<List<OrderJson>>()
     val orderProcessData: LiveData<List<OrderJson>> = _orderProcessData
 
-    private val _orderCancelData = MutableLiveData<List<OrderJson>>()
+    private var _orderCancelData = MutableLiveData<List<OrderJson>>()
     val orderCancelData: LiveData<List<OrderJson>> = _orderCancelData
 
-    private val _activeItem = MutableLiveData<OrderJson>()
+    private var _activeItem = MutableLiveData<OrderJson>()
     val activeItemData: LiveData<OrderJson> = _activeItem
 
     private var _updateSuccess = MutableLiveData<Event<Boolean>>()
     val updateSuccess: LiveData<Event<Boolean>> = _updateSuccess
 
-    fun fetchAllUserOrders(){
+    fun fetchAllUserOrders() {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val orders = orderRepository.getAllUserOrder()
             val orderComplete: ArrayList<OrderJson> = ArrayList()
             val orderCommon: ArrayList<OrderJson> = ArrayList()
             orders.forEach {
-                if(it.orderStatus == "DELIVERED"){
+                if (it.orderStatus == "DELIVERED") {
                     orderComplete.add(it)
-                }
-                else {
+                } else {
                     orderCommon.add(it)
                 }
             }
@@ -69,7 +63,7 @@ class OrderViewModel @Inject constructor(
         registerJobFinish()
     }
 
-    fun fetchAllUserOrdersAdmin(){
+    fun fetchAllUserOrdersAdmin() {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val orders = orderRepository.getAllUserOrder()
@@ -78,17 +72,17 @@ class OrderViewModel @Inject constructor(
             val orderProcess: ArrayList<OrderJson> = ArrayList()
             val orderCancel: ArrayList<OrderJson> = ArrayList()
             orders.forEach {
-                when(it.orderStatus){
-                    OrderStatus.DELIVERED.value->{
+                when (it.orderStatus) {
+                    OrderStatus.DELIVERED.value -> {
                         orderComplete.add(it)
                     }
-                    OrderStatus.PENDING.value->{
+                    OrderStatus.PENDING.value -> {
                         orderPending.add(it)
                     }
-                    OrderStatus.CANCELLED.value->{
+                    OrderStatus.CANCELLED.value -> {
                         orderCancel.add(it)
                     }
-                    OrderStatus.PROCESSING.value->{
+                    OrderStatus.PROCESSING.value -> {
                         orderProcess.add(it)
                     }
                 }
@@ -112,6 +106,7 @@ class OrderViewModel @Inject constructor(
             registerJobFinish()
         }
     }
+
     fun updateOrder(id: Int, updateOrderRequest: UpdateOrderRequest) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {

@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="item"
             type="com.app.e_commerce_app.model.ChooseItem" />
+
+        <import type="androidx.constraintlayout.widget.ConstraintLayout" />
 
         <import type="android.view.View" />
     </data>
@@ -33,8 +36,8 @@
                 android:id="@+id/icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                app:imageUrl="@{item.icon}"
                 android:scaleType="centerCrop"
+                app:imageUrl="@{item.icon}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -57,14 +60,15 @@
                     style="@style/myTextViewHeading"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:minLines="1"
                     android:text="@{item.title}"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:minLines="2"
-                    android:maxLines="2"
-                    android:gravity="center_vertical"
-                    android:ellipsize="end"
+                    app:layout_constraintBottom_toTopOf="@id/tvDesc"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -76,26 +80,27 @@
                     android:layout_marginTop="@dimen/padding_small"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    android:minLines="3"
+                    android:minLines="2"
                     android:text="@{item.desc}"
                     android:textColor="@color/black"
                     android:textSize="14sp"
+                    android:visibility="@{item.desc.equals(``)? View.GONE : View.VISIBLE }"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tvPrice"-->
-<!--                    style="@style/myTextViewHeading"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="65.000"-->
-<!--                    app:numberValue="@{item.price}"-->
-<!--                    android:visibility="@{item.price == null ? View.GONE : View.VISIBLE }"-->
-<!--                    android:layout_marginEnd="@dimen/padding_small"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="@id/tvTitle"-->
-<!--                    />-->
+                <!--                <TextView-->
+                <!--                    android:id="@+id/tvPrice"-->
+                <!--                    style="@style/myTextViewHeading"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="65.000"-->
+                <!--                    app:numberValue="@{item.price}"-->
+                <!--                    android:visibility="@{item.price == null ? View.GONE : View.VISIBLE }"-->
+                <!--                    android:layout_marginEnd="@dimen/padding_small"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="@id/tvTitle"-->
+                <!--                    />-->
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageButton
@@ -104,9 +109,22 @@
                 android:layout_height="30dp"
                 android:background="@color/transparent"
                 android:src="@drawable/ic_edit_24"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/btnDelete"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/info"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_delete_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnUpdate"
+                app:tint="@color/error"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

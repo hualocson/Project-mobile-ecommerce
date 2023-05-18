@@ -1,16 +1,10 @@
 package com.app.e_commerce_app.common
 
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.databinding.BindingAdapter
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.InverseBindingAdapter
-import androidx.databinding.InverseBindingListener
+import androidx.databinding.*
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.databinding.ItemAddressBinding
 import com.app.e_commerce_app.databinding.ItemShippingMethodBinding
@@ -37,7 +31,7 @@ fun setImageList(view: ImageSlider, list: ArrayList<SlideModel>?) {
 
 @BindingAdapter("items")
 fun <T> setItems(recyclerView: RecyclerView, items: List<T>?) {
-    if (items.isNullOrEmpty()) return
+    if (items == null) return
     val adapter = recyclerView.adapter as? BindableAdapter<T>
     adapter?.setItems(items)
 }

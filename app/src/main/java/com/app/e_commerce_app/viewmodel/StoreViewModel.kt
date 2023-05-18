@@ -1,7 +1,8 @@
 package com.app.e_commerce_app.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.data.repository.CategoryRepository
 import com.app.e_commerce_app.data.repository.ProductRepository
@@ -19,11 +20,11 @@ class StoreViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) : BaseViewModel() {
 
-    private val _categoryRadioData = MutableLiveData<List<CategoryRadioButton>>()
+    private var _categoryRadioData = MutableLiveData<List<CategoryRadioButton>>()
     val categoryRadioData: LiveData<List<CategoryRadioButton>> = _categoryRadioData
 
 
-    private val _productsData = MutableLiveData<List<ProductModel>>()
+    private var _productsData = MutableLiveData<List<ProductModel>>()
     val productsData: LiveData<List<ProductModel>> = _productsData
 
 
@@ -56,7 +57,7 @@ class StoreViewModel @Inject constructor(
             val categoriesDeferred = async { categoryRepository.getAllCategories() }
             val productsDeferred = async { productRepository.getAllProducts() }
 
-            _categoryRadioData.postValue(toListCategoryRadioButton(categoriesDeferred.await()!!.categories))
+            _categoryRadioData.postValue(toListCategoryRadioButton(categoriesDeferred.await()))
             _productsData.postValue(productsDeferred.await())
         }
         registerJobFinish()

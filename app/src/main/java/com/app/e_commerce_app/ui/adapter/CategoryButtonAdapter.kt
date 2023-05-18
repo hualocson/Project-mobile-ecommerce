@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.common.BindableAdapter
 import com.app.e_commerce_app.databinding.ItemCategoryButtonBinding
-import com.app.e_commerce_app.model.CategoryModel
 import com.app.e_commerce_app.model.CategoryRadioButton
 
 class CategoryButtonAdapter(

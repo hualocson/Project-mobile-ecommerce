@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.navigation.NavAction
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -70,7 +67,7 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
         observerEvent()
         setupRecycleViewLayout()
 
-        if(homeViewModel.userLiveData.value == null) {
+        if (homeViewModel.userLiveData.value == null) {
             homeViewModel.fetchData()
         }
 
@@ -114,7 +111,8 @@ class HomeFragment : BaseFragment<FragmentHomepageBinding>(false) {
     }
 
     private val onProductItemClick: OnProductItemClick = {
-        val action : NavDirections = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(it.id)
+        val action: NavDirections =
+            HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(it.id)
         navigateAction(action)
     }
 

@@ -9,7 +9,6 @@ import com.app.e_commerce_app.data.repository.UserRepository
 import com.app.e_commerce_app.model.AddressJson
 import com.app.e_commerce_app.model.AddressRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,7 +17,7 @@ class AddressViewModel @Inject constructor(private val userRepository: UserRepos
     BaseViewModel() {
 
 
-    private val _addressesData = MutableLiveData<List<AddressJson>>()
+    private var _addressesData = MutableLiveData<List<AddressJson>>()
     val addressesData: LiveData<List<AddressJson>> = _addressesData
 
     fun fetchAddresses() {

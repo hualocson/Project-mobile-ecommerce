@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.e_commerce_app.common.BindableAdapter
 import com.app.e_commerce_app.databinding.ItemCategoryBinding
 import com.app.e_commerce_app.model.CategoryModel
-import com.bumptech.glide.Glide
-import com.bumptech.glide.annotation.GlideModule
 import com.squareup.picasso.Picasso
 
 class CategoryAdapter(
