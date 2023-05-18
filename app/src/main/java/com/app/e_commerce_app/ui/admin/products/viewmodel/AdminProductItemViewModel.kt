@@ -19,6 +19,9 @@ class AdminProductItemViewModel @Inject constructor(
     private val _items = MutableLiveData<List<ChooseItem>>()
     val items: LiveData<List<ChooseItem>> = _items
 
+    private val _categoryId = MutableLiveData<Int>()
+    val categoryIdData: LiveData<Int> = _categoryId
+
     fun getListProductItemInProduct(id: Int) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
@@ -26,6 +29,7 @@ class AdminProductItemViewModel @Inject constructor(
             val data = product.productItems!!.map {
                 it.toAdminItem(product.name)
             }
+            _categoryId.postValue(product.categoryId)
             _items.postValue(data)
         }
         registerJobFinish()

@@ -3,6 +3,7 @@ package com.app.e_commerce_app.data.repository
 import android.util.Log
 import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.services.ProductRemoteService
+import com.app.e_commerce_app.model.product.ProductItemRequest
 import com.app.e_commerce_app.model.product.ProductRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -77,4 +78,26 @@ class ProductRepository @Inject constructor(private val productRemoteService: Pr
             }
         }
     }
+    suspend fun addProductItem(id: Int, createProductItemRequest: ProductItemRequest) = withContext(Dispatchers.IO) {
+        when (val response = productRemoteService.addProductItem(id, createProductItemRequest)) {
+            is NetWorkResult.Success -> {
+                response.data.data!!
+            }
+            is NetWorkResult.Error -> {
+                throw response.exception
+            }
+        }
+    }
+
+    suspend fun updateProductItem(itemId: Int, createProductItemRequest: ProductItemRequest) = withContext(Dispatchers.IO) {
+        when (val response = productRemoteService.updateProductItem(itemId, createProductItemRequest)) {
+            is NetWorkResult.Success -> {
+                response.data.data!!
+            }
+            is NetWorkResult.Error -> {
+                throw response.exception
+            }
+        }
+    }
+
 }

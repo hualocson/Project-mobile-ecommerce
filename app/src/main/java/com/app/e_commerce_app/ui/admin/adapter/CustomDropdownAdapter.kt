@@ -25,7 +25,7 @@ class CustomDropdownAdapter(
         return getCustomView(position, convertView, parent)
     }
 
-    override fun getItem(position: Int): Pair<Int, String>? {
+    override fun getItem(position: Int): Pair<Int, String> {
         return items[position]
     }
 

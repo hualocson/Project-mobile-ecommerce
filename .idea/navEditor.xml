@@ -55,8 +55,29 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-332" />
-                            <option name="y" value="2236" />
+                            <option name="x" value="-504" />
+                            <option name="y" value="2182" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_adminEditProductFragment_to_adminProductItem">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="adminEditProductItemFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-788" />
+                            <option name="y" value="2558" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -67,8 +88,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-705" />
-                            <option name="y" value="2056" />
+                            <option name="x" value="-827" />
+                            <option name="y" value="2076" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -83,6 +104,60 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="adminProductItem">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-394" />
+                            <option name="y" value="2542" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_adminProductItem_to_adminEditProductItemFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="adminShippingFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="368" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_adminShippingFragment_to_adminShippingUpdateFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="adminShippingUpdateFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="230" />
+                            <option name="y" value="368" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="adminUserFragment">
                     <value>
                       <LayoutPositions>
@@ -91,6 +166,15 @@
                             <option name="x" value="-96" />
                             <option name="y" value="2669" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_adminUserFragment_to_adminViewUserProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -213,6 +297,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_dashboardFragment_to_adminProductFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboardFragment_to_adminShippingFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

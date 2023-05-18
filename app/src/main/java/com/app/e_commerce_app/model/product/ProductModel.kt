@@ -8,10 +8,6 @@ import com.app.e_commerce_app.model.variation.VariationOptionModel
 import com.app.e_commerce_app.utils.Utils
 import com.denzcoskun.imageslider.models.SlideModel
 import kotlinx.parcelize.Parcelize
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 @Parcelize
 data class ProductModel(
@@ -27,7 +23,7 @@ data class ProductModel(
         return "${id.toString()}  ${name.toString()}"
     }
 
-    fun toAdminItem() : ChooseItem {
+    fun toAdminItem(): ChooseItem {
         return ChooseItem(
             id = id,
             title = name,
@@ -59,10 +55,11 @@ data class ProductModel(
                 item.productConfigurations.map { config ->
                     arr.add(
                         ProductConfigurationJson(
-                            config.id,
-                            item.id,
-                            config.variation,
-                            config.value
+                            id = config.id,
+                            productItemId = item.id,
+                            variation = config.variation,
+                            value = config.value,
+                            variationId = config.variationId
                         )
                     )
                 }
@@ -83,7 +80,13 @@ data class ProductModel(
             arr.map { variation ->
                 productItemOptions.map {
                     if (it.id == variation.id)
-                        variation.variationOptions.add(VariationOptionModel(it.productItemId, it.value, it.id))
+                        variation.variationOptions.add(
+                            VariationOptionModel(
+                                it.productItemId,
+                                it.value,
+                                it.id
+                            )
+                        )
                 }
             }
             return arr

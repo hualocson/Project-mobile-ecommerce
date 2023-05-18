@@ -12,8 +12,8 @@ import kotlin.collections.ArrayList
 data class ProductItemJson(
     val id: Int = 0,
     val productImage: String,
-    val price: Long = 0,
-    val qtyInStock: Int = 0,
+    var price: Long = 0,
+    var qtyInStock: Int = 0,
     val productConfigurations: ArrayList<ProductConfigurationJson>
 ) : Parcelable {
     val getPrice: String
