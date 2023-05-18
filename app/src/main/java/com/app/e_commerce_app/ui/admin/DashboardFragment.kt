@@ -1,4 +1,4 @@
-package com.app.e_commerce_app.ui.admin.order
+package com.app.e_commerce_app.ui.admin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,6 +40,11 @@ class DashboardFragment : BaseFragment<FragmentAdminDashboardBinding>(true) {
         }
         binding.btnUpdateNews.setOnClickListener {
             navigateToPage(R.id.action_dashboardFragment_to_adminSalesFragment)
+        binding.btnUser.setOnClickListener{
+            navigateToPage(R.id.action_dashboardFragment_to_adminUserFragment)
+        }
+        binding.btnUpdateShipping.setOnClickListener{
+            navigateToPage(R.id.action_dashboardFragment_to_adminShippingFragment)
         }
     }
 }

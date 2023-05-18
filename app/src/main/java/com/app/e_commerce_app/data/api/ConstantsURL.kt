@@ -13,6 +13,7 @@ object ConstantsURL {
     const val REGISTER_URL = "users/signup"
     const val CHECK_EMAIL = "users/email"
     const val CATEGORY_URL = "categories"
+    const val CATEGORY_URL_ID = "categories/{id}"
     const val VARIATION_IN_CATEGORY_URL = "categories/{id}/variations"
     const val PRODUCT_URL = "categories/products"
     const val PRODUCT_BY_CATEGORY_URL = "categories/{id}/products"
@@ -21,6 +22,8 @@ object ConstantsURL {
     const val EDIT_PROFILE = "users"
 
     const val SHIPPING_URL = "shippings"
+    const val SHIPPING_UPDATE_DELETE_URL = "shippings/{id}"
+
     const val ORDER_URL = "orders"
     const val NEW_URL = "news"
     const val CREATE_NEWS = "news"
@@ -29,4 +32,5 @@ object ConstantsURL {
     const val ORDER_BY_ID = "orders/{id}"
     const val ORDER_UPDATE = "orders/{id}/status"
     const val PRODUCT_ITEMS = "categories/products/items/{productItemId}"
+    const val CREATE_PRODUCT_ITEM = "categories/products/{productId}/items/"
 }

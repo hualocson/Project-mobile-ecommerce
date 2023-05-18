@@ -1,22 +1,21 @@
 package com.app.e_commerce_app.common
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.util.createCancellationSignal
 import com.app.e_commerce_app.databinding.ItemAddressBinding
 import com.app.e_commerce_app.databinding.ItemShippingMethodBinding
 import com.app.e_commerce_app.model.AddressJson
 import com.app.e_commerce_app.model.ShippingJson
-import com.app.e_commerce_app.model.variation.VariationOptionModel
-import com.app.e_commerce_app.ui.adapter.VariationOptionAdapter
-import com.app.e_commerce_app.utils.OnVariationOptionClick
 import com.app.e_commerce_app.utils.Utils
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -30,12 +29,6 @@ fun loadImage(view: ImageView, url: String?) {
     }
 }
 
-@BindingAdapter( "imageId")
-fun loadImageResource(view: ImageView, id: Int? = null) {
-    if(id != null)
-        view.setImageResource(id)
-}
-
 @BindingAdapter("imageSlideList")
 fun setImageList(view: ImageSlider, list: ArrayList<SlideModel>?) {
     if (!list.isNullOrEmpty())
@@ -45,7 +38,6 @@ fun setImageList(view: ImageSlider, list: ArrayList<SlideModel>?) {
 @BindingAdapter("items")
 fun <T> setItems(recyclerView: RecyclerView, items: List<T>?) {
     if (items.isNullOrEmpty()) return
-    Log.d("LOAD", items.toString())
     val adapter = recyclerView.adapter as? BindableAdapter<T>
     adapter?.setItems(items)
 }
@@ -56,7 +48,7 @@ interface BindableAdapter<T> {
 
 @BindingAdapter("address")
 fun setAddressData(view: View, addressJson: AddressJson?) {
-    if(addressJson == null)
+    if (addressJson == null)
         return
     val binding = DataBindingUtil.bind<ItemAddressBinding>(view)
     binding?.let {
@@ -67,7 +59,7 @@ fun setAddressData(view: View, addressJson: AddressJson?) {
 
 @BindingAdapter("shippingMethod")
 fun setShippingMethod(view: View, shippingJson: ShippingJson?) {
-    if(shippingJson == null)
+    if (shippingJson == null)
         return
     val binding = DataBindingUtil.bind<ItemShippingMethodBinding>(view)
     binding?.let {
@@ -79,7 +71,19 @@ fun setShippingMethod(view: View, shippingJson: ShippingJson?) {
 @BindingAdapter("numberValue")
 fun setNumberValue(textView: TextView, value: Long?) {
     var number = value
-    if(number == null)
+    if (number == null)
+        number = 0
+    number.let {
+//        val formattedValue = Utils.formatNumber(number)
+        textView.text = Utils.formatNumber(number)
+    }
+}
+
+
+@BindingAdapter("numberValue")
+fun setNumberValue(textView: TextView, value: Int?) {
+    var number = value
+    if (number == null)
         number = 0
     number.let {
 //        val formattedValue = Utils.formatNumber(number)
@@ -88,13 +92,9 @@ fun setNumberValue(textView: TextView, value: Long?) {
 }
 
 
-@BindingAdapter("numberValue")
-fun setNumberValue(textView: TextView, value: Int?) {
-    var number = value
-    if(number == null)
-        number = 0
-    number.let {
-//        val formattedValue = Utils.formatNumber(number)
-        textView.text = number.toString()
+@BindingAdapter("editTextValue")
+fun setEditTextValue(editText: EditText, value: String?) {
+    value?.let {
+        editText.setText(it)
     }
 }

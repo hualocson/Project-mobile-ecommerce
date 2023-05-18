@@ -60,6 +60,7 @@ class FillProfileFragment : BaseFragment<FragmentFillProfileBinding>(true) {
         val adapter = ArrayAdapter(requireContext(), R.layout.gender_list_item, genderValues)
         val autoCompleteTextView = (binding.genderMenu.editText as? AutoCompleteTextView)
         autoCompleteTextView?.setAdapter(adapter)
+
         autoCompleteTextView?.setOnItemClickListener { parent, view, position, id ->
             val selectedItem = parent.getItemAtPosition(position).toString()
             autoCompleteTextView.setText(selectedItem, false)

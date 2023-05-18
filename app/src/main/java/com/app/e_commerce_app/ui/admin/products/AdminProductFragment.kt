@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentAdminProductBinding
 import com.app.e_commerce_app.model.ChooseItem
 import com.app.e_commerce_app.ui.admin.adapter.ItemAdminAdapter
+import com.app.e_commerce_app.ui.admin.products.viewmodel.AdminProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +33,10 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>(true) {
     private fun listenClickEvent() {
         binding.headerView.btnLeft.setOnClickListener {
             navigateBack()
+        }
+
+        binding.btnAdd.setOnClickListener {
+            navigateToPage(R.id.action_adminProductFragment_to_adminEditProductFragment)
         }
     }
     private fun observerEvent() {
@@ -60,6 +66,7 @@ class AdminProductFragment : BaseFragment<FragmentAdminProductBinding>(true) {
     }
 
     private val onItemClick: (ChooseItem) -> Unit = {
-        navigateToPage(R.id.action_adminProductFragment_to_adminEditProductFragment)
+        val action : NavDirections = AdminProductFragmentDirections.actionAdminProductFragmentToAdminEditProductFragment(it.id)
+        navigateAction(action)
     }
 }
