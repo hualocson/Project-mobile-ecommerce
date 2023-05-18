@@ -1,5 +1,7 @@
 package com.app.e_commerce_app.data.api
 
+import com.app.e_commerce_app.model.variation.VaritionData
+
 object ConstantsURL {
     // Endpoints
     const val BASE_URL = "http://10.0.2.2:5001/api/v1/" // For local api
@@ -34,4 +36,5 @@ object ConstantsURL {
     const val ORDER_UPDATE = "orders/{id}/status"
     const val PRODUCT_ITEMS = "categories/products/items/{productItemId}"
     const val CREATE_PRODUCT_ITEM = "categories/products/{productId}/items/"
+    const val VARITION_ALL = "categories/variations"
 }

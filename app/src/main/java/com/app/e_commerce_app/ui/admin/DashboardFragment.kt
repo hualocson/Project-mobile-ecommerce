@@ -47,6 +47,9 @@ class DashboardFragment : BaseFragment<FragmentAdminDashboardBinding>(true) {
         binding.btnUpdateShipping.setOnClickListener {
             navigateToPage(R.id.action_dashboardFragment_to_adminShippingFragment)
         }
+        binding.btnVarition.setOnClickListener {
+            navigateToPage(R.id.action_dashboardFragment_to_adminVaritionFragment)
+        }
         binding.btnCategory.setOnClickListener {
             navigateToPage(R.id.action_dashboardFragment_to_aminViewCategoryFragment)
         }

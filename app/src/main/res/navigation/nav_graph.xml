@@ -413,6 +413,9 @@
             android:id="@+id/action_dashboardFragment_to_adminShippingFragment"
             app:destination="@id/adminShippingFragment" />
         <action
+            android:id="@+id/action_dashboardFragment_to_adminVaritionFragment"
+            app:destination="@id/adminVaritionFragment" />
+       <action
             android:id="@+id/action_dashboardFragment_to_aminViewCategoryFragment"
             app:destination="@id/aminViewCategoryFragment" />
     </fragment>
@@ -573,6 +576,10 @@
         android:id="@+id/adminShippingAddFragment"
         android:name="com.app.e_commerce_app.ui.admin.shipping.AdminShippingAddFragment"
         android:label="AdminShippingAddFragment" />
+    <fragment
+        android:id="@+id/adminVaritionFragment"
+        android:name="com.app.e_commerce_app.ui.admin.varition.AdminVaritionFragment"
+        android:label="AdminVaritionFragment" />
     <fragment
         android:id="@+id/aminViewCategoryFragment"
         android:name="com.app.e_commerce_app.ui.admin.category.AdminViewCategoryFragment"
