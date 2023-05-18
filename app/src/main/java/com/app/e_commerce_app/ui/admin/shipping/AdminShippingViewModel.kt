@@ -20,7 +20,7 @@ class AdminShippingViewModel @Inject constructor(
     private val shippingRepository: ShippingRepository,
 ) : BaseViewModel() {
 
-    private val _shippingList = MutableLiveData<List<ShippingJson>>()
+    private var _shippingList = MutableLiveData<List<ShippingJson>>()
     val shippingList: LiveData<List<ShippingJson>> = _shippingList
 
     fun getAllShippingMethods() {

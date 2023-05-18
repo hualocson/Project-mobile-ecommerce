@@ -1,6 +1,8 @@
 package com.app.e_commerce_app.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.data.repository.SaleRepository
 import com.app.e_commerce_app.model.SaleJson
@@ -14,10 +16,10 @@ class SaleViewModel @Inject constructor(
     private val saleRepository: SaleRepository
 ) : BaseViewModel() {
 
-    private val _newData = MutableLiveData<List<SaleJson>>()
+    private var _newData = MutableLiveData<List<SaleJson>>()
     val newData: LiveData<List<SaleJson>> = _newData
 
-    private val _checkSuccess = MutableLiveData<Boolean>()
+    private var _checkSuccess = MutableLiveData<Boolean>()
     val checkSuccess: LiveData<Boolean> = _checkSuccess
 
     fun getAllNews() {

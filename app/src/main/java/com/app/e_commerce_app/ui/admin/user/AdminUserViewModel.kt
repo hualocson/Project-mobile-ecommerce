@@ -15,7 +15,7 @@ class AdminUserViewModel @Inject constructor(
     private val userRepository: UserRepository,
 ) : BaseViewModel() {
 
-    private val _items = MutableLiveData<List<UserJson>>()
+    private var _items = MutableLiveData<List<UserJson>>()
     val items: LiveData<List<UserJson>> = _items
 
     fun fetchAllUsers() {

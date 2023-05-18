@@ -16,7 +16,7 @@ class AdminProductItemViewModel @Inject constructor(
     private val productRepository: ProductRepository,
 ) : BaseViewModel() {
 
-    private val _items = MutableLiveData<List<ChooseItem>>()
+    private var _items = MutableLiveData<List<ChooseItem>>()
     val items: LiveData<List<ChooseItem>> = _items
 
     private val _categoryId = MutableLiveData<Int>()

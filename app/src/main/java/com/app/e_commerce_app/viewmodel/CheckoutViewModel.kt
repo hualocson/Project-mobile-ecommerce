@@ -29,25 +29,25 @@ class CheckoutViewModel @Inject constructor(
     private var _orderSuccess = MutableLiveData<Event<Boolean>>()
     val orderSuccess: LiveData<Event<Boolean>> = _orderSuccess
 
-    private val _addressData = MutableLiveData<AddressJson?>()
+    private var _addressData = MutableLiveData<AddressJson?>()
     val addressData: LiveData<AddressJson?> = _addressData
 
-    private val _shippingMethod = MutableLiveData<ShippingJson>()
+    private var _shippingMethod = MutableLiveData<ShippingJson>()
     val shippingMethod: LiveData<ShippingJson> = _shippingMethod
 
-    private val _cartEntity = MutableLiveData<List<CartEntity>>()
+    private var _cartEntity = MutableLiveData<List<CartEntity>>()
     val cartEntity: LiveData<List<CartEntity>> = _cartEntity
 
-    private val _totalPrice = MutableLiveData<Long>(0)
+    private var _totalPrice = MutableLiveData<Long>(0)
     val totalPrice: LiveData<Long> = _totalPrice
 
-    private val _addresses = MutableLiveData<List<AddressJson>>()
+    private var _addresses = MutableLiveData<List<AddressJson>>()
     val addresses: LiveData<List<AddressJson>> = _addresses
 
-    private val _shippingMethods = MutableLiveData<List<ShippingJson>>()
+    private var _shippingMethods = MutableLiveData<List<ShippingJson>>()
     val shippingMethods: LiveData<List<ShippingJson>> = _shippingMethods
 
-    private val _sumTotal = MutableLiveData<Long>()
+    private var _sumTotal = MutableLiveData<Long>()
     val sumTotal: LiveData<Long> = _sumTotal
 
     init {

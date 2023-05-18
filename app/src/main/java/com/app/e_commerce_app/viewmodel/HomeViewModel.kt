@@ -9,14 +9,12 @@ import com.app.e_commerce_app.data.repository.CategoryRepository
 import com.app.e_commerce_app.data.repository.ProductRepository
 import com.app.e_commerce_app.data.repository.TokenRepository
 import com.app.e_commerce_app.data.repository.UserRepository
-import com.app.e_commerce_app.model.CategoryData
+import com.app.e_commerce_app.model.UserJson
 import com.app.e_commerce_app.model.CategoryModel
 import com.app.e_commerce_app.model.CategoryRadioButton
-import com.app.e_commerce_app.model.UserJson
 import com.app.e_commerce_app.model.product.ProductModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,18 +27,18 @@ class HomeViewModel @Inject constructor(
     private val tokenRepository: TokenRepository
 ) : BaseViewModel() {
 
-    private val _categoriesData = MutableLiveData<List<CategoryModel>>()
+    private var _categoriesData = MutableLiveData<List<CategoryModel>>()
     val categoriesData: LiveData<List<CategoryModel>> = _categoriesData
 
 
-    private val _categoryRadioData = MutableLiveData<List<CategoryRadioButton>>()
+    private var _categoryRadioData = MutableLiveData<List<CategoryRadioButton>>()
     val categoryRadioData: LiveData<List<CategoryRadioButton>> = _categoryRadioData
 
 
-    private val _productsData = MutableLiveData<List<ProductModel>>()
+    private var _productsData = MutableLiveData<List<ProductModel>>()
     val productsData: LiveData<List<ProductModel>> = _productsData
 
-    private val _userLiveData = MutableLiveData<UserJson>()
+    private var _userLiveData = MutableLiveData<UserJson>()
     val userLiveData: LiveData<UserJson> = _userLiveData
 
     var isProductsLoading = MutableLiveData<Event<Boolean>>()
@@ -67,9 +65,9 @@ class HomeViewModel @Inject constructor(
     fun fetchAllCategories() {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
-            val response = categoryRepository.getAllCategories()
-            _categoriesData.postValue(response!!.categories)
-            _categoryRadioData.postValue(toListCategoryRadioButton(response.categories))
+            val categories = categoryRepository.getAllCategories()
+            _categoriesData.postValue(categories)
+            _categoryRadioData.postValue(toListCategoryRadioButton(categories))
         }
         registerJobFinish()
     }
@@ -86,7 +84,7 @@ class HomeViewModel @Inject constructor(
 
             _userLiveData.postValue(userDeferred.await())
 
-            val fetchedCategories = categoriesDeferred.await()!!.categories
+            val fetchedCategories = categoriesDeferred.await()
 
             _categoriesData.postValue(fetchedCategories)
             _categoryRadioData.postValue(toListCategoryRadioButton(fetchedCategories))

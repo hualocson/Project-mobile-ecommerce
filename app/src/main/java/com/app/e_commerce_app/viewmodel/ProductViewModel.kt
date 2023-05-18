@@ -1,18 +1,8 @@
 package com.app.e_commerce_app.viewmodel
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.*
 import com.app.e_commerce_app.base.BaseViewModel
-import com.app.e_commerce_app.data.api.NetWorkResult
 import com.app.e_commerce_app.data.repository.ProductRepository
-import com.app.e_commerce_app.data.services.ProductRemoteService
-import com.app.e_commerce_app.model.product.ProductItemJson
-import com.app.e_commerce_app.model.product.ProductModel
-import com.app.e_commerce_app.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 

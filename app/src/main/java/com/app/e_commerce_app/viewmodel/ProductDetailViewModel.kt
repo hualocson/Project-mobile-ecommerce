@@ -18,13 +18,13 @@ class ProductDetailViewModel @Inject constructor(
 ) :
     BaseViewModel() {
 
-    private val _productDetailData = MutableLiveData<ProductModel>()
+    private var _productDetailData = MutableLiveData<ProductModel>()
     val productDetailData: LiveData<ProductModel> = _productDetailData
 
-    private val _activeItem = MutableLiveData<ProductItemJson>()
+    private var _activeItem = MutableLiveData<ProductItemJson>()
     val activeItemData: LiveData<ProductItemJson> = _activeItem
 
-    private val _totalPrice = MutableLiveData<Long>(0)
+    private var _totalPrice = MutableLiveData<Long>(0)
     val totalPrice: LiveData<Long> = _totalPrice
 
     fun getProductItemId(variationOption: VariationOptionModel) {

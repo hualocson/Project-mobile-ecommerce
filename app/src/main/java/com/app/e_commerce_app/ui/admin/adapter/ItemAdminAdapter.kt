@@ -46,7 +46,6 @@ class ItemAdminAdapter(
     }
 
     override fun setItems(items: List<ChooseItem>) {
-        Log.d("LOADADMIN", items.toString())
         this.items.clear()
         this.items.addAll(items)
         notifyDataSetChanged()

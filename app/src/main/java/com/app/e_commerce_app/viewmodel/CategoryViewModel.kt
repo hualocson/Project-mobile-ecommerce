@@ -10,10 +10,10 @@ class CategoryViewModel(application: Application) : BaseViewModel() {
 //    private val categoryRemoteService = CategoryRemoteService()
 //    private val categoryRepository: CategoryRepository = CategoryRepository(categoryRemoteService)
 
-    private val _categoriesData = MutableLiveData<List<CategoryModel>>()
+    private var _categoriesData = MutableLiveData<List<CategoryModel>>()
     val categoriesData: LiveData<List<CategoryModel>> = _categoriesData
 
-    private val _categoryRadioData = MutableLiveData<List<CategoryRadioButton>>()
+    private var _categoryRadioData = MutableLiveData<List<CategoryRadioButton>>()
     val categoryRadioData: LiveData<List<CategoryRadioButton>> = _categoryRadioData
 
     private fun toListCategoryRadioButton(categories: List<CategoryModel>): List<CategoryRadioButton> {
