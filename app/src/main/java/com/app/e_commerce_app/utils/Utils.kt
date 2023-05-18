@@ -15,7 +15,8 @@ object Utils {
         val formatter = NumberFormat.getNumberInstance(Locale.getDefault())
         formatter.maximumFractionDigits = 0
         val result = formatter.format(number)
-        return result.replace(",", ".").plus(" VND")
+//        return result.replace(",", ".").plus(" VND")
+        return number.toString()
     }
     fun hideSoftKeyboard(view: View, context: Context) {
         val imm: InputMethodManager? =

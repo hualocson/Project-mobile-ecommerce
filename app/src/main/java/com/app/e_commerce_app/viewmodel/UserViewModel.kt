@@ -21,8 +21,8 @@ class UserViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val tokenRepository: TokenRepository
 ) : BaseViewModel() {
-    private val _userLiveData = MutableLiveData<UserJson>()
-    private val _checkSuccess = MutableLiveData<Boolean>()
+    private var _userLiveData = MutableLiveData<UserJson>()
+    private var _checkSuccess = MutableLiveData<Boolean>()
     val userLiveData: LiveData<UserJson> = _userLiveData
     val checkSuccess: LiveData<Boolean> = _checkSuccess
     private var _uploadSuccess = MutableLiveData<Event<Boolean>>()

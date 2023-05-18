@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.common.EventObserver
 import com.app.e_commerce_app.databinding.FragmentAdminEditProductItemBinding
 import com.app.e_commerce_app.model.product.ProductItemRequest
 import com.app.e_commerce_app.model.variation.VariationOptionModel
-import com.app.e_commerce_app.ui.admin.adapter.VariationAdminAdapter
+import com.app.e_commerce_app.ui.admin.adapter.VariationAdminDropdownAdapter
 import com.app.e_commerce_app.ui.admin.adapter.adapterInterface.DropDownItemSelectedListener
 import com.app.e_commerce_app.ui.admin.products.viewmodel.AdminEditProductItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,8 +29,8 @@ class AdminEditProductItemFragment : BaseFragment<FragmentAdminEditProductItemBi
 
     private val viewModel by viewModels<AdminEditProductItemViewModel>()
     private val args by navArgs<AdminEditProductItemFragmentArgs>()
-    private val adapter: VariationAdminAdapter by lazy {
-        VariationAdminAdapter(requireContext())
+    private val adapter: VariationAdminDropdownAdapter by lazy {
+        VariationAdminDropdownAdapter(requireContext())
     }
 
     private fun listenClickEvent() {

@@ -20,7 +20,7 @@ class AdminEditProductViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) :
     BaseViewModel() {
-    private val _categoriesData = MutableLiveData<List<CategoryModel>>()
+    private var _categoriesData = MutableLiveData<List<CategoryModel>>()
     val categoriesData: LiveData<List<CategoryModel>> = _categoriesData
 
     private val _productData = MutableLiveData<ProductModel>()
@@ -32,8 +32,8 @@ class AdminEditProductViewModel @Inject constructor(
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val response = categoryRepository.getAllCategories()
-            response?.let {
-                _categoriesData.postValue(it.categories)
+            response.let {
+                _categoriesData.postValue(it)
             }
         }
         registerJobFinish()

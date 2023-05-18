@@ -24,20 +24,20 @@ class AdminEditProductItemViewModel @Inject constructor(
     private val productRepository: ProductRepository
 ) :
     BaseViewModel() {
-    private val _variationsData = MutableLiveData<List<VariationModel>>()
+    private var _variationsData = MutableLiveData<List<VariationModel>>()
     val variationsData: LiveData<List<VariationModel>> = _variationsData
 
-    private val _isEnableCreate = MutableLiveData<Boolean>()
+    private var _isEnableCreate = MutableLiveData<Boolean>()
     val isEnableCreate: LiveData<Boolean> = _isEnableCreate
 
-    private val _productConfigurationsData = MutableLiveData<List<VariationOptionModel>>()
+    private var _productConfigurationsData = MutableLiveData<List<VariationOptionModel>>()
     val productConfigurationsData: LiveData<List<VariationOptionModel>> = _productConfigurationsData
 
 
-    private val _itemsData = MutableLiveData<List<Pair<Int, String>>>()
+    private var _itemsData = MutableLiveData<List<Pair<Int, String>>>()
     val itemsData: LiveData<List<Pair<Int, String>>> = _itemsData
 
-    private val _itemData = MutableLiveData<ProductItemJson>()
+    private var _itemData = MutableLiveData<ProductItemJson>()
     val itemData: LiveData<ProductItemJson> = _itemData
 
     val isResponseSuccess = MutableLiveData(Event(false))
@@ -54,7 +54,7 @@ class AdminEditProductItemViewModel @Inject constructor(
     fun fetchData(productId: Int, productItemId: Int, categoryId: Int) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
-            val responseDef = async { variationRepository.getVariationsInCategory(0) }
+            val responseDef = async { variationRepository.getVariationsInCategory(categoryId) }
             val productDef = async { productRepository.getProductsById(productId) }
             _variationsData.postValue(responseDef.await())
             if (productItemId != 0) {

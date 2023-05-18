@@ -16,5 +16,6 @@
         <item name="android:buttonStyle">@style/LatoFont</item>
 
 <!--        <item name="textInputStyle">@style/myDropdown</item>-->
+        <item name="bottomSheetDialogTheme">@style/myBottomSheetDialog</item>
     </style>
 </resources>

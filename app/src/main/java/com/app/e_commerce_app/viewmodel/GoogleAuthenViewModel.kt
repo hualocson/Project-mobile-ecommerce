@@ -9,7 +9,6 @@ import com.app.e_commerce_app.R
 import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.data.repository.TokenRepository
 import com.app.e_commerce_app.data.repository.UserRepository
-import com.app.e_commerce_app.model.PreSignupRequest
 import com.app.e_commerce_app.model.RegisterRequest
 import com.app.e_commerce_app.utils.SignInState
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -36,11 +35,13 @@ class GoogleAuthenViewModel @Inject constructor(
         signInClient = Identity.getSignInClient(activity)
     }
 
-    fun beginSignIn() : BeginSignInRequest {
+    fun beginSignIn(): BeginSignInRequest {
         return BeginSignInRequest.builder()
-            .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.Builder()
-                .setSupported(true)
-                .build())
+            .setPasswordRequestOptions(
+                BeginSignInRequest.PasswordRequestOptions.Builder()
+                    .setSupported(true)
+                    .build()
+            )
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.Builder()
                     .setSupported(true)
@@ -52,6 +53,7 @@ class GoogleAuthenViewModel @Inject constructor(
             )
             .build()
     }
+
     fun register(registerRequest: RegisterRequest) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {

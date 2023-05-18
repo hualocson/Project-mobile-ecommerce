@@ -1,7 +1,8 @@
 package com.app.e_commerce_app.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.app.e_commerce_app.base.BaseViewModel
 import com.app.e_commerce_app.data.repository.CartRepository
 import com.app.e_commerce_app.model.CartEntity
@@ -10,11 +11,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CartViewModel @Inject constructor(private val cartRepository: CartRepository) : BaseViewModel() {
-    private val _cartsData = MutableLiveData<List<CartEntity>>()
+class CartViewModel @Inject constructor(private val cartRepository: CartRepository) :
+    BaseViewModel() {
+    private var _cartsData = MutableLiveData<List<CartEntity>>()
     val cartsData: LiveData<List<CartEntity>> = _cartsData
 
-    private val _totalPrice = MutableLiveData<Long>()
+    private var _totalPrice = MutableLiveData<Long>()
     val totalPrice: LiveData<Long> = _totalPrice
 
     fun insertCart(cartEntity: CartEntity) = viewModelScope.launch {

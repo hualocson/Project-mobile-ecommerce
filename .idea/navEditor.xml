@@ -71,6 +71,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="adminEditCategoryFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-823" />
+                            <option name="y" value="2688" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="adminEditProductFragment">
                     <value>
                       <LayoutPositions>
@@ -276,6 +288,27 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="aminViewCategoryFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-275" />
+                            <option name="y" value="2338" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_aminViewCategoryFragment_to_adminEditCategoryFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="cartFragment">
                     <value>
                       <LayoutPositions>
@@ -397,6 +430,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboardFragment_to_adminUserFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboardFragment_to_aminViewCategoryFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

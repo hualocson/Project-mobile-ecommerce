@@ -4,37 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="variation"
-            type="com.app.e_commerce_app.model.variation.VariationModel" />
+            name="item"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/padding_medium">
+        android:background="@color/transparent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/dropdown_menu"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@{variation.name}"
+            android:layout_margin="@dimen/margin_default_half"
+            android:background="@drawable/custom_layout_item_popular"
+            android:elevation="@dimen/small_elevation"
+            android:padding="@dimen/margin_default_half"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <AutoCompleteTextView
-                android:id="@+id/drop_items"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                tools:ignore="SpeakableTextPresentCheck" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_star_rate_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/padding_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnUpdate"
+                app:layout_constraintStart_toEndOf="@+id/icon"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    style="@style/myTextViewHeading"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:minLines="1"
+                    android:text="@{item}"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageButton
+                android:id="@+id/btnUpdate"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_edit_24"
+                app:layout_constraintBottom_toTopOf="@id/btnDelete"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/info"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_delete_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnUpdate"
+                app:tint="@color/error"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

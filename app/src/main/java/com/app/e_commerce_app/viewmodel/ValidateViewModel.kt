@@ -10,8 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ValidateViewModel @Inject constructor(): BaseViewModel() {
-    private val _checkEmail = MutableLiveData<Boolean>(true)
+class ValidateViewModel @Inject constructor() : BaseViewModel() {
+    private var _checkEmail = MutableLiveData<Boolean>(true)
     val checkEmail: LiveData<Boolean> = _checkEmail
 
     val emailFocusChangeListener = View.OnFocusChangeListener { view, hasFocus ->
@@ -28,7 +28,7 @@ class ValidateViewModel @Inject constructor(): BaseViewModel() {
         count: Int
     ) {
         val email = text?.toString()
-        if(email.isNullOrEmpty())
+        if (email.isNullOrEmpty())
             _checkEmail.postValue(true)
     }
 
