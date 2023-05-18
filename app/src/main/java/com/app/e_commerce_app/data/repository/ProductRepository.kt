@@ -88,4 +88,16 @@ class ProductRepository @Inject constructor(private val productRemoteService: Pr
             }
         }
     }
+
+    suspend fun updateProductItem(itemId: Int, createProductItemRequest: ProductItemRequest) = withContext(Dispatchers.IO) {
+        when (val response = productRemoteService.updateProductItem(itemId, createProductItemRequest)) {
+            is NetWorkResult.Success -> {
+                response.data.data!!
+            }
+            is NetWorkResult.Error -> {
+                throw response.exception
+            }
+        }
+    }
+
 }

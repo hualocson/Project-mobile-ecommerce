@@ -33,4 +33,7 @@ class ProductRemoteService @Inject constructor(private val productApi: ProductAp
 
     suspend fun addProductItem(id: Int, createProductItemRequest: ProductItemRequest) : NetWorkResult<CustomResponse<ProductItemJson>> =
         handleApi { productApi.addProductItem(id, createProductItemRequest) }
+
+    suspend fun updateProductItem(itemId: Int, createProductItemRequest: ProductItemRequest): NetWorkResult<CustomResponse<ProductItemJson>> =
+        handleApi { productApi.updateProductItem(itemId, createProductItemRequest) }
 }

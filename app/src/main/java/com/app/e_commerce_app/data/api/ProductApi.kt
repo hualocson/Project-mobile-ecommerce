@@ -35,4 +35,10 @@ interface ProductApi {
         @Path("productId") productId: Int,
         @Body createProductItemRequest: ProductItemRequest
     ): Response<CustomResponse<ProductItemJson>>
+
+    @PATCH(ConstantsURL.PRODUCT_ITEMS)
+    suspend fun updateProductItem(
+        @Path("productItemId") id: Int,
+        @Body createProductItemRequest: ProductItemRequest
+    ): Response<CustomResponse<ProductItemJson>>
 }

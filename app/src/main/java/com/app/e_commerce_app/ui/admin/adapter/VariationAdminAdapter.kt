@@ -1,6 +1,7 @@
 package com.app.e_commerce_app.ui.admin.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
@@ -54,6 +55,8 @@ class VariationAdminAdapter(
         }
 
         fun changeActive(item: Pair<Int, String>) {
+            Log.d("DETE", item.toString())
+            Log.d("DETEADAP", adapter.toString())
             if (item.first != 0) {
                 val pos = adapter.getPosition(item)
                 if (pos != -1)

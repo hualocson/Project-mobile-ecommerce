@@ -22,7 +22,7 @@ class CategoryRepository @Inject constructor(private val categoryRemoteService: 
     suspend fun getCategoryById(id: Int) = withContext(Dispatchers.IO) {
         when (val result = categoryRemoteService.getCategoryById(id)) {
             is NetWorkResult.Success -> {
-                result.data.data
+               result.data.data
             }
             is NetWorkResult.Error -> {
                 throw result.exception
