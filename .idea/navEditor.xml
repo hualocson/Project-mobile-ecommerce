@@ -50,6 +50,27 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="adminAddSalesFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="77" />
+                            <option name="y" value="2787" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_adminAddSalesFragment_to_adminSalesFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="adminEditProductFragment">
                     <value>
                       <LayoutPositions>
@@ -57,6 +78,18 @@
                           <Point>
                             <option name="x" value="-332" />
                             <option name="y" value="2236" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="adminEditSalesFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-328" />
+                            <option name="y" value="2748" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -74,6 +107,27 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_adminProductFragment_to_adminEditProductFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="adminSalesFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-140" />
+                            <option name="y" value="2462" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_adminSalesFragment_to_adminAddSalesFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -182,13 +236,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-98" />
-                            <option name="y" value="1917" />
+                            <option name="x" value="-138" />
+                            <option name="y" value="1931" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_dashboardFragment_to_adminProductFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboardFragment_to_adminSalesFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
