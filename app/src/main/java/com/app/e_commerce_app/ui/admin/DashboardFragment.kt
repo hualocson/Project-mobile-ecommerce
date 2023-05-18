@@ -40,10 +40,11 @@ class DashboardFragment : BaseFragment<FragmentAdminDashboardBinding>(true) {
         }
         binding.btnUpdateNews.setOnClickListener {
             navigateToPage(R.id.action_dashboardFragment_to_adminSalesFragment)
-        binding.btnUser.setOnClickListener{
+        }
+        binding.btnUser.setOnClickListener {
             navigateToPage(R.id.action_dashboardFragment_to_adminUserFragment)
         }
-        binding.btnUpdateShipping.setOnClickListener{
+        binding.btnUpdateShipping.setOnClickListener {
             navigateToPage(R.id.action_dashboardFragment_to_adminShippingFragment)
         }
     }
