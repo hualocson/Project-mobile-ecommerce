@@ -23,4 +23,15 @@ class VariationRepository @Inject constructor(private val variationRemoteService
             }
         }
     }
+
+    suspend fun getAllVaritions() = withContext(Dispatchers.IO) {
+        when (val result = variationRemoteService.getAllVaritions()) {
+            is NetWorkResult.Success -> {
+                result.data.data
+            }
+            is NetWorkResult.Error -> {
+                throw result.exception
+            }
+        }
+    }
 }

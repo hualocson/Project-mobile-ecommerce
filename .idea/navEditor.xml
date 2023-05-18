@@ -264,6 +264,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="adminVaritionFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="adminViewUserProfileFragment">
                     <value>
                       <LayoutPositions>
@@ -397,6 +409,11 @@
                               </value>
                             </entry>
                             <entry key="action_dashboardFragment_to_adminUserFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_dashboardFragment_to_adminVaritionFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
