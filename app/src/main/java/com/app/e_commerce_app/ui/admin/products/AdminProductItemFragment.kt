@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.base.BaseFragment
@@ -34,6 +35,16 @@ class AdminProductItemFragment : BaseFragment<FragmentAdminProductItemBinding>(t
         binding.headerView.btnLeft.setOnClickListener {
             navigateBack()
         }
+        binding.btnAdd.setOnClickListener {
+            viewModel.categoryIdData.value?.let {
+                val action: NavDirections =
+                    AdminProductItemFragmentDirections.actionAdminProductItemToAdminEditProductItemFragment(
+                        it,
+                        args.productId
+                    )
+                navigateAction(action)
+            }
+        }
     }
 
     private fun observerEvent() {
@@ -62,7 +73,15 @@ class AdminProductItemFragment : BaseFragment<FragmentAdminProductItemBinding>(t
         listenClickEvent()
     }
 
-    private val onItemClick: (ChooseItem) -> Unit = {
-
+    private val onItemClick: (ChooseItem) -> Unit = { item ->
+        viewModel.categoryIdData.value?.let {
+            val action: NavDirections =
+                AdminProductItemFragmentDirections.actionAdminProductItemToAdminEditProductItemFragment(
+                    it,
+                    args.productId,
+                    item.id
+                )
+            navigateAction(action)
+        }
     }
 }

@@ -3,6 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="saleModel"
+            type="com.app.e_commerce_app.model.SaleJson" />
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,61 +26,103 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Edit Shipping" />
+            app:title="Edit News" />
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/fillimage"
-            android:layout_width="81dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="50dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_img"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="30dp"
+            android:elevation="10dp"
+            app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headerView"
-            app:riv_oval="true" />
+            app:layout_constraintTop_toBottomOf="@+id/headerView">
 
-        <TextView
-            android:id="@+id/tvname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:text="Cargo"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fillimage" />
-
-        <TextView
-            android:id="@+id/tvdesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:text="Estimated Arrival after 6-8 days"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvname" />
+            <ImageView
+                android:id="@+id/roundedImageView"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/white"
+                android:scaleType="fitXY"
+                app:imageUrl="@{saleModel.imageUrl}"
+                android:layout_margin="30dp"
+                android:src="@drawable/image1" />
+        </androidx.cardview.widget.CardView>
 
         <EditText
-            android:id="@+id/edt_price"
+            android:id="@+id/edt_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
             android:background="@drawable/background_edittext"
-            android:hint="Price"
+            android:hint="Title"
+            android:text="@{saleModel.title}"
             android:paddingVertical="20dp"
             android:paddingLeft="30dp"
             android:singleLine="true"
             android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvdesc" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
+        <EditText
+            android:id="@+id/edt_imgurl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/background_edittext"
+            android:hint="Image URL"
+            android:text="@{saleModel.imageUrl}"
+            android:paddingVertical="20dp"
+            android:paddingLeft="30dp"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_title" />
+
+
+        <EditText
+            android:id="@+id/edt_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/background_edittext"
+            android:hint="Content"
+            android:text="@{saleModel.content}"
+            android:paddingVertical="20dp"
+            android:paddingLeft="30dp"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_imgurl" />
+
+        <EditText
+            android:id="@+id/edt_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/background_edittext"
+            android:hint="Author"
+            android:text="@{saleModel.author}"
+            android:paddingVertical="20dp"
+            android:paddingLeft="30dp"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_content" />
 
         <LinearLayout
             android:layout_width="match_parent"

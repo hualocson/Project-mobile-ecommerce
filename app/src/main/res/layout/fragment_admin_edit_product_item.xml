@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.admin.products.AdminProductItemFragment">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.app.e_commerce_app.ui.admin.products.viewmodel.AdminEditProductItemViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -45,6 +51,7 @@
                     android:padding="@dimen/padding_small"
                     android:scaleType="centerCrop"
                     android:src="@drawable/default_img"
+                    app:imageUrl="@{viewModel.itemData.productImage}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -73,18 +80,19 @@
                 android:id="@+id/etQuantity"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
-                android:layout_marginEnd="@dimen/padding_small"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_medium"
-                android:hint="Price"
-                app:layout_constraintTop_toBottomOf="@id/layoutProductImage"
+                android:layout_marginEnd="@dimen/padding_small"
+                android:hint="Quantity In Stock"
                 app:layout_constraintEnd_toStartOf="@id/etPrice"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutProductImage">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
+                    app:editTextValue="@{String.valueOf(viewModel.itemData.qtyInStock)}"
                     tools:ignore="SpeakableTextPresentCheck" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -95,16 +103,17 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_small"
-                android:hint="Quantity In Stock"
+                android:hint="Price"
                 app:layout_constraintBottom_toBottomOf="@+id/etQuantity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/etQuantity"
                 app:layout_constraintTop_toTopOf="@+id/etQuantity">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
+                    app:editTextValue="@{String.valueOf(viewModel.itemData.price)}"
                     tools:ignore="SpeakableTextPresentCheck" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -120,46 +129,58 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/etQuantity">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
+                    android:inputType="textUri"
+                    android:text="@{viewModel.itemData.productImage}"
                     tools:ignore="SpeakableTextPresentCheck" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--            <com.google.android.material.textfield.TextInputLayout-->
-            <!--                android:id="@+id/categoryMenu"-->
-            <!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:hint="Name Variation"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent">-->
-
-            <!--                <AutoCompleteTextView-->
-            <!--                    android:id="@+id/drop_items"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:dropDownAnchor="@+id/categoryMenu"-->
-            <!--                    android:inputType="none" />-->
-
-            <!--            </com.google.android.material.textfield.TextInputLayout>-->
-
-            <Button
-                android:id="@+id/btnAdd"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutRVVariation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/background_button"
-                android:text="Add Product"
-                android:textAllCaps="false"
+                android:layout_marginTop="@dimen/padding_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etImg">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvVariation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:items="@{viewModel.variationsData}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/layoutRVVariation"
+                >
+
+                <Button
+                    android:id="@+id/btnAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_button"
+                    android:enabled="@{viewModel.isEnableCreate()}"
+                    android:text="Add Product"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

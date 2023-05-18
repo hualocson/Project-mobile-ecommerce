@@ -8,6 +8,9 @@
             type="com.app.e_commerce_app.viewmodel.UserViewModel" />
     </data>
 
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,7 +25,7 @@
             app:is_show_title="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Add Shipping" />
+            app:title="Add News" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,15 +50,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:text="Name" />
+                    android:text="Title" />
 
                 <EditText
-                    android:id="@+id/fill_name"
+                    android:id="@+id/fill_title"
                     style="@style/myEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name"
-                    android:inputType="textPassword" />
+                    android:hint="Title"
+                    android:inputType="text" />
 
             </LinearLayout>
 
@@ -74,15 +77,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:text="Description" />
+                    android:text="Author" />
 
                 <EditText
-                    android:id="@+id/fill_desc"
+                    android:id="@+id/fill_author"
                     style="@style/myEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Description"
-                    android:inputType="textPassword" />
+                    android:hint="Author"
+                    android:inputType="text" />
 
             </LinearLayout>
 
@@ -101,15 +104,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:text="Price" />
+                    android:text="Image URl" />
 
                 <EditText
-                    android:id="@+id/fill_price"
+                    android:id="@+id/fill_img"
                     style="@style/myEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Price"
-                    android:inputType="textPassword" />
+                    android:hint="Image URL"
+                    android:inputType="text" />
 
             </LinearLayout>
             <LinearLayout
@@ -127,15 +130,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:text="Icon URL" />
+                    android:text="Content" />
+
 
                 <EditText
-                    android:id="@+id/fill_imgUrl"
+                    android:id="@+id/fill_content"
                     style="@style/myEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Icon URL"
-                    android:inputType="textPassword" />
+                    android:hint="Content"
+                    android:inputType="text" />
 
             </LinearLayout>
             <Button

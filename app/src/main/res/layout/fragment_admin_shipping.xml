@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.app.e_commerce_app.model.ChooseItem" />
+        <import type="com.app.e_commerce_app.ui.admin.shipping.AdminShippingViewModel" />
 
-        <import type="java.util.List" />
+<!--        <import type="java.util.List" />-->
 
         <variable
             name="items"
-            type="List&lt;ChooseItem&gt;" />
+            type="AdminShippingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:scrollbars="none"
-                app:items="@{items}"
+                app:items="@{items.shippingList}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/headerView"
                 tools:itemCount="4"

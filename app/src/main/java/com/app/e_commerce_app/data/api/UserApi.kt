@@ -44,4 +44,7 @@ interface UserApi {
     @Multipart
     @PATCH(ConstantsURL.USER_UPLOAD_IMG)
     suspend fun uploadImage(@Part avatar: MultipartBody.Part): Response<CustomResponse<UserJson>>
+
+    @GET(ConstantsURL.EDIT_PROFILE) //users
+    suspend fun getAllUsers() : Response<CustomResponse<List<UserJson>>>
 }
