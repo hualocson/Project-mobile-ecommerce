@@ -29,12 +29,6 @@ fun loadImage(view: ImageView, url: String?) {
     }
 }
 
-@BindingAdapter("imageId")
-fun loadImageResource(view: ImageView, id: Int? = null) {
-    if (id != null)
-        view.setImageResource(id)
-}
-
 @BindingAdapter("imageSlideList")
 fun setImageList(view: ImageSlider, list: ArrayList<SlideModel>?) {
     if (!list.isNullOrEmpty())
