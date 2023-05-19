@@ -22,6 +22,17 @@ class OrderRepository @Inject constructor(private val orderRemoteService: OrderR
         }
     }
 
+    suspend fun getAllOrderByUserID(id: Int) = withContext(Dispatchers.IO) {
+        when(val response = orderRemoteService.getAllOrderByUserID(id)) {
+            is NetWorkResult.Success -> {
+                response.data.data!!
+            }
+            is NetWorkResult.Error -> {
+                throw response.exception
+            }
+        }
+    }
+
     suspend fun createOrder(orderRequest: OrderRequest) = withContext(Dispatchers.IO + SupervisorJob()) {
         when(val response = orderRemoteService.createOrder(orderRequest)) {
             is NetWorkResult.Success -> {

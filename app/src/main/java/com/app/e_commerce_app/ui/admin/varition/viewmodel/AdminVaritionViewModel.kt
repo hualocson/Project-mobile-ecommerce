@@ -39,7 +39,7 @@ class AdminVaritionViewModel @Inject constructor(
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {
             val response = categoryRepository.getAllCategories()
-            _categoriesData.postValue(response!!.categories)
+            _categoriesData.postValue(response!!)
         }
         registerJobFinish()
     }

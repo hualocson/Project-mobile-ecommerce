@@ -17,6 +17,9 @@ interface OrderApi {
     @GET(ConstantsURL.ORDER_URL)
     suspend fun getAllUserOrders(): Response<CustomResponse<List<OrderJson>>>
 
+    @GET(ConstantsURL.ORDER_USER_URL)
+    suspend fun getAllOrderByUserID(@Path("userId") id: Int): Response<CustomResponse<List<OrderJson>>>
+
     @POST(ConstantsURL.ORDER_URL)
     suspend fun createOrder(@Body orderRequest: OrderRequest): Response<CustomResponse<OrderJson>>
 

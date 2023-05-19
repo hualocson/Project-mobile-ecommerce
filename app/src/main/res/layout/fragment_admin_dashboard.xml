@@ -10,7 +10,7 @@
             android:id="@+id/headerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:ic_left="@drawable/ic_logo"
+            app:ic_left="@drawable/ic_back"
             app:is_show_ic_left="true"
             app:is_show_ic_right="false"
             app:is_show_title="true"
@@ -88,19 +88,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnProduct" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnVarition"
-            style="@style/ProfileButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:drawableStart="@drawable/ic_star_rate_24"
-            android:drawableEnd="@drawable/ic_next"
-            android:fontFamily="@font/lato_bold"
-            android:text="Varitions"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnUser" />
+<!--        <androidx.appcompat.widget.AppCompatButton-->
+<!--            android:id="@+id/btnVarition"-->
+<!--            style="@style/ProfileButton"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:drawableStart="@drawable/ic_star_rate_24"-->
+<!--            android:drawableEnd="@drawable/ic_next"-->
+<!--            android:fontFamily="@font/lato_bold"-->
+<!--            android:text="Varitions"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/btnUser" />-->
       
        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCategory"
@@ -114,6 +114,6 @@
             android:text="Category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnVarition" />
+            app:layout_constraintTop_toBottomOf="@+id/btnUser" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

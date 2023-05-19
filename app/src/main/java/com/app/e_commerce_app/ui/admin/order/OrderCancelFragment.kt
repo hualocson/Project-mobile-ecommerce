@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class OrderCancelFragment : BaseFragment<FragmentAdminOrderCancelBinding>(false) {
+class OrderCancelFragment : BaseFragment<FragmentAdminOrderCancelBinding>(true) {
 
     private val orderViewModel by activityViewModels<OrderViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {

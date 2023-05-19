@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.app.e_commerce_app.base.BaseFragment
 import com.app.e_commerce_app.databinding.FragmentAdminViewOrderBinding
 import com.app.e_commerce_app.ui.admin.adapter.ViewPagerAdminAdapter
+import com.app.e_commerce_app.ui.admin.user.AdminViewUserProfileFragmentArgs
 import com.app.e_commerce_app.viewmodel.OrderViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,13 +18,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class OrderFragment : BaseFragment<FragmentAdminViewOrderBinding>(true) {
 
     private val orderViewModel by activityViewModels<OrderViewModel>()
+    private val args by navArgs<OrderFragmentArgs>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.lifecycleOwner = viewLifecycleOwner
+        val id = args.UserId
         binding.lifecycleOwner = viewLifecycleOwner
         val adapter = ViewPagerAdminAdapter(requireActivity().supportFragmentManager, lifecycle)
         binding.viewPager.adapter = adapter
@@ -42,8 +46,16 @@ class OrderFragment : BaseFragment<FragmentAdminViewOrderBinding>(true) {
                 }
             }
         }.attach()
+        binding.headerView.btnLeft.setOnClickListener {
+            navigateBack()
+        }
         binding.orderViewModel = orderViewModel
-        orderViewModel.fetchAllUserOrdersAdmin()
+        if(id>0){
+            orderViewModel.fetchUserOrdersAdmin(id)
+        }
+        else{
+            orderViewModel.fetchAllUserOrdersAdmin()
+        }
     }
 
     override fun inflateBinding(

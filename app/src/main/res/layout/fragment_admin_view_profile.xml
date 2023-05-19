@@ -186,7 +186,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
         <Button
-            android:id="@+id/btnAdd"
+            android:id="@+id/btnViewOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
