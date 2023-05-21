@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class OrderDeliveredFragment : BaseFragment<FragmentAdminOrderCompleteBinding>(false) {
+class OrderDeliveredFragment : BaseFragment<FragmentAdminOrderCompleteBinding>(true) {
 
     private val orderViewModel by activityViewModels<OrderViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {

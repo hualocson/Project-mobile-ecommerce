@@ -27,7 +27,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
-class OrderPendingFragment : BaseFragment<FragmentAdminOrderPendingBinding>(false) {
+class OrderPendingFragment : BaseFragment<FragmentAdminOrderPendingBinding>(true) {
 
     private val orderViewModel by activityViewModels<OrderViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {

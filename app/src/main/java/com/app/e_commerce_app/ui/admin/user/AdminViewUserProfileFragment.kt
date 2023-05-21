@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.e_commerce_app.base.BaseFragment
@@ -33,6 +34,10 @@ class AdminViewUserProfileFragment : BaseFragment<FragmentAdminViewProfileBindin
     private fun listenClickEvent() {
         binding.headerView.btnLeft.setOnClickListener {
             navigateBack()
+        }
+        binding.btnViewOrder.setOnClickListener {
+            val action: NavDirections = AdminViewUserProfileFragmentDirections.actionAdminViewUserProfileFragmentToUpdateOrderFragment(args.userById!!.id)
+            navigateAction(action)
         }
     }
     private fun observerEvent() {

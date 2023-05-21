@@ -96,6 +96,39 @@ class OrderViewModel @Inject constructor(
         registerJobFinish()
     }
 
+    fun fetchUserOrdersAdmin(id: Int) {
+        showLoading(true)
+        parentJob = viewModelScope.launch(handler) {
+            val orders = orderRepository.getAllOrderByUserID(id)
+            val orderComplete: ArrayList<OrderJson> = ArrayList()
+            val orderPending: ArrayList<OrderJson> = ArrayList()
+            val orderProcess: ArrayList<OrderJson> = ArrayList()
+            val orderCancel: ArrayList<OrderJson> = ArrayList()
+            orders.forEach {
+                when (it.orderStatus) {
+                    OrderStatus.DELIVERED.value -> {
+                        orderComplete.add(it)
+                    }
+                    OrderStatus.PENDING.value -> {
+                        orderPending.add(it)
+                    }
+                    OrderStatus.CANCELLED.value -> {
+                        orderCancel.add(it)
+                    }
+                    OrderStatus.PROCESSING.value -> {
+                        orderProcess.add(it)
+                    }
+                }
+            }
+            _orderPendingData.postValue(orderPending)
+            _orderProcessData.postValue(orderProcess)
+            _orderCancelData.postValue(orderCancel)
+            _orderCompleteData.postValue(orderComplete)
+            _orderData.postValue(orders)
+        }
+        registerJobFinish()
+    }
+
     fun getOrderById(id: Int) {
         showLoading(true)
         parentJob = viewModelScope.launch(handler) {

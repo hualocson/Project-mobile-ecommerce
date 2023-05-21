@@ -14,6 +14,9 @@ class OrderRemoteService @Inject constructor(private val orderApi: OrderApi) : B
     suspend fun getAllUserOrder(): NetWorkResult<CustomResponse<List<OrderJson>>> =
         handleApi { orderApi.getAllUserOrders() }
 
+    suspend fun getAllOrderByUserID(id: Int): NetWorkResult<CustomResponse<List<OrderJson>>> =
+        handleApi { orderApi.getAllOrderByUserID(id) }
+
     suspend fun createOrder(orderRequest: OrderRequest): NetWorkResult<CustomResponse<OrderJson>> =
         handleApi { orderApi.createOrder(orderRequest) }
 
